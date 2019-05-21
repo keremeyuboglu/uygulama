@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_loginerror"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/userText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="           Username:" />
+
+    <EditText
+        android:id="@+id/Username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="10dp"
+        android:hint="Enter your Username..." />
+
+    <TextView
+        android:id="@+id/passText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="           Password:" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Enter Your Password..."
+        android:inputType="textPassword" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginBottom="10dp"
+        android:text="Submit" />
+
+    <TextView
+        android:clickable="true"
+        android:id="@+id/textSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Are you not a member? Sign up" />
+
+    <TextView
+        android:clickable="true"
+        android:onClick="onClick"
+        android:id="@+id/StartupSkip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Geç Burayı qral" />
+
+
+</LinearLayout>

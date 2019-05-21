@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginBottom="4dp"
+android:orientation="vertical">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/soru_tip"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            app:srcCompat="@android:drawable/ic_menu_help" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="9">
+
+        <TextView
+            android:id="@+id/soru_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingTop="3dp"
+            android:text="Alt basliklar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/toplam_soru"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="2"
+            android:freezesText="true"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:padding="12dp">
+
+        <EditText
+            android:id="@+id/yanlis_bos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="2"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/item_tip"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    android:layout_gravity="center"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        android:text="Yardımcı şeler"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+</androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

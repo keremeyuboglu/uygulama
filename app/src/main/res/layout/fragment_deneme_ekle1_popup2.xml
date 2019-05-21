@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="48dp"
+    android:background="#e03a9f6a"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/ib_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingTop="3dp"
+            android:text="Denemeni Seç"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:choiceMode="singleChoice"
+        android:divider="#000"
+        android:dividerHeight="1dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:fillViewport="true"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/popup2button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ekle" />
+
+</LinearLayout>
