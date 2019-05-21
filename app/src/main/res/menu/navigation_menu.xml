@@ -3,7 +3,7 @@
     <item android:id="@+id/programim"
         android:title="Programım" />
     <item android:id="@+id/konu_basliklari"
-        android:title="Konu Başlıkları" />
+        android:title="Konu Baaaşlıkları" />
     <item android:id="@+id/denemelerim"
         android:title="Denemelerim" />
     <item android:id="@+id/arac_gerec"
