@@ -105,6 +105,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             holder.mDersisim.setText(item.getDers_isim());
             holder.tv_dersdogru.setText(item.getDers_dogru());
             holder.tv_dersyanlis.setText(item.getDers_yanlisbos());
+
             holder.mSecondaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
             holder.mSecondaryRecyclerView.setHasFixedSize(true);
 
@@ -161,8 +162,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
         private final int out_index;
         private ArrayList<Item_DenemeEkle2_inner> inner_items;
         private TextView tv_dogru, tv_yanlisbos;
-        private CardView mIpucu;
-        private CardView Exp;
+
 
 
         public SecondaryAdapter(Item_DenemeEkle2_outer out, int out_index, ArrayList<Item_DenemeEkle2_inner> inner_items, TextView tv_dogru, TextView tv_yanlisbos) {
