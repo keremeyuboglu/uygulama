@@ -100,6 +100,7 @@
             android:layout_margin="8dp">
 
             <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
+                android:id="@+id/radio_hedef"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:compoundType="radio"
@@ -150,6 +151,7 @@
             android:layout_margin="8dp">
 
             <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
+                android:id="@+id/radio_saat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:compoundType="radio"

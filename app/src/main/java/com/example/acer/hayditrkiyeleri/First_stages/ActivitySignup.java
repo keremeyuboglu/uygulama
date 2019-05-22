@@ -9,11 +9,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.SignUp.FragmentSignupFirst;
+import com.example.acer.hayditrkiyeleri.First_stages.Fragments.SignUp.UserInfo;
 import com.example.acer.hayditrkiyeleri.R;
 
 public class ActivitySignup extends AppCompatActivity {
 
-
+    private static UserInfo userinfo= new UserInfo();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class ActivitySignup extends AppCompatActivity {
             FragmentManager fragmentManager2 = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 
-            FragmentSignupFirst fragment2 = new FragmentSignupFirst();
+            FragmentSignupFirst fragment2 = new FragmentSignupFirst(userinfo);
             fragmentTransaction2.add(R.id.signupContainer, fragment2);
             fragmentTransaction2.commit();
         }
