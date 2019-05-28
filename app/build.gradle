@@ -51,8 +51,14 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version" // For Kotlin use navigation-ui-ktx
 
     //LifeCycle Extension
-
     def lifecycleextensions = "2.1.0-alpha02"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleextensions"
+
+    //Room
+    def room_version = "2.1.0-alpha07"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
 }

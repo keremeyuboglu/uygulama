@@ -6,9 +6,9 @@ public class UserInfo {
 
     private String email="";
 
-    private int bolum;
-    private int hedef;
-    private int saat;
+    private int bolum=-1;
+    private int hedef=-1;
+    private int saat=-1;
 
     public String getUsername() {
         return username;
