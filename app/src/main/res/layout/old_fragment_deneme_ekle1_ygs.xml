@@ -123,11 +123,11 @@
                         <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="0.8"
                             android:padding="8dp">
 
                             <TextView
-                                android:id="@+id/turkDe"
+                                android:id="@+id/ders_adi"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentStart="true"
@@ -142,51 +142,62 @@
                         </RelativeLayout>
 
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:padding="8dp">
 
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+
+                                <com.shawnlin.numberpicker.NumberPicker
+                                    android:id="@+id/dersD"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
+                                    app:np_dividerColor="@color/colorPrimary"
+                                    app:np_dividerDistance="28sp"
+                                    app:np_max="40"
+                                    app:np_min="0"
+                                    app:np_orientation="horizontal"
+                                    app:np_selectedTextColor="@color/colorPrimary"
+                                    app:np_selectedTextSize="20sp"
+                                    app:np_textColor="@color/colorPrimary"
+                                    app:np_textSize="16sp"
+                                    app:np_value="0" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.5"
                                 android:padding="8dp">
 
 
-                                <EditText
-                                    android:id="@+id/turkD"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="0dp"
-                                    android:layout_marginRight="0dp"
-                                    android:layout_marginBottom="0dp"
-                                    android:ems="2"
-                                    android:inputType="number" />
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5"
-                                android:padding="8dp">
-
-                                <EditText
-                                    android:id="@+id/turkY"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_marginEnd="0dp"
-                                    android:layout_marginRight="0dp"
-                                    android:layout_marginBottom="0dp"
-                                    android:ems="2"
-                                    android:inputType="number" />
-                            </RelativeLayout>
-                        </RelativeLayout>
+                                <com.shawnlin.numberpicker.NumberPicker
+                                    android:id="@+id/dersY"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
+                                    app:np_dividerColor="@color/colorPrimary"
+                                    app:np_dividerDistance="28sp"
+                                    app:np_max="40"
+                                    app:np_min="0"
+                                    app:np_orientation="horizontal"
+                                    app:np_selectedTextColor="@color/colorPrimary"
+                                    app:np_selectedTextSize="20sp"
+                                    app:np_textColor="@color/colorPrimary"
+                                    app:np_textSize="16sp"
+                                    app:np_value="0" />
+                            </LinearLayout>
+                        </LinearLayout>
 
                     </LinearLayout>
 
