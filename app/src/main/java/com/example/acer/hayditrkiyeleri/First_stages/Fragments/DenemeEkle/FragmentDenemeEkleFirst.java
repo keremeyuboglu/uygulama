@@ -51,31 +51,47 @@ public class FragmentDenemeEkleFirst extends Fragment {
     int mPopupWidth;
     private String[] mDersler;
     private RecyclerView mPrimaryRecyclerView;
+    ArrayList<Item_DenemeEkle2_outer> mDersArray;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle bundle = getArguments();
+        mDersArray= bundle.getParcelableArrayList("ders");
+
+      /*  String[] mDersler= new String[mDersArray.size()];
+
+        for (int counter = 0; counter < mDersArray.size(); counter++) {
+            mDersler[counter] = mDersArray.get(counter).getDers_isim();
+        } */
         // Recycler
 
-        mDersler = new String[]{
+     /*   mDersler = new String[]{
                 "Türkçe", "Matematik", "Fen", "Sosyal"
         };
-
+*/
         //
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        final Bundle args = new Bundle();
+        args.putParcelableArrayList("ders2", mDersArray);
+
+
         final View view = inflater.inflate(R.layout.fragment_deneme_ekle1_ygs, container, false);
 
-        PrimaryAdapter madapter = new PrimaryAdapter(mDersler);
+        PrimaryAdapter madapter = new PrimaryAdapter();
+        madapter.setOuter_items(mDersArray);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getActivity(),
                 RecyclerView.VERTICAL,
                 false
         );
+
+
 
         mPrimaryRecyclerView = (RecyclerView) view.findViewById(R.id.ygs_reycle);
         mPrimaryRecyclerView.setLayoutManager(layoutManager);
@@ -162,6 +178,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                             Toast.makeText(getContext(), "Yayınevi cooperation inbound", Toast.LENGTH_SHORT).show();
                             FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric();
+                            newGamefragment.setArguments(args);
                             fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
@@ -283,6 +300,72 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
     // Recycler
 
+
+
+
+    private class PrimaryAdapter extends RecyclerView.Adapter<PrimaryAdapter.PrimaryViewHolder> {
+        private ArrayList<Item_DenemeEkle2_outer> outer_items;
+
+        public void setOuter_items(ArrayList<Item_DenemeEkle2_outer> outer_items) {
+            this.outer_items = outer_items;
+        }
+
+        @Override
+        public PrimaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            //     Log.d(TAG, "onClick: onCreateViewHolder");
+            View view = inflater.inflate(R.layout.fragment_deneme_ekle1_item, parent, false);
+            return new PrimaryViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final PrimaryViewHolder holder, final int position) {
+            //      Log.d(TAG, "onClick: onBindViewHolderPrimary");
+
+            Item_DenemeEkle2_outer item= outer_items.get(position);
+            holder.mDersisim.setText(item.getDers_isim());
+            holder.mDersDogru.setValue(Integer.valueOf(item.getDers_dogru()));
+            holder.mDersYanlis.setValue(Integer.valueOf(item.getDers_yanlisbos()));
+            holder.mDersYanlis.setMaxValue(holder.mDersDogru.getMaxValue() - holder.mDersDogru.getValue());
+            holder.mDersDogru.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                    holder.mDersYanlis.setMaxValue(holder.mDersDogru.getMaxValue() - newVal);
+                    outer_items.get(position).setDers_dogru(String.valueOf(newVal));
+                    // mDogru.getValue(); Bunla o anki valueyı alıyoruz artık nerede storelanır bilmiyorum
+                    // mYanlis.getValue();
+                }
+            });
+            holder.mDersYanlis.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                    outer_items.get(position).setDers_yanlisbos(String.valueOf(newVal));
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return outer_items.size();
+        }
+
+
+        private class PrimaryViewHolder extends RecyclerView.ViewHolder {
+            private TextView mDersisim;
+            private NumberPicker mDersDogru;
+            private NumberPicker mDersYanlis;
+
+            public PrimaryViewHolder(View itemView) {
+                super(itemView);
+                mDersisim = itemView.findViewById(R.id.ders_adi);
+                mDersDogru = itemView.findViewById(R.id.dersD);
+                mDersYanlis = itemView.findViewById(R.id.dersY);
+            }
+        }
+    }
+
+
+/*
     private class PrimaryViewHolder extends RecyclerView.ViewHolder {
         private TextView mDers;
         private NumberPicker mDogru;
@@ -311,7 +394,17 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
         }
     }
+ */
 
+
+
+
+
+
+
+
+
+/*
     private class PrimaryAdapter extends RecyclerView.Adapter<PrimaryViewHolder> {
         private String[] mMovieGenre;
 

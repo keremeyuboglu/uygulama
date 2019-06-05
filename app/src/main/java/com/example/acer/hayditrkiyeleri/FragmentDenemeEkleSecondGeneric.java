@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -48,6 +49,12 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        ArrayList<Item_DenemeEkle2_outer> mDersArray= bundle.getParcelableArrayList("ders2");
+
+        int counter = 0;
+        Toast.makeText(getContext(), mDersArray.get(counter).getDers_dogru(), Toast.LENGTH_SHORT).show();
+
         View view = inflater.inflate(R.layout.fragment_deneme_ekle2_generic, container, false);
 
         viewModel= ViewModelProviders.of(this).get(DenemeEkle2ViewModel.class);
@@ -56,7 +63,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
         }
         // Creating the primary recycler view adapter
         PrimaryAdapter adapter = new PrimaryAdapter();
-        adapter.setOuter_items(viewModel.getItems());
+        adapter.setOuter_items(mDersArray);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getActivity(),
