@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:paddingLeft="12dp"
+                                android:text="DERS"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/doru"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Doğru"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:text="Yanlış"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                // Image View mb
+
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.8"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/ders_adi"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_toStartOf="@id/text_view_priority"
+                                android:layout_toLeftOf="@id/text_view_priority"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:padding="12dp"
+                                android:text="Türkçe"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+
+                                <com.shawnlin.numberpicker.NumberPicker
+                                    android:id="@+id/dersD"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
+                                    app:np_dividerColor="@color/colorPrimary"
+                                    app:np_dividerDistance="28sp"
+                                    app:np_max="40"
+                                    app:np_min="0"
+                                    app:np_orientation="horizontal"
+                                    app:np_selectedTextColor="@color/colorPrimary"
+                                    app:np_selectedTextSize="20sp"
+                                    app:np_textColor="@color/colorPrimary"
+                                    app:np_textSize="16sp"
+                                    app:np_value="0" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+
+                                <com.shawnlin.numberpicker.NumberPicker
+                                    android:id="@+id/dersY"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
+                                    app:np_dividerColor="@color/colorPrimary"
+                                    app:np_dividerDistance="28sp"
+                                    app:np_max="40"
+                                    app:np_min="0"
+                                    app:np_orientation="horizontal"
+                                    app:np_selectedTextColor="@color/colorPrimary"
+                                    app:np_selectedTextSize="20sp"
+                                    app:np_textColor="@color/colorPrimary"
+                                    app:np_textSize="16sp"
+                                    app:np_value="0" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                // Image View mb
+
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/MatD"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_toStartOf="@id/text_view_priority"
+                                android:layout_toLeftOf="@id/text_view_priority"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:padding="12dp"
+                                android:text="Matematik"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+
+                                <EditText
+                                    android:id="@+id/matD"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="0dp"
+                                    android:layout_marginRight="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:ems="2"
+                                    android:inputType="number" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+                                <EditText
+                                    android:id="@+id/matY"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginEnd="0dp"
+                                    android:layout_marginRight="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:ems="2"
+                                    android:inputType="number" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                // Image View mb
+
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/fenDe"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_toStartOf="@id/text_view_priority"
+                                android:layout_toLeftOf="@id/text_view_priority"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:padding="12dp"
+                                android:text="Fen Bilgisi"
+
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+
+                                <EditText
+                                    android:id="@+id/fenD"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="0dp"
+                                    android:layout_marginRight="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:ems="2"
+                                    android:inputType="number" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+                                <EditText
+                                    android:id="@+id/fenY"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginEnd="0dp"
+                                    android:layout_marginRight="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:ems="2"
+                                    android:inputType="number" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/sosyalDe"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_toStartOf="@id/text_view_priority"
+                                android:layout_toLeftOf="@id/text_view_priority"
+                                android:layout_toRightOf="@id/text_view_priority"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:padding="12dp"
+                                android:text="Sosyal"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+
+                                <EditText
+                                    android:id="@+id/sosyalD"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="0dp"
+                                    android:layout_marginRight="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:ems="2"
+                                    android:inputType="number" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:padding="8dp">
+
+                                <EditText
+                                    android:id="@+id/sosyalY"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginEnd="0dp"
+                                    android:layout_marginRight="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:ems="2"
+                                    android:inputType="number" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Deneme Türü:" />
+
+                <Spinner
+                    android:id="@+id/spinnerEkle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp">
+
+                </Spinner>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/buttonEkle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Tamam" />
+
+    </LinearLayout>
+
+
+</ScrollView>
