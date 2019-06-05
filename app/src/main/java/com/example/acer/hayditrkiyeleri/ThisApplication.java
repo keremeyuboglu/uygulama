@@ -24,6 +24,8 @@ public class ThisApplication extends Application {
         MyTask task=new MyTask(()->{
            numofdeneme=dao.get_numofdeneme();
         });
+
+        task.execute();
     }
 
 
@@ -32,6 +34,7 @@ public class ThisApplication extends Application {
     }
 
     public int get_numberofdeneme(){
-        return numofdeneme;
+
+        return numofdeneme++;
     }
 }
