@@ -19,10 +19,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.acer.hayditrkiyeleri.Util.RVItemGenerator;
+import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
+import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
+import com.example.acer.hayditrkiyeleri.Database.Repository;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_inner;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_outer;
 import com.example.acer.hayditrkiyeleri.Util.ViewModels.DenemeEkle2ViewModel;
+import com.example.acer.hayditrkiyeleri.Util.MyTask;
 
 import java.util.ArrayList;
 
@@ -30,10 +33,21 @@ import static android.content.ContentValues.TAG;
 
 public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
-    int mExpandedPosition = -1;
-    int mExpandedPosition2 = -1;
+    private int mExpandedPosition = -1;
+    private int mExpandedPosition2 = -1;
     private RecyclerView mPrimaryRecyclerView;
     private DenemeEkle2ViewModel viewModel;
+    private DenemeEntity deneme=null;
+
+
+    public FragmentDenemeEkleSecondGeneric(DenemeEntity deneme){
+        //Burda derslerin doğru yanlış sayısı alınacak
+
+
+        this.deneme=deneme;
+    }
+
+    public FragmentDenemeEkleSecondGeneric(){} //Empty Default constructor
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,14 +62,15 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
         View view = inflater.inflate(R.layout.fragment_deneme_ekle2_generic, container, false);
 
         viewModel= ViewModelProviders.of(this).get(DenemeEkle2ViewModel.class);
-        if(viewModel.getItems()==null){
-            viewModel.setItems(RVItemGenerator.pump_Item());
-        }
+        Repository repo=new Repository();
+        repo.setDao(((ThisApplication)getActivity().getApplication()).get_dao());
+        viewModel.set_repo(repo);
+
         // Creating the primary recycler view adapter
         PrimaryAdapter adapter = new PrimaryAdapter();
-        adapter.setOuter_items(viewModel.getItems());
+        adapter.setOuter_items(viewModel.get_itemsLive()); //It is not live yet
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(
+        LinearLayoutManager layoutManager = new LinearLayoutManager(//
                 getActivity(),
                 RecyclerView.VERTICAL,
                 false
@@ -67,10 +82,57 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
 
         // Butona basinca aktivite bitsin
-        Button button = view.findViewById(R.id.button6);
+        Button button = view.findViewById(R.id.button_generic_submit);
         button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
+
+
+                MyTask task=new MyTask(()->{
+
+                    final int huge_number=300;
+
+                    final ArrayList<Item_DenemeEkle2_outer> out_items= viewModel.get_itemsLive(); //It is not live yet
+                    ArrayList<Deneme_konu> veriler= new ArrayList<>(huge_number);
+                    Deneme_konu temp_veri;
+                    ArrayList<Item_DenemeEkle2_inner> temp_innerlist;
+                    int temp_toplam;
+                    int temp_yanlisbos;
+
+
+                    for(Item_DenemeEkle2_outer out: out_items){
+
+                        temp_innerlist= out.getInnerItems();
+
+                        for(Item_DenemeEkle2_inner inner: temp_innerlist){
+                            temp_veri=new Deneme_konu();
+                            temp_veri.setDers_isim(out.getDers_isim());
+
+                            temp_veri.setKonu_isim(inner.getKonu_isim());
+                            temp_toplam=Integer.parseInt(inner.getKonu_toplam());
+                            temp_yanlisbos=Integer.parseInt(inner.getKonu_yanlisbos());
+
+                            temp_veri.setKonu_dogru(temp_toplam);
+                            temp_veri.setKonu_yanlis(temp_yanlisbos);
+
+                            veriler.add(temp_veri);
+                        }
+
+
+
+                    }
+
+                    veriler.trimToSize();
+                    deneme.setVeriler_konu(veriler);
+
+                    viewModel.insert_deneme(deneme);
+                    Log.i("olley", "deneme gömüldü: "+deneme.deneme_id);
+                });
+
+                task.execute();
+
                 getActivity().finish();
             }
         });
@@ -112,6 +174,9 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
             holder.mSecondaryRecyclerView.setAdapter(sAdapter);
 
+            holder.tv_dersdogru.setText(item.getDers_dogru());
+            holder.tv_dersyanlis.setText(item.getDers_yanlisbos());
+
             //Expandable logic
             final boolean isExpanded = (position == mExpandedPosition);
             holder.mSecondaryRecyclerView.setVisibility(isExpanded?View.VISIBLE:View.GONE);
@@ -143,12 +208,13 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
             public PrimaryViewHolder(View itemView) {
                 super(itemView);
-//            Log.d(TAG, "onClick: PrimaryViewHolder");
+               //Log.d(TAG, "onClick: PrimaryViewHolder");
                 mDersisim = itemView.findViewById(R.id.ders_isim);
                 mSecondaryRecyclerView = itemView.findViewById(R.id.soru_asil_item); //Inner elements
                 mSecondaryTitle = itemView.findViewById(R.id.soru_item_linear); //This is stable
                 tv_dersdogru= itemView.findViewById(R.id.ders_dogru);
                 tv_dersyanlis= itemView.findViewById(R.id.ders_yanlisbos);
+
 
             }
         }
@@ -160,7 +226,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
         private final Item_DenemeEkle2_outer out;
         private final int out_index;
         private ArrayList<Item_DenemeEkle2_inner> inner_items;
-        private TextView tv_dogru, tv_yanlisbos;
+        private TextView tv_toplam, tv_yanlisbos;
         private CardView mIpucu;
         private CardView Exp;
 
@@ -169,7 +235,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             this.out = out;
             this.out_index = out_index;
             this.inner_items = inner_items;
-            this.tv_dogru = tv_dogru;
+            this.tv_toplam = tv_dogru;
             this.tv_yanlisbos = tv_yanlisbos;
         }
 
@@ -244,7 +310,6 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
                         Item_DenemeEkle2_inner inner= inner_items.get(getAdapterPosition());
                         final int toplam_int= Integer.parseInt(inner.getKonu_toplam());
-                        final int yanlisbos_int= Integer.parseInt(inner.getKonu_yanlisbos());
                         int simdiki_deger;
 
 
@@ -263,18 +328,18 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
                         Log.i("degisim", "fark: "+fark);
 
-                        int dogru=Integer.parseInt(tv_dogru.getText().toString());
+                        int toplam=Integer.parseInt(tv_toplam.getText().toString());
 
-                        Log.i("degisim", "dogru: "+dogru);
+                        Log.i("degisim", "toplam: "+toplam);
 
-                        dogru=dogru+fark;
+                        toplam=toplam+fark;
 
-                        Log.i("degisim", "dogru tobeset: "+dogru);
+                        Log.i("degisim", "dogru tobeset: "+toplam);
 
-                        String new_dogru=String.valueOf(dogru);
-                        tv_dogru.setText(new_dogru);
+                        String new_toplam=String.valueOf(toplam);
+                        tv_toplam.setText(new_toplam);
 
-                        out.setDers_dogru(new_dogru);
+                        out.setDers_dogru(new_toplam);
 
                         Log.i("degisim", "finitoooo\n");
                     }
@@ -294,10 +359,10 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+
                         Log.i("degisim yanlisbos", charSequence.toString());
 
                         Item_DenemeEkle2_inner inner= inner_items.get(getAdapterPosition());
-                        final int toplam_int= Integer.parseInt(inner.getKonu_toplam());
                         final int yanlisbos_int= Integer.parseInt(inner.getKonu_yanlisbos());
 
 
@@ -324,16 +389,6 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                         tv_yanlisbos.setText(yanlisstr);
                         out.setDers_yanlisbos(yanlisstr);
 
-
-                        Log.i("degisim", "yanlis tobeset: "+yanlisstr);
-
-                        int dogru=Integer.parseInt(out.getDers_dogru());
-
-                        String dogrustr=String.valueOf(dogru-fark);
-                        tv_dogru.setText(dogrustr);
-                        out.setDers_dogru(dogrustr);
-
-                        Log.i("degisim", "dogru tobeset: "+dogrustr);
 
                         Log.i("degisim", "finitoooo\n");
                     }

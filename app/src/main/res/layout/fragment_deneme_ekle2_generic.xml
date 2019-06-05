@@ -25,7 +25,7 @@
             tools:listitem="@layout/fragment_deneme_ekle2_generic_soru_item"/>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/button_generic_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -20,8 +21,13 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
+import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_ders;
+import com.example.acer.hayditrkiyeleri.Database.Repository;
 import com.example.acer.hayditrkiyeleri.FragmentDenemeEkleSecondGeneric;
 import com.example.acer.hayditrkiyeleri.R;
+import com.example.acer.hayditrkiyeleri.ThisApplication;
+import com.example.acer.hayditrkiyeleri.Util.MyTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +46,9 @@ public class FragmentDenemeEkleFirst extends Fragment {
     private ScrollView mScrollView;
     int mPopupHeight;
     int mPopupWidth;
+    EditText turkY, turkD, matY, matD, sosY, sosD, fenY, fenD;
+    DenemeEntity new_deneme;
+    private Repository myRepo=new Repository();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -47,6 +56,21 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
         final ScrollView mScrollView = view.findViewById(R.id.scroll);
         Button changeFragment = view.findViewById(R.id.buttonEkle1);
+
+        myRepo.setDao(((ThisApplication)getActivity().getApplication()).get_dao());
+
+        turkY= view.findViewById(R.id.turkY);
+        turkD= view.findViewById(R.id.turkD);
+        matY= view.findViewById(R.id.matY);
+        matD= view.findViewById(R.id.matD);
+        sosY= view.findViewById(R.id.sosyalY);
+        sosD= view.findViewById(R.id.sosyalD);
+        fenY= view.findViewById(R.id.fenY);
+        fenD= view.findViewById(R.id.fenD);
+
+
+
+
 
         // Spinner
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerEkle1);
@@ -61,7 +85,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        ;
+
 
         container.post(new Runnable(){
             public void run(){
@@ -75,8 +99,10 @@ public class FragmentDenemeEkleFirst extends Fragment {
         changeFragment.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+
                 if(goBack){
+
+                    new_deneme= pump_deneme(((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
 
                     // Initialize a new instance of LayoutInflater service
                     LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -108,7 +134,14 @@ public class FragmentDenemeEkleFirst extends Fragment {
                     card_view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getContext(), "İstemirosam Tükürdüm", Toast.LENGTH_SHORT).show();
+                            new_deneme.setAyrintili(false); //Ayrıntısız
+                            MyTask task=new MyTask(()->{
+                                myRepo.insert_deneme(new_deneme); //Denemeyi veritabanına gömüyoruz
+
+                            });
+
+                            task.execute(); //It will insert item in another thread
+                            Toast.makeText(getContext(), "Ayrıntılı İstemirosam Tükürdüm", Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                             dialog.dismiss();
                         }
@@ -117,11 +150,17 @@ public class FragmentDenemeEkleFirst extends Fragment {
                     CardView card_view2 = (CardView) customView.findViewById(R.id.nongeneric_ekle2); // creating a CardView and assigning a value.
 
                     card_view2.setOnClickListener(new View.OnClickListener() {
+
                         @Override
                         public void onClick(View v) {
+
+
+                            new_deneme.setAyrintili(true); //Ayrıntılı
+                            //Ders doğru yanlış işlemleri yapılması lazım
+
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            Toast.makeText(getContext(), "Yayınevi cooperation inbound", Toast.LENGTH_SHORT).show();
-                            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric();
+                            Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
+                            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric(new_deneme);
                             fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
@@ -134,6 +173,8 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
 
                 else{
+
+                    //Ne bu?
                     String[] deneme = new String[] {
                             "Deneme #2222222222222451",
                             "Deneme #2",
@@ -239,5 +280,55 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
 
         return view;
+    }
+
+
+    private DenemeEntity pump_deneme(int deneme_id){
+        //Su an recyclerview olmadığı için edittextler manuel olarak alındı.
+        //bu entity eğer adam konuları girmeyecekse direkt gömülecek yoksa resetlenecek
+        //Niye böyle olduğunu anlatırım anlamadıysanız
+
+
+        DenemeEntity new_deneme= new DenemeEntity();
+        new_deneme.setDeneme_id(deneme_id);
+
+        ArrayList<Deneme_ders> veriler_ders=new ArrayList<>();
+
+        Deneme_ders ilk=new Deneme_ders();
+        ilk.setDers_isim("Türkçe");
+        ilk.setDers_dogru(Integer.parseInt(turkD.getText().toString()));
+        ilk.setDers_yanlis(Integer.parseInt(turkY.getText().toString()));
+
+        veriler_ders.add(ilk);
+
+        Deneme_ders uc=new Deneme_ders();
+        uc.setDers_isim("Sosyal");
+        uc.setDers_dogru(Integer.parseInt(sosD.getText().toString()));
+        uc.setDers_yanlis(Integer.parseInt(sosY.getText().toString()));
+
+        veriler_ders.add(uc);
+
+        Deneme_ders iki=new Deneme_ders();
+        iki.setDers_isim("Matematik");
+        iki.setDers_dogru(Integer.parseInt(matD.getText().toString()));
+        iki.setDers_yanlis(Integer.parseInt(matY.getText().toString()));
+
+        veriler_ders.add(iki);
+
+
+        Deneme_ders dort=new Deneme_ders();
+        dort.setDers_isim("Fen");
+        dort.setDers_dogru(Integer.parseInt(fenD.getText().toString()));
+        dort.setDers_yanlis(Integer.parseInt(fenY.getText().toString()));
+
+        veriler_ders.add(dort);
+
+
+
+        new_deneme.setVeriler_ders(veriler_ders);
+
+
+        return new_deneme;
+
     }
 }
