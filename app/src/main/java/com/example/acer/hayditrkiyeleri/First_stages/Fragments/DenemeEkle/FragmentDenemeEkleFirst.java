@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_ders;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
 import com.example.acer.hayditrkiyeleri.FragmentDenemeEkleSecondGeneric;
 import com.example.acer.hayditrkiyeleri.R;
 import com.example.acer.hayditrkiyeleri.ThisApplication;
@@ -110,10 +111,6 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
                 if(goBack){
 
-                    //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
-                    new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
-
-
                     // Initialize a new instance of LayoutInflater service
                     LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -146,6 +143,9 @@ public class FragmentDenemeEkleFirst extends Fragment {
                         public void onClick(View v) {
                             new_deneme.setAyrintili(false); //Ayrıntısız
                             MyTask task=new MyTask(()->{
+                                //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
+                                new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
+
                                 myRepo.insert_deneme(new_deneme); //Denemeyi veritabanına gömüyoruz
 
                             });
@@ -163,6 +163,9 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
                         @Override
                         public void onClick(View v) {
+
+                            //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
+                            new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
 
 
                             new_deneme.setAyrintili(true); //Ayrıntılı
@@ -316,10 +319,18 @@ public class FragmentDenemeEkleFirst extends Fragment {
         public void onBindViewHolder(@NonNull DenemeEkleViewHolder holder, int position) {
 
             Item_DenemeEkle1 item=items.get(position);
+            String ders_isim=item.getDers_isim();
 
-            holder.ders_isim.setText(item.getDers_isim());
-            holder.dogru.setValue(item.getDogru());
-            holder.yanlis.setValue(item.getYanlis());
+            int toplam_soru_sayi=TYT_Bilgi.get_dersbilgi(ders_isim).getSoru_sayi();
+            int simdiki_dogru=item.getDogru();
+            int simdiki_yanlis=item.getYanlis();
+
+            holder.ders_isim.setText(ders_isim);
+
+            holder.dogru.setMaxValue(toplam_soru_sayi);
+            holder.dogru.setValue(simdiki_dogru);
+
+            holder.yanlis.setValue(simdiki_yanlis);
 
         }
 
@@ -350,6 +361,8 @@ public class FragmentDenemeEkleFirst extends Fragment {
                         Item_DenemeEkle1 item= items.get(getAdapterPosition());
 
                         item.setDogru(newVal);
+
+                        yanlis.setMaxValue(dogru.getMaxValue()-dogru.getValue());
                     }
                 });
 
