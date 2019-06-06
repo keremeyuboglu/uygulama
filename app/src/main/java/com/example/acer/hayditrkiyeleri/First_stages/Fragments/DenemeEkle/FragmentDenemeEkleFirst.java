@@ -343,10 +343,13 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
                 dogru=itemView.findViewById(R.id.numpick_dersdogru);
                 yanlis=itemView.findViewById(R.id.numpick_dersyanlis);
-
+                
                 dogru.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        // UI
+                        yanlis.setMaxValue(dogru.getMaxValue() - newVal);
+                        //
                         Item_DenemeEkle1 item= items.get(getAdapterPosition());
 
                         item.setDogru(newVal);
