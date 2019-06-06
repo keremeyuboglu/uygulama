@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,11 +32,12 @@ import com.example.acer.hayditrkiyeleri.Util.MyTask;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
     private int mExpandedPosition = -1;
-    private int mExpandedPosition2 = -1;
+//    private int mExpandedPosition2 = -1;
     private RecyclerView mPrimaryRecyclerView;
     private DenemeEkle2ViewModel viewModel;
     private DenemeEntity deneme=null;
@@ -186,7 +189,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                 @Override
                 public void onClick(View v) {
                     mExpandedPosition = isExpanded ? -1:position;
-                    mExpandedPosition2 = isExpanded ? position:-1;
+//                    mExpandedPosition2 = isExpanded ? position:-1;
                     notifyDataSetChanged();
                 }
             });
@@ -256,16 +259,33 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             holder.edit_yanlisbos.setText(item.getKonu_yanlisbos());
 
 
-
-            final boolean isExpanded = position == mExpandedPosition2;
-            holder.mIpucu.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-            holder.Exp.setActivated(isExpanded);
             holder.Exp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mExpandedPosition2 = isExpanded ? -1:position;
-                    notifyDataSetChanged();
-                    Log.d(TAG, "" + isExpanded);
+                    // Initialize a new instance of LayoutInflater service
+                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                    // Inflate the custom layout/view
+                    View customView = inflater.inflate(R.layout.fragment_deneme_ekle2_generic_tip,null);
+
+
+
+                    AlertDialog.Builder mBuilder  = new AlertDialog.Builder(v.getContext());
+                    mBuilder.setView(customView);
+                    final AlertDialog dialog = mBuilder.create();
+                    dialog.show();
+
+                    // Get a reference for the custom view close button
+                    ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+
+                    // Set a click listener for the popup window close button
+                    closeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Dismiss the popup window
+                            dialog.dismiss();
+                        }
+                    });
                 }
             });
 
@@ -290,7 +310,6 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                 tv_konuisim = itemView.findViewById(R.id.soru_item);
                 edit_toplamsoru =  itemView.findViewById(R.id.toplam_soru);
                 edit_yanlisbos = itemView.findViewById(R.id.yanlis_bos);
-                mIpucu = itemView.findViewById(R.id.item_tip);
                 Exp =  itemView.findViewById(R.id.soru_tip);
 
 
