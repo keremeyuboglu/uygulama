@@ -6,11 +6,10 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RV_denemelerim"
-        android:layout_width="wrap_content"
+        android:id="@+id/RV_denemegoster_outer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/fragment_denemelerim_denemeitem"
-        android:layout_gravity="center">
+        tools:listitem="@layout/fragment_denemegoster_dersitem_silinebilir">
 
     </androidx.recyclerview.widget.RecyclerView>
 

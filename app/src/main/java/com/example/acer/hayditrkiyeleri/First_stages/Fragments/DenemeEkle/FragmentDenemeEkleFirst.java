@@ -1,21 +1,18 @@
 package com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,18 +20,18 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
+import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_ders;
+import com.example.acer.hayditrkiyeleri.Database.Repository;
 import com.example.acer.hayditrkiyeleri.FragmentDenemeEkleSecondGeneric;
 import com.example.acer.hayditrkiyeleri.R;
-import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_outer;
-import com.shawnlin.numberpicker.NumberPicker;
+import com.example.acer.hayditrkiyeleri.ThisApplication;
+import com.example.acer.hayditrkiyeleri.Util.MyTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 
@@ -49,56 +46,31 @@ public class FragmentDenemeEkleFirst extends Fragment {
     private ScrollView mScrollView;
     int mPopupHeight;
     int mPopupWidth;
-    private String[] mDersler;
-    private RecyclerView mPrimaryRecyclerView;
-    ArrayList<Item_DenemeEkle2_outer> mDersArray;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Bundle bundle = getArguments();
-        mDersArray= bundle.getParcelableArrayList("ders");
-
-      /*  String[] mDersler= new String[mDersArray.size()];
-
-        for (int counter = 0; counter < mDersArray.size(); counter++) {
-            mDersler[counter] = mDersArray.get(counter).getDers_isim();
-        } */
-        // Recycler
-
-     /*   mDersler = new String[]{
-                "Türkçe", "Matematik", "Fen", "Sosyal"
-        };
-*/
-        //
-    }
+    EditText turkY, turkD, matY, matD, sosY, sosD, fenY, fenD;
+    DenemeEntity new_deneme;
+    private Repository myRepo=new Repository();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final Bundle args = new Bundle();
-        args.putParcelableArrayList("ders2", mDersArray);
-
-
-        final View view = inflater.inflate(R.layout.fragment_deneme_ekle1_ygs, container, false);
-
-        PrimaryAdapter madapter = new PrimaryAdapter();
-        madapter.setOuter_items(mDersArray);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(
-                getActivity(),
-                RecyclerView.VERTICAL,
-                false
-        );
-
-
-
-        mPrimaryRecyclerView = (RecyclerView) view.findViewById(R.id.ygs_reycle);
-        mPrimaryRecyclerView.setLayoutManager(layoutManager);
-        mPrimaryRecyclerView.setAdapter(madapter);
+        final View view = inflater.inflate(R.layout.fragment_deneme_ekle1, container, false);
 
         final ScrollView mScrollView = view.findViewById(R.id.scroll);
         Button changeFragment = view.findViewById(R.id.buttonEkle1);
+
+        myRepo.setDao(((ThisApplication)getActivity().getApplication()).get_dao());
+
+        turkY= view.findViewById(R.id.turkY);
+        turkD= view.findViewById(R.id.turkD);
+        matY= view.findViewById(R.id.matY);
+        matD= view.findViewById(R.id.matD);
+        sosY= view.findViewById(R.id.sosyalY);
+        sosD= view.findViewById(R.id.sosyalD);
+        fenY= view.findViewById(R.id.fenY);
+        fenD= view.findViewById(R.id.fenD);
+
+
+
+
 
         // Spinner
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerEkle1);
@@ -112,12 +84,8 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        
-    /*    NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.turkD);
-        Log.d(TAG, "onCreateView: numberPicker.getDisplayedValues()"); */
 
 
-        ;
 
         container.post(new Runnable(){
             public void run(){
@@ -131,8 +99,10 @@ public class FragmentDenemeEkleFirst extends Fragment {
         changeFragment.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+
                 if(goBack){
+
+                    new_deneme= pump_deneme(((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
 
                     // Initialize a new instance of LayoutInflater service
                     LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -164,7 +134,14 @@ public class FragmentDenemeEkleFirst extends Fragment {
                     card_view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getContext(), "İstemirosam Tükürdüm", Toast.LENGTH_SHORT).show();
+                            new_deneme.setAyrintili(false); //Ayrıntısız
+                            MyTask task=new MyTask(()->{
+                                myRepo.insert_deneme(new_deneme); //Denemeyi veritabanına gömüyoruz
+
+                            });
+
+                            task.execute(); //It will insert item in another thread
+                            Toast.makeText(getContext(), "Ayrıntılı İstemirosam Tükürdüm", Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                             dialog.dismiss();
                         }
@@ -173,12 +150,17 @@ public class FragmentDenemeEkleFirst extends Fragment {
                     CardView card_view2 = (CardView) customView.findViewById(R.id.nongeneric_ekle2); // creating a CardView and assigning a value.
 
                     card_view2.setOnClickListener(new View.OnClickListener() {
+
                         @Override
                         public void onClick(View v) {
+
+
+                            new_deneme.setAyrintili(true); //Ayrıntılı
+                            //Ders doğru yanlış işlemleri yapılması lazım
+
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            Toast.makeText(getContext(), "Yayınevi cooperation inbound", Toast.LENGTH_SHORT).show();
-                            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric();
-                            newGamefragment.setArguments(args);
+                            Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
+                            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric(new_deneme);
                             fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
@@ -191,6 +173,8 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
 
                 else{
+
+                    //Ne bu?
                     String[] deneme = new String[] {
                             "Deneme #2222222222222451",
                             "Deneme #2",
@@ -298,203 +282,53 @@ public class FragmentDenemeEkleFirst extends Fragment {
         return view;
     }
 
-    // Recycler
+
+    private DenemeEntity pump_deneme(int deneme_id){
+        //Su an recyclerview olmadığı için edittextler manuel olarak alındı.
+        //bu entity eğer adam konuları girmeyecekse direkt gömülecek yoksa resetlenecek
+        //Niye böyle olduğunu anlatırım anlamadıysanız
+
+
+        DenemeEntity new_deneme= new DenemeEntity();
+        new_deneme.setDeneme_id(deneme_id);
+
+        ArrayList<Deneme_ders> veriler_ders=new ArrayList<>();
+
+        Deneme_ders ilk=new Deneme_ders();
+        ilk.setDers_isim("Türkçe");
+        ilk.setDers_dogru(Integer.parseInt(turkD.getText().toString()));
+        ilk.setDers_yanlis(Integer.parseInt(turkY.getText().toString()));
+
+        veriler_ders.add(ilk);
+
+        Deneme_ders uc=new Deneme_ders();
+        uc.setDers_isim("Sosyal");
+        uc.setDers_dogru(Integer.parseInt(sosD.getText().toString()));
+        uc.setDers_yanlis(Integer.parseInt(sosY.getText().toString()));
+
+        veriler_ders.add(uc);
+
+        Deneme_ders iki=new Deneme_ders();
+        iki.setDers_isim("Matematik");
+        iki.setDers_dogru(Integer.parseInt(matD.getText().toString()));
+        iki.setDers_yanlis(Integer.parseInt(matY.getText().toString()));
+
+        veriler_ders.add(iki);
+
+
+        Deneme_ders dort=new Deneme_ders();
+        dort.setDers_isim("Fen");
+        dort.setDers_dogru(Integer.parseInt(fenD.getText().toString()));
+        dort.setDers_yanlis(Integer.parseInt(fenY.getText().toString()));
+
+        veriler_ders.add(dort);
 
 
 
-
-    private class PrimaryAdapter extends RecyclerView.Adapter<PrimaryAdapter.PrimaryViewHolder> {
-        private ArrayList<Item_DenemeEkle2_outer> outer_items;
-
-        public void setOuter_items(ArrayList<Item_DenemeEkle2_outer> outer_items) {
-            this.outer_items = outer_items;
-        }
-
-        @Override
-        public PrimaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            //     Log.d(TAG, "onClick: onCreateViewHolder");
-            View view = inflater.inflate(R.layout.fragment_deneme_ekle1_item, parent, false);
-            return new PrimaryViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final PrimaryViewHolder holder, final int position) {
-            //      Log.d(TAG, "onClick: onBindViewHolderPrimary");
-
-            Item_DenemeEkle2_outer item= outer_items.get(position);
-            holder.mDersisim.setText(item.getDers_isim());
-            holder.mDersDogru.setValue(Integer.valueOf(item.getDers_dogru()));
-            holder.mDersYanlis.setValue(Integer.valueOf(item.getDers_yanlisbos()));
-            holder.mDersYanlis.setMaxValue(holder.mDersDogru.getMaxValue() - holder.mDersDogru.getValue());
-            holder.mDersDogru.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    holder.mDersYanlis.setMaxValue(holder.mDersDogru.getMaxValue() - newVal);
-                    outer_items.get(position).setDers_dogru(String.valueOf(newVal));
-                    // mDogru.getValue(); Bunla o anki valueyı alıyoruz artık nerede storelanır bilmiyorum
-                    // mYanlis.getValue();
-                }
-            });
-            holder.mDersYanlis.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    outer_items.get(position).setDers_yanlisbos(String.valueOf(newVal));
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return outer_items.size();
-        }
+        new_deneme.setVeriler_ders(veriler_ders);
 
 
-        private class PrimaryViewHolder extends RecyclerView.ViewHolder {
-            private TextView mDersisim;
-            private NumberPicker mDersDogru;
-            private NumberPicker mDersYanlis;
+        return new_deneme;
 
-            public PrimaryViewHolder(View itemView) {
-                super(itemView);
-                mDersisim = itemView.findViewById(R.id.ders_adi);
-                mDersDogru = itemView.findViewById(R.id.dersD);
-                mDersYanlis = itemView.findViewById(R.id.dersY);
-            }
-        }
     }
-
-
-/*
-    private class PrimaryViewHolder extends RecyclerView.ViewHolder {
-        private TextView mDers;
-        private NumberPicker mDogru;
-        private NumberPicker mYanlis;
-
-        public PrimaryViewHolder(View itemView) {
-            super(itemView);
-            Log.d(TAG, "onClick: PrimaryViewHolder");
-            mDers = (TextView) itemView.findViewById(R.id.ders_adi);
-            mDogru = (NumberPicker) itemView.findViewById(R.id.dersD);
-            mYanlis = (NumberPicker) itemView.findViewById(R.id.dersY);
-        }
-
-        // This get called in PrimaryAdapter onBindViewHolder method
-        public void bindViews(String genre, int position) {
-            mDers.setText(genre);
-            Log.d(TAG, "onClick: bindViewsPrimary");
-            mDogru.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    mYanlis.setMaxValue(mDogru.getMaxValue() - newVal);
-                    // mDogru.getValue(); Bunla o anki valueyı alıyoruz artık nerede storelanır bilmiyorum
-                    // mYanlis.getValue();
-                }
-            });
-
-        }
-    }
- */
-
-
-
-
-
-
-
-
-
-/*
-    private class PrimaryAdapter extends RecyclerView.Adapter<PrimaryViewHolder> {
-        private String[] mMovieGenre;
-
-        public PrimaryAdapter(String[] moviesGenre) {
-            Log.d(TAG, "onClick: PrimaryAdapter");
-            mMovieGenre = moviesGenre;
-        }
-
-        @Override
-        public PrimaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            Log.d(TAG, "onClick: onCreateViewHolder");
-            View view = inflater.inflate(R.layout.fragment_deneme_ekle1_item, parent, false);
-            return new PrimaryViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final PrimaryViewHolder holder, final int position) {
-            Log.d(TAG, "onClick: onBindViewHolderPrimary");
-            String genre = mMovieGenre[position];
-            holder.bindViews(genre, position);
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return mMovieGenre.length;
-        }
-    }
-
-
-
-
-
-
-    /*
-
-    private class PrimaryAdapter extends RecyclerView.Adapter<PrimaryAdapter.PrimaryViewHolder> {
-        private ArrayList<Item_DenemeEkle2_outer> outer_items;
-
-        public void setOuter_items(ArrayList<Item_DenemeEkle2_outer> outer_items) {
-            this.outer_items = outer_items;
-        }
-
-        @Override
-        public PrimaryAdapter.PrimaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            //     Log.d(TAG, "onClick: onCreateViewHolder");
-            View view = inflater.inflate(R.layout.fragment_deneme_ekle2_generic_soru_item, parent, false);
-            return new PrimaryAdapter.PrimaryViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final PrimaryAdapter.PrimaryViewHolder holder, final int position) {
-            //      Log.d(TAG, "onClick: onBindViewHolderPrimary");
-
-            Item_DenemeEkle2_outer item= outer_items.get(position);
-            holder.mDersisim.setText(item.getDers_isim());
-            holder.tv_dersdogru.setText(item.getDers_dogru());
-            holder.tv_dersyanlis.setText(item.getDers_yanlisbos());
-            holder.mSecondaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-            holder.mSecondaryRecyclerView.setHasFixedSize(true);
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return outer_items.size();
-        }
-
-
-        private class PrimaryViewHolder extends RecyclerView.ViewHolder {
-            private TextView mDersisim;
-            private RecyclerView mSecondaryRecyclerView;
-            private LinearLayout mSecondaryTitle;
-            private TextView tv_dersdogru, tv_dersyanlis;
-
-            public PrimaryViewHolder(View itemView) {
-                super(itemView);
-//            Log.d(TAG, "onClick: PrimaryViewHolder");
-                mDersisim = itemView.findViewById(R.id.ders_isim);
-                mSecondaryRecyclerView = itemView.findViewById(R.id.soru_asil_item); //Inner elements
-                mSecondaryTitle = itemView.findViewById(R.id.soru_item_linear); //This is stable
-                tv_dersdogru= itemView.findViewById(R.id.ders_dogru);
-                tv_dersyanlis= itemView.findViewById(R.id.ders_yanlisbos);
-
-            }
-        }
-    }
-    */
-
 }
