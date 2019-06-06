@@ -20,6 +20,10 @@ android {
     dexOptions{
         javaMaxHeapSize "4G"
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
@@ -64,4 +68,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

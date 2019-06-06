@@ -1,8 +1,11 @@
 package com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Item_DenemeEkle2_outer {
+public class Item_DenemeEkle2_outer implements Parcelable {
 
     private String ders_isim;
     private String ders_dogru="0";
@@ -40,5 +43,15 @@ public class Item_DenemeEkle2_outer {
 
     public void setInnerItems(ArrayList<Item_DenemeEkle2_inner> innerItems) {
         this.innerItems = innerItems;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

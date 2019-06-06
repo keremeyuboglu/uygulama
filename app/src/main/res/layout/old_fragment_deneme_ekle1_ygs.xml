@@ -127,7 +127,7 @@
                             android:padding="8dp">
 
                             <TextView
-                                android:id="@+id/ders_adi"
+                                android:id="@+id/deneme_ekle_dersisim"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentStart="true"

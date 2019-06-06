@@ -92,7 +92,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ygs_reycle"
+            android:id="@+id/RV_denemeEkle1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/fragment_deneme_ekle1_item" />

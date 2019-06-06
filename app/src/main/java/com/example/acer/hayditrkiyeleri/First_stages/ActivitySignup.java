@@ -14,7 +14,7 @@ import com.example.acer.hayditrkiyeleri.R;
 
 public class ActivitySignup extends AppCompatActivity {
 
-    private static UserInfo userinfo= new UserInfo();
+    private UserInfo userinfo= new UserInfo();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
