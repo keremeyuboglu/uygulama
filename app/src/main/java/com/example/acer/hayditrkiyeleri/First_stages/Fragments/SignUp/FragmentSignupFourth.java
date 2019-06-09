@@ -14,12 +14,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.acer.hayditrkiyeleri.MainActivity;
 import com.example.acer.hayditrkiyeleri.R;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class FragmentSignupFourth extends Fragment {
 
@@ -67,9 +72,55 @@ public class FragmentSignupFourth extends Fragment {
         finishSignup.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finishAffinity();
+
+                // Initialize a new instance of LayoutInflater service
+                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                // Inflate the custom layout/view
+                View customView = inflater.inflate(R.layout.fragment_signup4_popup,null);
+
+
+
+                AlertDialog.Builder mBuilder  = new AlertDialog.Builder(v.getContext());
+                mBuilder.setView(customView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                // Get a reference for the custom view close button
+    //            ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+
+                // Set a click listener for the popup window close button
+     /*           closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Dismiss the popup window
+                        dialog.dismiss();
+                    }
+                }); */
+
+                Button mButtonLYS = customView.findViewById(R.id.lys_t);
+                Button mButtonBitir = customView.findViewById(R.id.lys_f);
+
+                mButtonLYS.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        FragmentSignupFitfh newGamefragment = new FragmentSignupFitfh();
+                        fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+
+                mButtonBitir.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                        getActivity().finishAffinity();
+                    }
+                });
+
             }
 
 

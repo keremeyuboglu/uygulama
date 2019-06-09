@@ -6,8 +6,7 @@
     android:layout_height="wrap_content">
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -56,7 +55,7 @@
                 app:compoundType="radio"
                 app:entries="@array/bolum_array"
                 app:labelOrder="after"
-                app:numCols="3" />
+                app:numCols="4" />
 
         </androidx.cardview.widget.CardView>
 
@@ -87,11 +86,31 @@
 
     </androidx.cardview.widget.CardView>
 
+    <Switch
+        android:id="@+id/swicherino"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ünivesite yerine hedefimi sıralama olarak girmek istiyorum"
+        android:layout_marginHorizontal="8dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <Spinner
+            android:id="@+id/hedef_uni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"></Spinner>
+    </androidx.cardview.widget.CardView>
+
     <LinearLayout
+        android:id="@+id/hedef_sayilar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
 
         <androidx.cardview.widget.CardView
@@ -130,7 +149,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Günde Kaç Saat Çalışıyorsun"
+                android:text="OBP"
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <EditText
+        android:id="@+id/obp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:layout_gravity="center"/>\
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+
+            // Javade setwidthle eşitliyorsun
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Sınıfın"
                 android:textSize="24sp" />
 
         </RelativeLayout>
@@ -151,23 +204,77 @@
             android:layout_margin="8dp">
 
             <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
-                android:id="@+id/radio_saat"
+                android:id="@+id/radio_sinif"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:compoundType="radio"
-                app:entries="@array/saat_array"
+                app:entries="@array/sinif_array"
                 app:labelOrder="after"
-                app:numCols="5" />
+                app:numCols="2" />
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/switch1"
+    <LinearLayout
+        android:id="@+id/mezun_expand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Switch" />
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+
+                // Javade setwidthle eşitliyorsun
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Tercih Yaptın Mı?"
+                    android:textSize="24sp" />
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
+                    android:id="@+id/mezun_soru"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:compoundType="radio"
+                    app:entries="@array/evet_hayir"
+                    app:labelOrder="after"
+                    app:numCols="2" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/button3"
@@ -176,6 +283,7 @@
         android:layout_gravity="right"
         android:layout_marginRight="8dp"
         android:text="Devam" />
+
 
 </LinearLayout>
 

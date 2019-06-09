@@ -9,6 +9,7 @@ public class UserInfo {
     private int bolum=-1;
     private int hedef=-1;
     private int saat=-1;
+    private int obp=-1;
 
     public String getUsername() {
         return username;
@@ -55,6 +56,14 @@ public class UserInfo {
     }
 
     public void setSaat(int saat) {
+        this.saat = saat;
+    }
+
+    public int getObp() {
+        return saat;
+    }
+
+    public void setObp(int obp) {
         this.saat = saat;
     }
 }

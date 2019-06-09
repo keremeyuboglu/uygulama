@@ -8,6 +8,8 @@
             >TM</item>
         <item
             >TS</item>
+        <item
+            >Dil</item>
     </string-array>
 
     <string-array
@@ -33,5 +35,19 @@
             >50k</item>
         <item
             >100k</item>
+    </string-array>
+    <string-array
+    name="sinif_array">
+    <item
+        >12. Sınıf</item>
+    <item
+        >Mezun</item>
+    </string-array>
+    <string-array
+        name="evet_hayir">
+    <item
+        >Evet</item>
+        <item
+            >Hayır</item>
     </string-array>
 </resources>
