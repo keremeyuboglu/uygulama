@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentKarekokPopUp;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_inner;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_outer;
 import com.example.acer.hayditrkiyeleri.Util.ViewModels.DenemeEkle2ViewModel;
@@ -262,13 +263,8 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             holder.Exp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Initialize a new instance of LayoutInflater service
-                    FragmentAciklamaPopUp aciklamaPopUp = new FragmentAciklamaPopUp();
-                    aciklamaPopUp.show(getFragmentManager(),"aciklama");
-
-                    // Get a reference for the custom view close button
-
-
+                    FragmentAciklamaPopUp fragmentAciklamaPopUp = new FragmentAciklamaPopUp();
+                    fragmentAciklamaPopUp.show(getFragmentManager(),"aciklamaPopUp");
                 }
             });
 
