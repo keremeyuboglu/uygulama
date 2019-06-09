@@ -4,33 +4,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="48dp"
-    android:background="#e03a9f6a"
+    android:background="#84a4d8"
     android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/ib_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
-
-    <androidx.cardview.widget.CardView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:padding="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="4dp"
-            android:paddingTop="3dp"
-            android:text="Denemeni Seç"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="Hangi Deneme Olduğunu Seç"
+        android:textSize="18sp" />
 
 
-    </androidx.cardview.widget.CardView>
+
 
     <ListView
         android:id="@+id/listview"

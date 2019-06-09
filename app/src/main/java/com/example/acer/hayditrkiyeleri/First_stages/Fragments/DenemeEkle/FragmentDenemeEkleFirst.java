@@ -1,6 +1,8 @@
 package com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +46,9 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.app.AlertDialog;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 
 public class FragmentDenemeEkleFirst extends Fragment {
     @Nullable
@@ -57,6 +62,52 @@ public class FragmentDenemeEkleFirst extends Fragment {
     DenemeEntity new_deneme;
     private Repository myRepo=new Repository();
 
+    // Register to eventBus
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    // Unregister when fragment stops
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    // Take data from popUpFragment for Diger using object
+    @Subscribe
+    public void onPopUp(EventTransfer.popUp popUp){
+        int popUpNum = popUp.getNum();
+        setPopUp(popUpNum);
+    }
+
+    public void setPopUp(int popUpNum){
+        if(popUpNum == 1){
+            new_deneme.setAyrintili(true); //Ayrıntılı
+            //Ders doğru yanlış işlemleri yapılması lazım
+
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
+            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric(new_deneme);
+            fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
+        } else {
+            new_deneme.setAyrintili(false); //Ayrıntısız
+            MyTask task=new MyTask(()->{
+                myRepo.insert_deneme(new_deneme); //Denemeyi veritabanına gömüyoruz
+
+            });
+
+            task.execute(); //It will insert item in another thread
+            Toast.makeText(getContext(), "Ayrıntılı İstemirosam Tükürdüm", Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+        }
+
+    }
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_deneme_ekle1_ygs, container, false);
@@ -104,6 +155,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
 
 
+
         changeFragment.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -113,151 +165,19 @@ public class FragmentDenemeEkleFirst extends Fragment {
                     //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
                     new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
 
-
-                    // Initialize a new instance of LayoutInflater service
-                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                    // Inflate the custom layout/view
-                    View customView = inflater.inflate(R.layout.fragment_deneme_ekle1_popup1,null);
-
-
-
-                    AlertDialog.Builder mBuilder  = new AlertDialog.Builder(v.getContext());
-                    mBuilder.setView(customView);
-                    final AlertDialog dialog = mBuilder.create();
-                    dialog.show();
-
-                    // Get a reference for the custom view close button
-                    ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-
-                    // Set a click listener for the popup window close button
-                    closeButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Dismiss the popup window
-                            dialog.dismiss();
-                        }
-                    });
-
-                    CardView card_view = (CardView) customView.findViewById(R.id.generic_ekle2); // creating a CardView and assigning a value.
-
-                    card_view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            new_deneme.setAyrintili(false); //Ayrıntısız
-                            MyTask task=new MyTask(()->{
-                                myRepo.insert_deneme(new_deneme); //Denemeyi veritabanına gömüyoruz
-
-                            });
-
-                            task.execute(); //It will insert item in another thread
-                            Toast.makeText(getContext(), "Ayrıntılı İstemirosam Tükürdüm", Toast.LENGTH_SHORT).show();
-                            getActivity().finish();
-                            dialog.dismiss();
-                        }
-                    });
-
-                    CardView card_view2 = (CardView) customView.findViewById(R.id.nongeneric_ekle2); // creating a CardView and assigning a value.
-
-                    card_view2.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-
-
-                            new_deneme.setAyrintili(true); //Ayrıntılı
-                            //Ders doğru yanlış işlemleri yapılması lazım
-
-                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
-                            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric(new_deneme);
-                            fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
-                            dialog.dismiss();
-                        }
-                    });
-
+                    // create popUpFragment for diger
+                    FragmentDenemePopUp fragmentDenemePopUp = new FragmentDenemePopUp();
+                    fragmentDenemePopUp.show(getFragmentManager(),"dialog");
                 }
-
-
 
                 else{
 
-                    //Ne bu?
-                    String[] deneme = new String[] {
-                            "Deneme #2222222222222451",
-                            "Deneme #2",
-                            "Deneme #3",
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4"
-                            ,
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4",
-                            "Deneme #4",
-
-
-                    };
-
-
-                    // Initialize a new instance of LayoutInflater service
-                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                    // Inflate the custom layout/view
-                    View customView = inflater.inflate(R.layout.fragment_deneme_ekle1_popup2,null);
-
-
-                    // Getting object reference to listview of main.xml
-                    ListView listView = (ListView) customView.findViewById(R.id.listview);
-
-                    // Instantiating array adapter to populate the listView
-                    // The layout android.R.layout.simple_list_item_single_choice creates radio button for each listview item
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice,deneme);
-
-                    listView.setAdapter(adapter);
-
-                    AlertDialog.Builder mBuilder  = new AlertDialog.Builder(v.getContext());
-                    mBuilder.setView(customView);
-                    final AlertDialog dialog = mBuilder.create();
-                    dialog.show();
-
-                    ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-
-                    // Set a click listener for the popup window close button
-                    closeButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Dismiss the popup window
-                            dialog.dismiss();
-                        }
-                    });
-
-                    Button button = (Button) customView.findViewById(R.id.popup2button);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            Toast.makeText(getContext(), "Yayınevi cooperation inbound", Toast.LENGTH_SHORT).show();
-                            FragmentDenemeEkleSecondKarekok newGamefragment = new FragmentDenemeEkleSecondKarekok();
-                            fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
-                            dialog.dismiss();
-                        }
-                    });
-
-                    CardView card_view = (CardView) customView.findViewById(R.id.generic_ekle2); // creating a CardView and assigning a value.
+                    // create popUpFragment for Karekok
+                    FragmentKarekokPopUp fragmentKarekokPopUp = new FragmentKarekokPopUp();
+                    fragmentKarekokPopUp.show(getFragmentManager(),"karekok");
                 }
             }
         });
-
 
         // Spinner item selection
 
@@ -291,7 +211,6 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
         return view;
     }
-
 
 
 
