@@ -44,7 +44,7 @@ public class FragmentKarekokPopUp extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_deneme_ekle1_popup2,container,false);
+        View v = inflater.inflate(R.layout.fragment_deneme_ekle1_popup2,null);
         listView = v.findViewById(R.id.listview);
         button = v.findViewById(R.id.popup2button);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice,deneme);
@@ -66,4 +66,6 @@ public class FragmentKarekokPopUp extends DialogFragment {
 
         return v;
     }
+
+
 }
