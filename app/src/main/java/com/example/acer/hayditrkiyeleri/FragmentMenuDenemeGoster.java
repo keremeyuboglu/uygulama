@@ -26,6 +26,8 @@ import java.util.ArrayList;
 
 public class FragmentMenuDenemeGoster extends Fragment {
 
+    private DenemeEntity denemeEntity=null;
+
 
     private int deneme_id=-1;
 
@@ -33,6 +35,10 @@ public class FragmentMenuDenemeGoster extends Fragment {
 
     public FragmentMenuDenemeGoster(int deneme_id){
         this.deneme_id=deneme_id;
+    }
+
+    public FragmentMenuDenemeGoster(DenemeEntity denemeEntity) {
+        this.denemeEntity = denemeEntity;
     }
 
     private DenemeGosterViewModel viewModel;
@@ -56,16 +62,25 @@ public class FragmentMenuDenemeGoster extends Fragment {
 
         RV.setAdapter(outer_adapter);
 
-        viewModel.get_denemeLive(deneme_id).observe(this, new Observer<DenemeEntity>() {
-            @Override
-            public void onChanged(DenemeEntity denemeEntity) {
-                ArrayList<Item_DenemeGoster_outer> outer_items=RVItemGenerator.pump_ItemGoster(denemeEntity);
-                Log.i("deneme", ""+outer_items.size());
-                outer_adapter.setOuter_items(outer_items);
-                outer_adapter.notifyDataSetChanged();
 
-            }
-        });
+        if(denemeEntity ==null){
+            viewModel.get_denemeLive(deneme_id).observe(this, new Observer<DenemeEntity>() {
+                @Override
+                public void onChanged(DenemeEntity denemeEntity) {
+                    ArrayList<Item_DenemeGoster_outer> outer_items=RVItemGenerator.pump_ItemGoster(denemeEntity);
+                    Log.i("deneme", ""+outer_items.size());
+                    outer_adapter.setOuter_items(outer_items);
+                    outer_adapter.notifyDataSetChanged();
+
+                }
+            });
+        }else{
+            ArrayList<Item_DenemeGoster_outer> outer_items=RVItemGenerator.pump_ItemGoster(denemeEntity);
+            Log.i("deneme", ""+outer_items.size());
+            outer_adapter.setOuter_items(outer_items);
+            outer_adapter.notifyDataSetChanged();
+        }
+
 
 
 
