@@ -26,11 +26,19 @@ import java.util.ArrayList;
 
 public class FragmentMenuDenemeGoster extends Fragment {
 
+    private DenemeEntity denemeEntity=null;
 
-    private final int deneme_id;
+
+    private int deneme_id=-1;
+
+    public FragmentMenuDenemeGoster(){} //Empty constructor
 
     public FragmentMenuDenemeGoster(int deneme_id){
         this.deneme_id=deneme_id;
+    }
+
+    public FragmentMenuDenemeGoster(DenemeEntity denemeEntity) {
+        this.denemeEntity = denemeEntity;
     }
 
     private DenemeGosterViewModel viewModel;
@@ -54,16 +62,25 @@ public class FragmentMenuDenemeGoster extends Fragment {
 
         RV.setAdapter(outer_adapter);
 
-        viewModel.get_denemeLive(deneme_id).observe(this, new Observer<DenemeEntity>() {
-            @Override
-            public void onChanged(DenemeEntity denemeEntity) {
-                ArrayList<Item_DenemeGoster_outer> outer_items=RVItemGenerator.pump_ItemGoster(denemeEntity);
-                Log.i("deneme", ""+outer_items.size());
-                outer_adapter.setOuter_items(outer_items);
-                outer_adapter.notifyDataSetChanged();
 
-            }
-        });
+        if(denemeEntity ==null){
+            viewModel.get_denemeLive(deneme_id).observe(this, new Observer<DenemeEntity>() {
+                @Override
+                public void onChanged(DenemeEntity denemeEntity) {
+                    ArrayList<Item_DenemeGoster_outer> outer_items=RVItemGenerator.pump_ItemGoster(denemeEntity);
+                    Log.i("deneme", ""+outer_items.size());
+                    outer_adapter.setOuter_items(outer_items);
+                    outer_adapter.notifyDataSetChanged();
+
+                }
+            });
+        }else{
+            ArrayList<Item_DenemeGoster_outer> outer_items=RVItemGenerator.pump_ItemGoster(denemeEntity);
+            Log.i("deneme", ""+outer_items.size());
+            outer_adapter.setOuter_items(outer_items);
+            outer_adapter.notifyDataSetChanged();
+        }
+
 
 
 
@@ -111,24 +128,21 @@ public class FragmentMenuDenemeGoster extends Fragment {
 
             holder.dersisim.setText(out_item.getDers_isim());
 
+            holder.dersdogru.setText(out_item.getDers_dogru());
+            holder.dersyanlis.setText(out_item.getDers_yanlis());
+
             //Initialize inner recyclerview
             if(out_item.getInner_items()!=null){
 
                 DenemeGosterAdapter_inner inner_adapter=new DenemeGosterAdapter_inner();
                 inner_adapter.setInner_items(out_item.getInner_items());
 
-                holder.dersdogru.setText(out_item.getDers_dogru());
-                holder.dersyanlis.setText(out_item.getDers_yanlis());
 
                 holder.rv_inner.setHasFixedSize(true);
                 holder.rv_inner.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
                 holder.rv_inner.setAdapter(inner_adapter);
 
                 inner_adapter.notifyDataSetChanged();
-            }else{
-                holder.dersdogru.setText(out_item.getDers_dogru());
-                holder.dersyanlis.setText(out_item.getDers_yanlis());
-
             }
 
         }
