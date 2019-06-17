@@ -6,6 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
 
 
 import androidx.annotation.NonNull;
@@ -15,15 +19,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.acer.hayditrkiyeleri.R;
 import com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup;
+import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
+import static android.view.View.GONE;
+
 
 public class FragmentSignupSecond extends Fragment {
 
     private UserInfo userInfo;
     private CompoundButtonGroup bolum;
     private CompoundButtonGroup hedef;
-    private CompoundButtonGroup saat;
+    private CompoundButtonGroup sinif;
 
     public FragmentSignupSecond(UserInfo userInfo) {
         this.userInfo = userInfo;
@@ -38,7 +47,10 @@ public class FragmentSignupSecond extends Fragment {
         Button changeFragment = v.findViewById(R.id.button3);
         bolum = v.findViewById(R.id.radio_bolum);
         hedef = v.findViewById(R.id.radio_hedef);
-        saat = v.findViewById(R.id.radio_saat);
+        sinif = v.findViewById(R.id.radio_sinif);
+
+        NumberPicker numberPicker1 = v.findViewById(R.id.obp_1);
+        NumberPicker numberPicker2 = v.findViewById(R.id.obp_2);
 
         setRetainInstance(true);
 
@@ -47,7 +59,7 @@ public class FragmentSignupSecond extends Fragment {
 
                 List<Integer> bol= bolum.getCheckedPositions();
                 List<Integer> hed= hedef.getCheckedPositions();
-                List<Integer> sat= saat.getCheckedPositions();
+                List<Integer> sat= sinif.getCheckedPositions();
 
                 if(bol.size() != 0){ //If a radio selected
                     userInfo.setBolum(bol.get(0));
@@ -69,6 +81,11 @@ public class FragmentSignupSecond extends Fragment {
                 /*Fonksiyon da yazabilirim ama altıüstü 3 tane koplaya yapıştır.
                 Zaten bir taslak bu*/
 
+                // float obp = numberPicker1.getValue() + (numberPicker2.getValue() / 100);
+                //  userInfo.setObp(obp);
+                //  Mezun falan da olayi lazim da bakaaaaaalim
+
+
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FragmentSignupThird newGamefragment = new FragmentSignupThird();
@@ -77,6 +94,54 @@ public class FragmentSignupSecond extends Fragment {
                 fragmentTransaction.commit();
             }
 
+        });
+
+        LinearLayout sayilar = v.findViewById(R.id.hedef_sayilar);
+        Spinner uniler = v.findViewById(R.id.hedef_uni); // Bir yerden datalari aliriz artik
+        Switch mSwitch = v.findViewById(R.id.swicherino);
+
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    Log.d(TAG, "onCreateView: b';'");
+                    uniler.setVisibility(View.GONE);
+                    sayilar.setVisibility(View.VISIBLE);
+                }
+                else{
+
+                    uniler.setVisibility(View.VISIBLE);
+                    sayilar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        LinearLayout mezunExtra = v.findViewById(R.id.mezun_expand);
+
+        sinif.setOnButtonSelectedListener(new CompoundButtonGroup.OnButtonSelectedListener() {
+            @Override
+            public void onButtonSelected(int position, String value, boolean isChecked) {
+                if(position == 1)
+                    mezunExtra.setVisibility(View.VISIBLE);
+                else
+                    mezunExtra.setVisibility(GONE);
+            }
+        });
+
+
+        numberPicker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                // UI
+
+                if(newVal == 100) {
+                    numberPicker2.setValue(0);
+                    numberPicker2.setEnabled(false);
+                }
+                else
+                    numberPicker2.setEnabled(true);
+            }
         });
 
 
