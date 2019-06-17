@@ -1,28 +1,27 @@
 package com.example.acer.hayditrkiyeleri.Util.ViewModels;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
 
-public class DenemeGosterViewModel extends ViewModel {
+import java.util.List;
 
-    private LiveData<DenemeEntity> deneme=null;
+public class DenemelerimViewModel extends ViewModel {
+
+    private LiveData<List<DenemeEntity>> denemeler;
     private Repository myRepo;
 
     public void setMyRepo(Repository myRepo) {
         this.myRepo = myRepo;
     }
 
-    public LiveData<DenemeEntity> get_denemeLive(int deneme_id){
-        if(deneme==null){
-            deneme= myRepo.get_denemeLive(deneme_id);
+    public LiveData<List<DenemeEntity>> get_denemelerLive(){
+        if(denemeler==null){
+            denemeler=myRepo.get_denemelerLive();
         }
 
-        return deneme;
+        return denemeler;
     }
-
-
 }

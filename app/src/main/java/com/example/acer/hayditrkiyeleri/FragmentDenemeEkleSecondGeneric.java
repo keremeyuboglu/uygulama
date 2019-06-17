@@ -1,5 +1,6 @@
 package com.example.acer.hayditrkiyeleri;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,11 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,17 +40,23 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
     private int mExpandedPosition = -1;
-//    private int mExpandedPosition2 = -1;
+    private int mExpandedPosition2 = -1;
     private RecyclerView mPrimaryRecyclerView;
     private DenemeEkle2ViewModel viewModel;
     private DenemeEntity deneme=null;
 
+    private ArrayList<DenemeEntity> denemeler;
+    private MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData;
 
     public FragmentDenemeEkleSecondGeneric(DenemeEntity deneme){
         //Burda derslerin doğru yanlış sayısı alınacak
-
-
         this.deneme=deneme;
+    }
+
+    public FragmentDenemeEkleSecondGeneric(DenemeEntity deneme, ArrayList<DenemeEntity> denemeler, MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData) {
+        this.deneme = deneme;
+        this.denemeler = denemeler;
+        this.mutableLiveData = mutableLiveData;
     }
 
     public FragmentDenemeEkleSecondGeneric(){} //Empty Default constructor
@@ -130,13 +139,19 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                     veriler.trimToSize();
                     deneme.setVeriler_konu(veriler);
 
-                    viewModel.insert_deneme(deneme);
-                    Log.i("olley", "deneme gömüldü: "+deneme.deneme_id);
+                    if(mutableLiveData == null){
+                        viewModel.insert_deneme(deneme);
+                        Log.i("olley", "deneme gömüldü: "+deneme.deneme_id);
+                    }else{
+                        denemeler.add(deneme);
+                        mutableLiveData.postValue(denemeler);
+                    }
+
                 });
 
                 task.execute();
 
-                getActivity().finish();
+                getActivity().getSupportFragmentManager().popBackStack("seko", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
@@ -189,7 +204,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                 @Override
                 public void onClick(View v) {
                     mExpandedPosition = isExpanded ? -1:position;
-//                    mExpandedPosition2 = isExpanded ? position:-1;
+                    mExpandedPosition2 = isExpanded ? position:-1;
                     notifyDataSetChanged();
                 }
             });
@@ -225,7 +240,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
 
 
-    private class SecondaryAdapter extends RecyclerView.Adapter<SecondaryAdapter.SecondaryViewHolder> {
+    private class SecondaryAdapter extends RecyclerView.Adapter<SecondaryAdapter.SecondaryViewHolder> implements View.OnClickListener {
         private final Item_DenemeEkle2_outer out;
         private final int out_index;
         private ArrayList<Item_DenemeEkle2_inner> inner_items;
@@ -259,41 +274,17 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             holder.edit_yanlisbos.setText(item.getKonu_yanlisbos());
 
 
-            holder.Exp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Initialize a new instance of LayoutInflater service
-                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                    // Inflate the custom layout/view
-                    View customView = inflater.inflate(R.layout.fragment_deneme_ekle2_generic_tip,null);
-
-
-
-                    AlertDialog.Builder mBuilder  = new AlertDialog.Builder(v.getContext());
-                    mBuilder.setView(customView);
-                    final AlertDialog dialog = mBuilder.create();
-                    dialog.show();
-
-                    // Get a reference for the custom view close button
-                    ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-
-                    // Set a click listener for the popup window close button
-                    closeButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Dismiss the popup window
-                            dialog.dismiss();
-                        }
-                    });
-                }
-            });
 
         }
 
         @Override
         public int getItemCount() {
             return inner_items.size();
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
 
         private class SecondaryViewHolder extends RecyclerView.ViewHolder {
@@ -310,7 +301,36 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                 tv_konuisim = itemView.findViewById(R.id.soru_item);
                 edit_toplamsoru =  itemView.findViewById(R.id.toplam_soru);
                 edit_yanlisbos = itemView.findViewById(R.id.yanlis_bos);
+             //   mIpucu = itemView.findViewById(R.id.item_tip);
                 Exp =  itemView.findViewById(R.id.soru_tip);
+                Exp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                        // Inflate the custom layout/view
+                        View customView = inflater.inflate(R.layout.fragment_deneme_ekle2_generic_tip,null);
+
+                        Toast.makeText(getActivity(), "BASILDI", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog.Builder mBuilder  = new AlertDialog.Builder(view.getContext());
+                        mBuilder.setView(customView);
+                        final AlertDialog dialog = mBuilder.create();
+                        dialog.show();
+
+                        // Get a reference for the custom view close button
+                        ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+
+                        // Set a click listener for the popup window close button
+                        closeButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Dismiss the popup window
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
 
 
                 //Anında değişme şeysi eklencek

@@ -3,6 +3,8 @@ package com.example.acer.hayditrkiyeleri.Util;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_ders;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
+import com.example.acer.hayditrkiyeleri.DersBilgileri.Ders_Bilgi;
+import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_inner;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_outer;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeGoster.Item_DenemeGoster_inner;
@@ -10,18 +12,25 @@ import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeGoster.Item_DenemeGos
 import com.example.acer.hayditrkiyeleri.Util.RVItems.Denemelerim.Item_Denemelerim;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 public abstract class RVItemGenerator {
+
+
 
 
     public static ArrayList<Item_DenemeEkle2_outer> pump_Item(){
 
         ArrayList<Item_DenemeEkle2_outer> result=new ArrayList<>();
 
-        String[] dersisimleri={"Türkçe", "Sosyal", "Matematik", "Fen"};
+        final LinkedHashMap<String, Ders_Bilgi> ders_map= TYT_Bilgi.getDersmap();
 
-        String[] konuisimleri={"Ayşe", "Fatma", "Hayriye", "Naciye", "Feride", "Hasan" , "Osman", "Hamit", "Saniye"};
+        Set<String> dersisimleri=ders_map.keySet();
+
+        ArrayList<String> konuisimleri;
 
         ArrayList<Item_DenemeEkle2_inner> temp_innerlist;
         Item_DenemeEkle2_inner temp_inner;
@@ -31,6 +40,8 @@ public abstract class RVItemGenerator {
             temp_out=new Item_DenemeEkle2_outer();
             temp_out.setDers_isim(dersisim);
             temp_innerlist=new ArrayList<>();
+
+            konuisimleri= ders_map.get(dersisim).getKonu_isimler();
             for(String konuisim: konuisimleri){
                 temp_inner=new Item_DenemeEkle2_inner();
                 temp_inner.setKonu_isim(konuisim);
