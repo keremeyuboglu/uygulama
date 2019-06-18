@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 public abstract class TYT_Bilgi {
 
     private static LinkedHashMap<String, Ders_Bilgi> ders_map=null;
+    private static int ders_sayi = 10;
 
     private static void Init(){
 /* Burda gereken bilgileri initialize ediyoruz
@@ -59,7 +60,7 @@ public abstract class TYT_Bilgi {
         din.add_konu("Peygamber");
         din.add_konu("Uhud");
 
-        ders_map.put("Tarih", tar);
+        ders_map.put("Din", din);
 
         Ders_Bilgi mat=new Ders_Bilgi();
         mat.setSoru_sayi(29);
@@ -128,6 +129,9 @@ public abstract class TYT_Bilgi {
         }
 
         return ders_map;
+    }
+    public static int getDersSayisi(){
+        return ders_sayi;
     }
 
 }

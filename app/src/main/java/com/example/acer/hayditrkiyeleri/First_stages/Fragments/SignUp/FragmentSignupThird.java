@@ -136,7 +136,6 @@ public class FragmentSignupThird extends Fragment {
                 });
 
                 task.execute();
-
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.signupContainer,new FragmentSignupFourth());
                 fragmentTransaction.addToBackStack(null);

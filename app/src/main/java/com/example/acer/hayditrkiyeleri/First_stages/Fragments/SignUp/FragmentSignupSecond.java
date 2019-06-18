@@ -59,7 +59,7 @@ public class FragmentSignupSecond extends Fragment {
 
                 List<Integer> bol= bolum.getCheckedPositions();
                 List<Integer> hed= hedef.getCheckedPositions();
-                List<Integer> sat= sinif.getCheckedPositions();
+                List<Integer> sin= sinif.getCheckedPositions();
 
                 if(bol.size() != 0){ //If a radio selected
                     userInfo.setBolum(bol.get(0));
@@ -68,13 +68,13 @@ public class FragmentSignupSecond extends Fragment {
                 }
 
                 if(hed.size() != 0){ //If a radio selected
-                    userInfo.setBolum(bol.get(0));
+                    userInfo.setHedef(hed.get(0));
                 }else{
                     //ERROR!!!!
                 }
 
-                if(sat.size() != 0){ //If a radio selected
-                    userInfo.setBolum(bol.get(0));
+                if(sin.size() != 0){ //If a radio selected
+                    userInfo.setSinif(sin.get(0));
                 }else{
                     //ERROR!!!!
                 }

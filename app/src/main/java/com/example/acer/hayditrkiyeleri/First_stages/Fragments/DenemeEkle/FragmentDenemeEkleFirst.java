@@ -147,7 +147,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
                         }
                     });
 
-                    CardView card_view = (CardView) customView.findViewById(R.id.generic_ekle2); // creating a CardView and assigning a value.
+                    CardView card_view = (CardView) customView.findViewById(R.id.generic_ekle); // creating a CardView and assigning a value.
 
                     card_view.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -275,7 +275,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
                         }
                     });
 
-                    CardView card_view = (CardView) customView.findViewById(R.id.generic_ekle2); // creating a CardView and assigning a value.
+                    CardView card_view = (CardView) customView.findViewById(R.id.generic_ekle); // creating a CardView and assigning a value.
                 }
             }
         });

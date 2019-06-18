@@ -8,7 +8,7 @@ public class UserInfo {
 
     private int bolum=-1;
     private int hedef=-1;
-    private int saat=-1;
+    private int sinif=-1;
 
     public String getUsername() {
         return username;
@@ -50,11 +50,11 @@ public class UserInfo {
         this.hedef = hedef;
     }
 
-    public int getSaat() {
-        return saat;
+    public int getSinif() {
+        return sinif;
     }
 
-    public void setSaat(int saat) {
-        this.saat = saat;
+    public void setSinif(int saat) {
+        this.sinif = saat;
     }
 }
