@@ -23,6 +23,7 @@ import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Stat;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentDenemeEkleFirst;
 import com.example.acer.hayditrkiyeleri.FragmentMenuDenemeGoster;
 import com.example.acer.hayditrkiyeleri.R;
@@ -35,6 +36,7 @@ import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpThirdViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class FragmentSignupThird extends Fragment {
 
@@ -85,53 +87,83 @@ public class FragmentSignupThird extends Fragment {
                    EsasVeriEntity temp_esasveri;
                    ArrayList<Deneme_ders> temp_veriler_ders;
                    ArrayList<Deneme_konu> temp_veriler_konu;
+                   Set<String> temp_isim_konular; //Will be used if there is not ayrintili
 
+                   //Daha düzgün bi algoritma lazım ama şimdilik çalışıyor en azından
                    for(DenemeEntity deneme: denemeler){
 
                        temp_veriler_ders=deneme.getVeriler_ders();
+                       temp_veriler_konu=deneme.getVeriler_konu();
 
-                       for(Deneme_ders ders: temp_veriler_ders){
+                       if(deneme.isAyrintili()){
 
-                           temp_esasveri= esas_verimap.get(ders.getDers_isim());
+                           for(Deneme_ders ders: temp_veriler_ders){
 
-                           if(temp_esasveri == null){
+                               temp_esasveri = esas_verimap.get(ders.getDers_isim());
 
-                               temp_esasveri=new EsasVeriEntity(ders.getDers_isim(), true, false);
-                               esas_verimap.put(ders.getDers_isim(), temp_esasveri);
+                               if(temp_esasveri == null){
+                                   //ders olduğu için isAz önemli değil
+                                   temp_esasveri= new EsasVeriEntity(ders.getDers_isim(), true, false);
+                               }
+
+
+                               temp_esasveri.add_stat(new Stat(ders.getDers_dogru()+ders.getDers_yanlis(), ders.getDers_yanlis()));
 
                            }
 
-                           temp_esasveri.add_stat(new Stat(ders.getDers_dogru()+ders.getDers_yanlis(), ders.getDers_yanlis()));
-                           viewModel.insert_esasVeri(temp_esasveri);
-                       }
-
-
-
-                       temp_veriler_konu= deneme.getVeriler_konu();
-
-                       if(temp_veriler_konu !=null){
                            for(Deneme_konu konu: temp_veriler_konu){
 
                                temp_esasveri= esas_verimap.get(konu.getKonu_isim());
 
+
                                if(temp_esasveri == null){
-
-                                   temp_esasveri=new EsasVeriEntity(konu.getKonu_isim(), false, false);
-                                   esas_verimap.put(konu.getKonu_isim(), temp_esasveri);
-
+                                   //TYT bilgi den bakılıyor 2 den az mı fazla mı
+                                   temp_esasveri= new EsasVeriEntity(konu.getDers_isim(), true, TYT_Bilgi.get_dersbilgi(konu.getDers_isim()).get_is2denaz(konu.getKonu_isim()));
                                }
 
-                               temp_esasveri.add_stat(new Stat(konu.getKonu_dogru()+konu.getKonu_yanlis(), konu.getKonu_yanlis()));
-                               viewModel.insert_esasVeri(temp_esasveri);
+
+                               temp_esasveri.add_stat(new Stat(konu.getKonu_yanlis()+konu.getKonu_yanlis(), konu.getKonu_yanlis()));
 
                            }
+
+
+                       }else{
+                            //Her konu için null ekleniyor.
+                           for(Deneme_ders ders: temp_veriler_ders){
+
+                               temp_esasveri = esas_verimap.get(ders.getDers_isim());
+
+                               if(temp_esasveri == null){
+                                   //ders olduğu için isAz önemli değil
+                                   temp_esasveri= new EsasVeriEntity(ders.getDers_isim(), true, false);
+                               }
+
+
+                               temp_esasveri.add_stat(new Stat(ders.getDers_dogru()+ders.getDers_yanlis(), ders.getDers_yanlis()));
+
+                               temp_isim_konular= TYT_Bilgi.get_dersbilgi(ders.getDers_isim()).get_konubilgimap().keySet();
+
+                               for(String konu_isim: temp_isim_konular){
+
+                                   temp_esasveri= esas_verimap.get(konu_isim);
+
+
+                                   if(temp_esasveri == null){
+                                       //TYT bilgi den bakılıyor 2 den az mı fazla mı
+                                       temp_esasveri= new EsasVeriEntity(konu_isim, true, TYT_Bilgi.get_dersbilgi(ders.getDers_isim()).get_is2denaz(konu_isim));
+                                   }
+
+                                   temp_esasveri.add_stat(null);
+                               }
+                           }
+
+
+
                        }
-                   }
 
 
-                   for(String isim: esas_verimap.keySet()){
-                       Hesaplayici.hadi_bakalim(esas_verimap.get(isim));
                    }
+
 
                 });
 

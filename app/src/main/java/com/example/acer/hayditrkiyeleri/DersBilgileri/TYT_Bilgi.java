@@ -1,7 +1,6 @@
 package com.example.acer.hayditrkiyeleri.DersBilgileri;
 
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
@@ -20,38 +19,34 @@ public abstract class TYT_Bilgi {
 
         ders_map=new LinkedHashMap<>();
 
-        Ders_Bilgi tur=new Ders_Bilgi();
-        tur.setSoru_sayi(40);
-        tur.add_konu("Paragrafta Anlam");
-        tur.add_konu("Cümlede anlam");
-        tur.add_konu("Sözcükte anlam");
+        Ders_Bilgi tur=new Ders_Bilgi(40);
+        tur.add_konu("Paragrafta Anlam", false); //Değerleri şuan kafama göre koyuyorum
+        tur.add_konu("Cümlede anlam", false);
+        tur.add_konu("Sözcükte anlam", false);
 
         ders_map.put("Türkçe", tur);
 
 
-        Ders_Bilgi sos=new Ders_Bilgi();
-        sos.setSoru_sayi(20);
-        sos.add_konu("Dağ");
-        sos.add_konu("Tepe");
-        sos.add_konu("Deniz");
+        Ders_Bilgi sos=new Ders_Bilgi(20);
+        sos.add_konu("Dağ", true); //Değerleri şuan kafama göre koyuyorum
+        sos.add_konu("Tepe", true);
+        sos.add_konu("Deniz", false);
 
         ders_map.put("Sosyal", sos);
 
 
-        Ders_Bilgi mat=new Ders_Bilgi();
-        mat.setSoru_sayi(40);
-        mat.add_konu("Toplama");
-        mat.add_konu("Çıkarma");
-        mat.add_konu("Bölme");
+        Ders_Bilgi mat=new Ders_Bilgi(40);
+        mat.add_konu("Toplama", true);
+        mat.add_konu("Çıkarma", false);
+        mat.add_konu("Bölme", false);
 
         ders_map.put("Matematik", mat);
 
 
-        Ders_Bilgi fen=new Ders_Bilgi();
-        fen.setSoru_sayi(20);
-        fen.add_konu("Hücre");
-        fen.add_konu("Araba");
-        fen.add_konu("Sabun");
+        Ders_Bilgi fen=new Ders_Bilgi(20);
+        fen.add_konu("Hücre", false);
+        fen.add_konu("Araba", false);
+        fen.add_konu("Sabun", true);
 
         ders_map.put("Fen", fen);
 

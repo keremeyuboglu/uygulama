@@ -30,7 +30,7 @@ public abstract class RVItemGenerator {
 
         Set<String> dersisimleri=ders_map.keySet();
 
-        ArrayList<String> konuisimleri;
+        Set<String> konuisimleri;
 
         ArrayList<Item_DenemeEkle2_inner> temp_innerlist;
         Item_DenemeEkle2_inner temp_inner;
@@ -41,7 +41,7 @@ public abstract class RVItemGenerator {
             temp_out.setDers_isim(dersisim);
             temp_innerlist=new ArrayList<>();
 
-            konuisimleri= ders_map.get(dersisim).getKonu_isimler();
+            konuisimleri= ders_map.get(dersisim).get_konubilgimap().keySet();
             for(String konuisim: konuisimleri){
                 temp_inner=new Item_DenemeEkle2_inner();
                 temp_inner.setKonu_isim(konuisim);
@@ -114,6 +114,8 @@ public abstract class RVItemGenerator {
                     temp_inner.setKonu_yanlis(String.valueOf(temp_konu.getKonu_yanlis()));
 
                     temp_inner_list.add(temp_inner);
+
+
                 }while(ite2<end2);
 
 
