@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/srecycler_view"
         android:layout_width="match_parent"
@@ -19,6 +19,76 @@
         android:layout_marginBottom="48dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+-->
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        tools:context=".MainActivity">
+
+
+        <LinearLayout
+            android:id="@+id/soru_item_rel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/soru_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Ders Adı"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="32dp" />
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/soru_asil_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingBottom="4dp"
+                    tools:listitem="@layout/fragment_signup4_konu" />
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
 
     <Button
         android:id="@+id/button4"

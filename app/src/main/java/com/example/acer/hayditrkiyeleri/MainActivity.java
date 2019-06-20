@@ -1,6 +1,7 @@
 package com.example.acer.hayditrkiyeleri;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -91,5 +92,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.i("deneme", "öldüm");
     }
 }

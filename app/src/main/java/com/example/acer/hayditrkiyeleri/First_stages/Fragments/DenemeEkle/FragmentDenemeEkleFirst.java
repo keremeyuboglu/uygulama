@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_ders;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
 import com.example.acer.hayditrkiyeleri.FragmentDenemeEkleSecondGeneric;
 import com.example.acer.hayditrkiyeleri.R;
 import com.example.acer.hayditrkiyeleri.ThisApplication;
@@ -51,14 +53,23 @@ import org.greenrobot.eventbus.Subscribe;
 
 
 public class FragmentDenemeEkleFirst extends Fragment {
-    @Nullable
 
+    private DenemeEkle1ViewModel viewModel;
     boolean goBack = true;
     private PopupWindow mPopupWindow;
     private ScrollView mScrollView;
     int mPopupHeight;
     int mPopupWidth;
 
+
+    private MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData;
+    private ArrayList<DenemeEntity> rv_items_signup;
+
+    public FragmentDenemeEkleFirst(){} //Empty constructor
+    public FragmentDenemeEkleFirst(MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData, ArrayList<DenemeEntity> rv_items_signup) {
+        this.mutableLiveData = mutableLiveData;
+        this.rv_items_signup = rv_items_signup;
+    }
     DenemeEntity new_deneme;
     private Repository myRepo=new Repository();
 
@@ -85,26 +96,39 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
     public void setPopUp(int popUpNum){
         if(popUpNum == 1){
+
+            //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
+            new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
+
             new_deneme.setAyrintili(true); //Ayrıntılı
             //Ders doğru yanlış işlemleri yapılması lazım
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
-            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric(new_deneme);
-            fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
-            fragmentTransaction.addToBackStack(null);
+            FragmentDenemeEkleSecondGeneric newGamefragment = new FragmentDenemeEkleSecondGeneric(new_deneme, rv_items_signup, mutableLiveData);
+            fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
+            fragmentTransaction.addToBackStack("seko");
             fragmentTransaction.commit();
 
         } else {
+            int deneme_id=(rv_items_signup.size());
+
+           /*
+                            MyTask task=new MyTask(()->{
+                                myRepo.insert_deneme(new_deneme); //Denemeyi veritabanına gömüyoruz
+                            });
+                            task.execute(); //It will insert item in another thread*/
+
+            //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
+            new_deneme= pump_deneme(viewModel.get_rvitems(), deneme_id);
             new_deneme.setAyrintili(false); //Ayrıntısız
-            MyTask task=new MyTask(()->{
-                myRepo.insert_deneme(new_deneme); //Denemeyi veritabanına gömüyoruz
 
-            });
+            rv_items_signup.add(new_deneme);
+            mutableLiveData.setValue(rv_items_signup);
 
-            task.execute(); //It will insert item in another thread
-            Toast.makeText(getContext(), "Ayrıntılı İstemirosam Tükürdüm", Toast.LENGTH_SHORT).show();
-            getActivity().finish();
+
+            Toast.makeText(getContext(), "Ayrıntılı İstemirosam Tükürdüm id: "+deneme_id, Toast.LENGTH_SHORT).show();
+            getActivity().getSupportFragmentManager().popBackStackImmediate();
         }
 
     }
@@ -116,7 +140,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
         Button changeFragment = view.findViewById(R.id.buttonEkle1);
 
         myRepo.setDao(((ThisApplication)getActivity().getApplication()).get_dao());
-        DenemeEkle1ViewModel viewModel= ViewModelProviders.of(getActivity()).get(DenemeEkle1ViewModel.class);
+        viewModel= ViewModelProviders.of(getActivity()).get(DenemeEkle1ViewModel.class);
 
 
         //Creating rv
@@ -153,17 +177,11 @@ public class FragmentDenemeEkleFirst extends Fragment {
             }
         });
 
-
-
-
         changeFragment.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
                 if(goBack){
-
-                    //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
-                    new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
 
                     // create popUpFragment for diger
                     FragmentDenemePopUp fragmentDenemePopUp = new FragmentDenemePopUp();
@@ -235,10 +253,20 @@ public class FragmentDenemeEkleFirst extends Fragment {
         public void onBindViewHolder(@NonNull DenemeEkleViewHolder holder, int position) {
 
             Item_DenemeEkle1 item=items.get(position);
+            String ders_isim=item.getDers_isim();
 
-            holder.ders_isim.setText(item.getDers_isim());
-            holder.dogru.setValue(item.getDogru());
-            holder.yanlis.setValue(item.getYanlis());
+            int toplam_soru_sayi= TYT_Bilgi.get_dersbilgi(ders_isim).getSoru_sayi();
+            int simdiki_dogru=item.getDogru();
+            int simdiki_yanlis=item.getYanlis();
+
+
+
+            holder.ders_isim.setText(ders_isim);
+
+            holder.dogru.setMaxValue(toplam_soru_sayi);
+            holder.dogru.setValue(simdiki_dogru);
+
+            holder.yanlis.setValue(simdiki_yanlis);
 
         }
 
@@ -262,16 +290,15 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
                 dogru=itemView.findViewById(R.id.numpick_dersdogru);
                 yanlis=itemView.findViewById(R.id.numpick_dersyanlis);
-                
+
                 dogru.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        // UI
-                        yanlis.setMaxValue(dogru.getMaxValue() - newVal);
-                        //
                         Item_DenemeEkle1 item= items.get(getAdapterPosition());
 
                         item.setDogru(newVal);
+
+                        yanlis.setMaxValue(dogru.getMaxValue()-dogru.getValue());
                     }
                 });
 
@@ -353,48 +380,30 @@ public class FragmentDenemeEkleFirst extends Fragment {
         //Su an recyclerview olmadığı için edittextler manuel olarak alındı.
         //bu entity eğer adam konuları girmeyecekse direkt gömülecek yoksa resetlenecek
         //Niye böyle olduğunu anlatırım anlamadıysanız
-
-
         DenemeEntity new_deneme= new DenemeEntity();
         new_deneme.setDeneme_id(deneme_id);
-
         ArrayList<Deneme_ders> veriler_ders=new ArrayList<>();
-
         Deneme_ders ilk=new Deneme_ders();
         ilk.setDers_isim("Türkçe");
         ilk.setDers_dogru(Integer.parseInt(turkD.getText().toString()));
         ilk.setDers_yanlis(Integer.parseInt(turkY.getText().toString()));
-
         veriler_ders.add(ilk);
-
         Deneme_ders uc=new Deneme_ders();
         uc.setDers_isim("Sosyal");
         uc.setDers_dogru(Integer.parseInt(sosD.getText().toString()));
         uc.setDers_yanlis(Integer.parseInt(sosY.getText().toString()));
-
         veriler_ders.add(uc);
-
         Deneme_ders iki=new Deneme_ders();
         iki.setDers_isim("Matematik");
         iki.setDers_dogru(Integer.parseInt(matD.getText().toString()));
         iki.setDers_yanlis(Integer.parseInt(matY.getText().toString()));
-
         veriler_ders.add(iki);
-
-
         Deneme_ders dort=new Deneme_ders();
         dort.setDers_isim("Fen");
         dort.setDers_dogru(Integer.parseInt(fenD.getText().toString()));
         dort.setDers_yanlis(Integer.parseInt(fenY.getText().toString()));
-
         veriler_ders.add(dort);
-
-
-
         new_deneme.setVeriler_ders(veriler_ders);
-
-
         return new_deneme;
-
     }*/
 }

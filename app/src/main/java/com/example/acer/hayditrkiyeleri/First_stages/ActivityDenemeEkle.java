@@ -26,29 +26,17 @@ public class ActivityDenemeEkle extends AppCompatActivity {
         setContentView(R.layout.activity_deneme_ekle);
 
 
-        final ArrayList<Item_DenemeEkle2_outer> mDers = RVItemGenerator.pump_Item();
-
-        Bundle args = new Bundle();
-        args.putParcelableArrayList("ders", mDers);
-
-
         if(null == savedInstanceState) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             FragmentDenemeEkleFirst fragment = new FragmentDenemeEkleFirst();
-            fragment.setArguments(args);
             fragmentTransaction.add(R.id.deneme_container, fragment);
             fragmentTransaction.commit();
         }
 
         FloatingActionButton mButton = findViewById(R.id.floatingActionButton);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ActivityDenemeEkle.this, mDers.get(0).getDers_dogru(), Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     void addDeneme(View view){} //Will be implemented

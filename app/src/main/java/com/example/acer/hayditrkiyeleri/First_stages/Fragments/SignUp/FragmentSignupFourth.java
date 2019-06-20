@@ -1,41 +1,58 @@
 package com.example.acer.hayditrkiyeleri.First_stages.Fragments.SignUp;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.acer.hayditrkiyeleri.DersBilgileri.Ders_Bilgi;
+import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
 import com.example.acer.hayditrkiyeleri.MainActivity;
 import com.example.acer.hayditrkiyeleri.R;
+
+import static android.content.ContentValues.TAG;
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class FragmentSignupFourth extends Fragment {
 
     private RecyclerView mPrimaryRecyclerView;
-    private String[] mMoviesGenre, mActionMovies;
+    private String[] mDersler, mKonular;
+    public int ders;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mMoviesGenre = new String[]{
-                "Matematik", "Fen", "Sosyal"
-        };
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            ders = bundle.getInt("kalan");
 
-        mActionMovies = new String[]{"Sözcükte Anlam","Cümlede Anlam","Paragraf",
-                "Yazim Kurallari ve Yarralar"
+        }
+        else
+            ders = TYT_Bilgi.getDersSayisi();
+
+        Log.d(TAG, "onCreate: " + ders);
+
+        mDersler = new String[]{
+                "Biyoloji","Kimya", "Fizik",  "Geometri", "Matematik",  "Din","Felsefe", "Coğrafya" , "Tarih", "Türkçe"
         };
 
         setRetainInstance(true);
@@ -46,11 +63,15 @@ public class FragmentSignupFourth extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signup4, container, false);
+        TextView ders_ismi = view.findViewById(R.id.soru_row);
+        ders_ismi.setText(mDersler[ders-1]);
 
 
+        Ders_Bilgi dersim = TYT_Bilgi.get_dersbilgi(mDersler[ders - 1]);
 
+        String[] array = dersim.getKonu_isimler().toArray(new String[dersim.getKonu_isimler().size()]);
         // Creating the primary recycler view adapter
-        PrimaryAdapter adapter = new PrimaryAdapter(mMoviesGenre);
+        PrimaryAdapter adapter = new PrimaryAdapter(array);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getActivity(),
@@ -58,7 +79,7 @@ public class FragmentSignupFourth extends Fragment {
                 false
         );
 
-        mPrimaryRecyclerView = view.findViewById(R.id.srecycler_view);
+        mPrimaryRecyclerView = view.findViewById(R.id.soru_asil_item);
         mPrimaryRecyclerView.setLayoutManager(layoutManager);
         mPrimaryRecyclerView.setAdapter(adapter);
 
@@ -67,9 +88,73 @@ public class FragmentSignupFourth extends Fragment {
         finishSignup.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finishAffinity();
+
+
+                if(ders == 1) {
+
+                    // Initialize a new instance of LayoutInflater service
+                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                    // Inflate the custom layout/view
+                    View customView = inflater.inflate(R.layout.fragment_signup4_popup, null);
+
+
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(v.getContext());
+                    mBuilder.setView(customView);
+                    final AlertDialog dialog = mBuilder.create();
+                    dialog.show();
+
+                    // Get a reference for the custom view close button
+                    ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+
+                    // Set a click listener for the popup window close button
+                    closeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Dismiss the popup window
+                            dialog.dismiss();
+                        }
+                    });
+
+                    CardView card_view = (CardView) customView.findViewById(R.id.ayt_n); // creating a CardView and assigning a value.
+
+                    card_view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                            getActivity().finishAffinity();
+                        }
+                    });
+
+                    CardView card_view2 = (CardView) customView.findViewById(R.id.ayt_y); // creating a CardView and assigning a value.
+
+                    card_view2.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
+                            FragmentSignupFifth newGamefragment = new FragmentSignupFifth();
+                            fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
+                            fragmentTransaction.commit();
+                            dialog.dismiss();
+                        }
+                    });
+                }
+
+                else {
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
+                    Bundle mBundle = new Bundle();
+                    mBundle.putInt("kalan",ders - 1); // Teker teker dersler :ddd
+                    FragmentSignupFourth newGamefragment = new FragmentSignupFourth();
+                    newGamefragment.setArguments(mBundle);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
+                    fragmentTransaction.commit();
+                }
             }
 
 
@@ -79,78 +164,14 @@ public class FragmentSignupFourth extends Fragment {
     }
 
     private class PrimaryViewHolder extends RecyclerView.ViewHolder {
-        private TextView mPrimaryMovieGenre;
-        private RecyclerView mSecondaryRecyclerView;
+        private TextView mTextView;
+        private Integer state = 0;
 
 
         public PrimaryViewHolder(View itemView) {
             super(itemView);
-            //  Log.d(TAG, "onClick: PrimaryViewHolder");
-            mPrimaryMovieGenre = itemView.findViewById(R.id.soru_row);
-            mSecondaryRecyclerView = itemView.findViewById(R.id.soru_asil_item);
-        }
-
-        // This get called in PrimaryAdapter onBindViewHolder method
-        public void bindViews(String genre, int position) {
-            mPrimaryMovieGenre.setText(genre);
-            //    Log.d(TAG, "onClick: bindViewsPrimary");
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                    getActivity(),
-                    RecyclerView.VERTICAL,
-                    false
-            );
-
-            mSecondaryRecyclerView.setLayoutManager(linearLayoutManager);
-            mSecondaryRecyclerView.setAdapter(getSecondaryAdapter(position));
-        }
-    /*    public void setBoolean(boolean x){
-            isExpanded = x;
-        }*/
-    }
-
-    private class PrimaryAdapter extends RecyclerView.Adapter<PrimaryViewHolder> {
-        private String[] mMovieGenre;
-
-        public PrimaryAdapter(String[] moviesGenre) {
-            //   Log.d(TAG, "onClick: PrimaryAdapter");
-            mMovieGenre = moviesGenre;
-
-        }
-
-        @NonNull
-        @Override
-        public PrimaryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            //     Log.d(TAG, "onClick: onCreateViewHolder");
-            View view = inflater.inflate(R.layout.fragment_signup4_ders, parent, false);
-            return new PrimaryViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final PrimaryViewHolder holder, final int position) {
-            //     Log.d(TAG, "onClick: onBindViewHolderPrimary");
-
-
-            String genre = mMovieGenre[position];
-            holder.bindViews(genre, position);
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return mMovieGenre.length;
-        }
-    }
-
-    private class SecondaryViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView mTextView;
-        private Integer state = 0;
-
-        public SecondaryViewHolder(View view) {
-            super(view);
             mTextView = itemView.findViewById(R.id.soru_item);
-            view.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), "Aq", Toast.LENGTH_SHORT).show();
@@ -171,45 +192,42 @@ public class FragmentSignupFourth extends Fragment {
             });
         }
 
-        public void bindView(String name) {
-            mTextView.setText(name);
-
+        // This get called in PrimaryAdapter onBindViewHolder method
+        public void bindViews(String genre, int position) {
+            mTextView.setText(genre);
         }
     }
 
-    private class SecondaryAdapter extends RecyclerView.Adapter<SecondaryViewHolder> {
-        private String[] mMovies;
+    private class PrimaryAdapter extends RecyclerView.Adapter<PrimaryViewHolder> {
+        private String[] mMovieGenre;
 
-        public SecondaryAdapter(String[] movies) {
-            mMovies = movies;
+        public PrimaryAdapter(String[] moviesGenre) {
+            mMovieGenre = moviesGenre;
+
         }
 
+        @NonNull
         @Override
-        public SecondaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public PrimaryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
+            //     Log.d(TAG, "onClick: onCreateViewHolder");
             View view = inflater.inflate(R.layout.fragment_signup4_konu, parent, false);
-            return new SecondaryViewHolder(view);
+            return new PrimaryViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(SecondaryViewHolder holder, int position) {
-            //    Log.d(TAG, "onClick: onBindViewHolder");
-            String name = mMovies[position];
-            holder.bindView(name);
+        public void onBindViewHolder(final PrimaryViewHolder holder, final int position) {
+            //     Log.d(TAG, "onClick: onBindViewHolderPrimary");
+
+
+            String genre = mMovieGenre[position];
+            holder.bindViews(genre, position);
 
         }
 
         @Override
         public int getItemCount() {
-            return mMovies.length;
+            return mMovieGenre.length;
         }
-    }
-
-    private SecondaryAdapter getSecondaryAdapter(int position) {
-
-        SecondaryAdapter adapter;
-
-        return new SecondaryAdapter(mActionMovies); //
-
     }
 }

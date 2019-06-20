@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
+    android:background="#ab2fc4"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/ib_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="3dp"
+            android:text="AYT denemeleri de eklemek istiyor musun"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:id="@+id/ayt_y">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="3dp"
+                android:text="Evet"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:id="@+id/ayt_n">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="3dp"
+                android:text="Hayır"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

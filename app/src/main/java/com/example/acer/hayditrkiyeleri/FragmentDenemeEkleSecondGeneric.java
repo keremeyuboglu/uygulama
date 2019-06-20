@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
-import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentKarekokPopUp;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_inner;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_outer;
 import com.example.acer.hayditrkiyeleri.Util.ViewModels.DenemeEkle2ViewModel;
@@ -44,12 +45,18 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
     private DenemeEkle2ViewModel viewModel;
     private DenemeEntity deneme=null;
 
+    private ArrayList<DenemeEntity> denemeler;
+    private MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData;
 
     public FragmentDenemeEkleSecondGeneric(DenemeEntity deneme){
         //Burda derslerin doğru yanlış sayısı alınacak
-
-
         this.deneme=deneme;
+    }
+
+    public FragmentDenemeEkleSecondGeneric(DenemeEntity deneme, ArrayList<DenemeEntity> denemeler, MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData) {
+        this.deneme = deneme;
+        this.denemeler = denemeler;
+        this.mutableLiveData = mutableLiveData;
     }
 
     public FragmentDenemeEkleSecondGeneric(){} //Empty Default constructor
@@ -132,13 +139,19 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                     veriler.trimToSize();
                     deneme.setVeriler_konu(veriler);
 
-                    viewModel.insert_deneme(deneme);
-                    Log.i("olley", "deneme gömüldü: "+deneme.deneme_id);
+                    if(mutableLiveData == null){
+                        viewModel.insert_deneme(deneme);
+                        Log.i("olley", "deneme gömüldü: "+deneme.deneme_id);
+                    }else{
+                        denemeler.add(deneme);
+                        mutableLiveData.postValue(denemeler);
+                    }
+
                 });
 
                 task.execute();
 
-                getActivity().finish();
+                getActivity().getSupportFragmentManager().popBackStack("seko", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
@@ -213,7 +226,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
             public PrimaryViewHolder(View itemView) {
                 super(itemView);
-               //Log.d(TAG, "onClick: PrimaryViewHolder");
+                //Log.d(TAG, "onClick: PrimaryViewHolder");
                 mDersisim = itemView.findViewById(R.id.ders_isim);
                 mSecondaryRecyclerView = itemView.findViewById(R.id.soru_asil_item); //Inner elements
                 mSecondaryTitle = itemView.findViewById(R.id.soru_item_linear); //This is stable
@@ -227,7 +240,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
 
 
-    private class SecondaryAdapter extends RecyclerView.Adapter<SecondaryAdapter.SecondaryViewHolder> {
+    private class SecondaryAdapter extends RecyclerView.Adapter<SecondaryAdapter.SecondaryViewHolder> implements View.OnClickListener {
         private final Item_DenemeEkle2_outer out;
         private final int out_index;
         private ArrayList<Item_DenemeEkle2_inner> inner_items;
@@ -260,13 +273,6 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             holder.edit_toplamsoru.setText(item.getKonu_toplam());
             holder.edit_yanlisbos.setText(item.getKonu_yanlisbos());
 
-            holder.Exp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentAciklamaPopUp fragmentAciklamaPopUp = new FragmentAciklamaPopUp();
-                    fragmentAciklamaPopUp.show(getFragmentManager(),"aciklamaPopUp");
-                }
-            });
 
 
         }
@@ -274,6 +280,11 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
         @Override
         public int getItemCount() {
             return inner_items.size();
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
 
         private class SecondaryViewHolder extends RecyclerView.ViewHolder {
@@ -290,8 +301,36 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                 tv_konuisim = itemView.findViewById(R.id.soru_item);
                 edit_toplamsoru =  itemView.findViewById(R.id.toplam_soru);
                 edit_yanlisbos = itemView.findViewById(R.id.yanlis_bos);
-             //   mIpucu = itemView.findViewById(R.id.item_tip);
+                //   mIpucu = itemView.findViewById(R.id.item_tip);
                 Exp =  itemView.findViewById(R.id.soru_tip);
+                Exp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                        // Inflate the custom layout/view
+                        View customView = inflater.inflate(R.layout.fragment_deneme_ekle2_generic_tip,null);
+
+                        Toast.makeText(getActivity(), "BASILDI", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog.Builder mBuilder  = new AlertDialog.Builder(view.getContext());
+                        mBuilder.setView(customView);
+                        final AlertDialog dialog = mBuilder.create();
+                        dialog.show();
+
+                        // Get a reference for the custom view close button
+                        ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+
+                        // Set a click listener for the popup window close button
+                        closeButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Dismiss the popup window
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
 
 
                 //Anında değişme şeysi eklencek
