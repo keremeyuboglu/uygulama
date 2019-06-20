@@ -3,100 +3,92 @@ package com.example.acer.hayditrkiyeleri.TytDersler;
 public class TYTOgrenci {
 
     String Bolum,sinif;
-    float OBP,puan;
-    float turkce,matematik,geometri,fizik,kimya,biyoloji,tarih,cografya,felsefe;
+    double OBP,puan;
+    double turkce,matematik,fizik,kimya,biyoloji,tarih,cografya,felsefe,din;
 
-    public float getPuan() {
+    public double getPuan() {
         return puan;
     }
 
-    public void setPuan(float puan) {
+    public void setPuan(double puan) {
         this.puan = puan;
     }
 
-    public float getTurkce() {
+    public double getTurkce() {
         return turkce;
     }
 
-    public void setTurkce(float turkce) {
+    public void setTurkce(double turkce) {
         this.turkce = turkce;
     }
 
-    public float getMatematik() {
+    public double getMatematik() {
         return matematik;
     }
 
-    public void setMatematik(float matematik) {
+    public void setMatematik(double matematik) {
         this.matematik = matematik;
     }
 
-    public float getGeometri() {
-        return geometri;
-    }
 
-    public void setGeometri(float geometri) {
-        this.geometri = geometri;
-    }
 
-    public float getFizik() {
+    public double getFizik() {
         return fizik;
     }
 
-    public void setFizik(float fizik) {
+    public void setFizik(double fizik) {
         this.fizik = fizik;
     }
 
-    public float getKimya() {
+    public double getKimya() {
         return kimya;
     }
 
-    public void setKimya(float kimya) {
+    public void setKimya(double kimya) {
         this.kimya = kimya;
     }
 
-    public float getBiyoloji() {
+    public double getBiyoloji() {
         return biyoloji;
     }
 
-    public void setBiyoloji(float biyoloji) {
+    public void setBiyoloji(double biyoloji) {
         this.biyoloji = biyoloji;
     }
 
-    public float getTarih() {
+    public double getTarih() {
         return tarih;
     }
 
-    public void setTarih(float tarih) {
+    public void setTarih(double tarih) {
         this.tarih = tarih;
     }
 
-    public float getCografya() {
+    public double getCografya() {
         return cografya;
     }
 
-    public void setCografya(float cografya) {
+    public void setCografya(double cografya) {
         this.cografya = cografya;
     }
 
-    public float getFelsefe() {
+    public double getFelsefe() {
         return felsefe;
     }
 
-    public void setFelsefe(float felsefe) {
+    public void setFelsefe(double felsefe) {
         this.felsefe = felsefe;
     }
 
-    public float getDin() {
+    public double getDin() {
         return din;
     }
 
-    public void setDin(float din) {
+    public void setDin(double din) {
         this.din = din;
     }
 
-    float din;
-
-    public TYTOgrenci(String bolum, String sinif, float OBP) {
+    public TYTOgrenci(String bolum, String sinif, double OBP) {
         Bolum = bolum;
         this.sinif = sinif;
         this.OBP = OBP;
@@ -118,11 +110,11 @@ public class TYTOgrenci {
         this.sinif = sinif;
     }
 
-    public float getOBP() {
+    public double getOBP() {
         return OBP;
     }
 
-    public void setOBP(float OBP) {
+    public void setOBP(double OBP) {
         this.OBP = OBP;
     }
 
@@ -131,7 +123,7 @@ public class TYTOgrenci {
 
     public double tytPuan(){
         double puan = 99.435 + (this.turkce * 3.165325) + ((this.cografya+ this.tarih + this.felsefe + this.din) * 3.60495) +
-                ((this.biyoloji + this.fizik + this.kimya) *3.3464) + ((this.matematik + this.geometri) * 3.472025);
+                ((this.biyoloji + this.fizik + this.kimya) *3.3464) + (this.matematik * 3.472025);
 
         if(this.sinif == "MezunTercih"){
             puan = puan + (this.OBP * 30/100);

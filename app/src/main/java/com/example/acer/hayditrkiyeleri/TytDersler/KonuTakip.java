@@ -1,21 +1,31 @@
 package com.example.acer.hayditrkiyeleri.TytDersler;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
+
+import com.example.acer.hayditrkiyeleri.R;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.ResourceBundle;
+
 public class KonuTakip {
 
-    double turkcenet,matematiknet,geometrinet,biyolojinet,fiziknet,kimyanet,tarihnet,
+    double turkcenet,matematiknet,biyolojinet,fiziknet,kimyanet,tarihnet,
             cografyanet,felsefenet,dinnet;
 
-    public KonuTakip(double turkcenet, double matematiknet, double geometrinet, double biyolojinet, double fiziknet, double kimyanet, double tarihnet, double cografyanet, double felsefenet, double dinnet) {
-        this.turkcenet = turkcenet;
-        this.matematiknet = matematiknet;
-        this.geometrinet = geometrinet;
-        this.biyolojinet = biyolojinet;
-        this.fiziknet = fiziknet;
-        this.kimyanet = kimyanet;
-        this.tarihnet = tarihnet;
-        this.cografyanet = cografyanet;
-        this.felsefenet = felsefenet;
-        this.dinnet = dinnet;
+
+    public KonuTakip(TYTOgrenci tytOgrenci) {
+        this.turkcenet = tytOgrenci.getTurkce();
+        this.matematiknet = tytOgrenci.getMatematik();
+        this.biyolojinet = tytOgrenci.getBiyoloji();
+        this.fiziknet = tytOgrenci.getFizik();
+        this.kimyanet = tytOgrenci.getKimya();
+        this.tarihnet = tytOgrenci.getTarih();
+        this.cografyanet = tytOgrenci.getCografya();
+        this.felsefenet = tytOgrenci.getFelsefe();
+        this.dinnet = tytOgrenci.getDin();
     }
 
     public double getTurkcenet() {
@@ -34,13 +44,7 @@ public class KonuTakip {
         this.matematiknet = matematiknet;
     }
 
-    public double getGeometrinet() {
-        return geometrinet;
-    }
 
-    public void setGeometrinet(double geometrinet) {
-        this.geometrinet = geometrinet;
-    }
 
     public double getBiyolojinet() {
         return biyolojinet;
@@ -98,23 +102,82 @@ public class KonuTakip {
         this.dinnet = dinnet;
     }
 
-    public void turkcetakip(){
-        if(this.turkcenet <= 0){
+    public HashMap<String,String> turkcetakip(HashMap<String , String> hashMap){
 
-        }else if(this.turkcenet > 0 && this.turkcenet < 8){
+
+        if(this.turkcenet > 0 && this.turkcenet < 8){
+
+            hashMap.put("Zarf","Sarı");
+            hashMap.put("Sıfat","Sarı");
+
 
         }else if(this.turkcenet >= 8 && this.turkcenet < 16){
 
         }else if(this.turkcenet >= 16 && this.turkcenet < 24){
 
+            hashMap.put("Sözcük Anlamı","Yeşil");
+            hashMap.put("Yazım Kuralları","Turuncu");
+            hashMap.put("Söz Yorumu","Turuncu");
+            hashMap.put("Noktalama İşaretleri","Turuncu");
+            hashMap.put("Sözcüğün Yapısı","Turuncu");
+            hashMap.put("Cümle Anlamı","Sarı");
+            hashMap.put("Sözcük Türleri","Sarı");
+            hashMap.put("Cümle Yorumu","Sarı");
+            hashMap.put("Sözcük Grupları","Sarı");
+            hashMap.put("Cümlenin Ögeleri","Sarı");
+
+
         }else if(this.turkcenet >= 24 && this.turkcenet < 32){
 
-        }else {
+            hashMap.put("Sözcük Anlamı","Yeşil");
+            hashMap.put("Yazım Kuralları","Yeşil");
+            hashMap.put("Söz Yorumu","Yeşil");
+            hashMap.put("Noktalama İşaretleri","Yeşil");
+            hashMap.put("Sözcüğün Yapısı","Yeşil");
+            hashMap.put("Cümle Anlamı","Sarı");
+            hashMap.put("Sözcük Türleri","Sarı");
+            hashMap.put("Cümle Yorumu","Sarı");
+            hashMap.put("Sözcük Grupları","Sarı");
+            hashMap.put("Cümlenin Ögeleri","Sarı");
+
+
+
+        }else if(this.turkcenet >= 32){
+            hashMap.put("Sözcük Anlamı","Yeşil");
+            hashMap.put("Yazım Kuralları","Yeşil");
+            hashMap.put("Söz Yorumu","Yeşil");
+            hashMap.put("Noktalama İşaretleri","Yeşil");
+            hashMap.put("Sözcüğün Yapısı","Yeşil");
+            hashMap.put("Cümle Anlamı","Yeşil");
+            hashMap.put("Sözcük Türleri","Yeşil");
+            hashMap.put("Cümle Yorumu","Yeşil");
+            hashMap.put("Sözcük Grupları","Yeşil");
+            hashMap.put("Cümlenin Ögeleri","Yeşil");
+            hashMap.put("Paragrafta Yapı","Yeşil");
+            hashMap.put("Cümle Türleri","Yeşil");
+            hashMap.put("Anlatım Bozukluğu","Yeşil");
+            hashMap.put("Ses Bilgisi","Yeşil");
+            hashMap.put("Deyim ve Atasözü","Yeşil");
+            hashMap.put("Paragrafta Anlatım Tekniknleri","Yeşil");
+            hashMap.put("Paragrafta Konu-Ana Düşünce","Yeşil");
+            hashMap.put("Paragrafta Yardımcı Düşünce","Yeşil");
+            hashMap.put("Fiiller","Yeşil");
+
+            /*Iterator it = hashMap.entrySet().iterator();
+            HashMap.Entry keyValue;
+            while (it.hasNext()) {
+                keyValue = (HashMap.Entry)it.next();
+                keyValue.setValue("Yeşil");
+
+                Log.d("Sad","Key" + keyValue.getKey());
+            }*/
+
 
         }
+        return hashMap;
     }
 
-    public void matematiktakip(){
+    public HashMap<String,String> matematiktakip(HashMap<String , String> hashMap){
         if(this.matematiknet <= 0){
 
         }else if(this.matematiknet > 0 && this.matematiknet < 6){
@@ -128,25 +191,13 @@ public class KonuTakip {
         }else {
 
         }
-    }
-
-    public void geometritakip(){
-
-        if(this.geometrinet <= 0){
-
-        }else if(this.geometrinet > 0 && this.geometrinet < 3){
-
-        }else if(this.geometrinet >= 3 && this.geometrinet < 6){
-
-        }else if(this.geometrinet >= 6 && this.geometrinet < 9){
-
-        }else {
-
-        }
+        return hashMap;
 
     }
 
-    public void fiziktakip(){
+
+
+    public HashMap<String,String> fiziktakip(HashMap<String , String> hashMap){
 
         if(this.fiziknet <= 0){
 
@@ -160,9 +211,12 @@ public class KonuTakip {
 
         }
 
+        return hashMap;
+
+
     }
 
-    public void kimyatakip(){
+    public HashMap<String,String> kimyatakip(HashMap<String , String> hashMap){
 
         if(this.kimyanet <= 0){
 
@@ -175,10 +229,11 @@ public class KonuTakip {
         }else {
 
         }
+        return hashMap;
 
     }
 
-    public void biyolojitakip(){
+    public HashMap<String,String> biyolojitakip(HashMap<String , String> hashMap){
 
         if(this.biyolojinet <= 0){
 
@@ -191,10 +246,11 @@ public class KonuTakip {
         }else {
 
         }
+        return hashMap;
 
     }
 
-    public void tarihtakip(){
+    public HashMap<String,String> tarihtakip(HashMap<String , String> hashMap){
 
         if(this.tarihnet <= 0){
 
@@ -207,10 +263,11 @@ public class KonuTakip {
         }else {
 
         }
+        return hashMap;
 
     }
 
-    public void cografyatakip(){
+    public HashMap<String,String> cografyatakip(HashMap<String , String> hashMap){
 
         if(this.cografyanet <= 0){
 
@@ -223,10 +280,11 @@ public class KonuTakip {
         }else {
 
         }
+        return hashMap;
 
     }
 
-    public void felsefetakip(){
+    public HashMap<String,String> felsefetakip(HashMap<String , String> hashMap){
 
         if(this.felsefenet <= 0){
 
@@ -239,10 +297,11 @@ public class KonuTakip {
         }else {
 
         }
+        return hashMap;
 
     }
 
-    public void dintakip(){
+    public HashMap<String,String> dintakip(HashMap<String , String> hashMap){
 
         if(this.dinnet <= 0){
 
@@ -255,6 +314,7 @@ public class KonuTakip {
         }else {
 
         }
+        return hashMap;
 
     }
 

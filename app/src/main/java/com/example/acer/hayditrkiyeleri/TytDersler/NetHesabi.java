@@ -1,12 +1,15 @@
 package com.example.acer.hayditrkiyeleri.TytDersler;
 
+import android.util.Log;
+
 public class NetHesabi {
 
     // Gelmesi gereken veriler:
     // Deneme sayisi
     // Deneme netleri (her bir ders/konu için ayrı ayrı)
 
-    public int dersneti(int denemesayisi, int[][] netler){
+    public double dersneti(int denemesayisi, double[][] netler){
+
 
 
         // Doğru - yanlış/4
@@ -30,7 +33,7 @@ public class NetHesabi {
             return ((netler[0][0] - (netler[0][1]/4)) * 15/100) + ((netler[1][0] - (netler[1][1]/4)) * 20/100) + ((netler[2][0] - (netler[2][1]/4)) * 25/100) + ((netler[3][0] - (netler[3][1]/4)) * 40/100);
 
         }else {
-            int x = 7;
+            int x = denemesayisi;
             return ((netler[x-5][0] - (netler[x-5][1]/4)) * 10/100) + ((netler[x-4][0] - (netler[x-4][1]/4)) * 15/100) + ((netler[x-3][0] - (netler[x-3][1]/4)) * 20/100) + ((netler[x-2][0] - (netler[x-2][1]/4)) * 25/100) + ((netler[x-1][0] - (netler[x-1][1]/4)) * 30/100);
         }
 
@@ -52,7 +55,6 @@ public class NetHesabi {
 
             int ortalama = ((netler[0][0] - netler[0][1])/(netler[0][0])) * 40/100 + ((netler[1][0] - netler[1][1])/(netler[1][0])) * 60/100;
             int onceki_ortalama = ((netler[0][0] - netler[0][1])/(netler[0][0]));
-
             return (ortalama + onceki_ortalama) /2;
 
         }else if(denemesayisi == 3){
@@ -70,7 +72,7 @@ public class NetHesabi {
             return (ortalama + onceki_ortalama) /2;
 
         }else {
-            int x = 7;
+            int x = denemesayisi;
             int ortalama = ((netler[x-5][0] - netler[x-5][1])/(netler[x-5][0])) * 10/100 + ((netler[x-4][0] - netler[x-4][1])/(netler[x-4][0])) * 15/100 + ((netler[x-3][0] - netler[x-3][1])/(netler[x-3][0])) * 20/100 + ((netler[x-2][0] - netler[x-2][1])/(netler[x-2][0])) * 25/100 + ((netler[x-1][0] - netler[x-1][1])/(netler[x-1][0])) * 30/100;
             int onceki_ortalama = ((netler[x-5][0] - netler[x-5][1])/(netler[x-5][0])) * 15/100 + ((netler[x-4][0] - netler[x-4][1])/(netler[x-4][0])) * 20/100 + ((netler[x-3][0] - netler[x-3][1])/(netler[x-3][0])) * 25/100 + ((netler[x-2][0] - netler[x-2][1])/(netler[x-2][0])) * 40/100;
 
@@ -108,7 +110,7 @@ public class NetHesabi {
             return ortalama ;
 
         }else {
-            int x = 7;
+            int x = denemesayisi;
             int ortalama = ((netler[x-5][0] - netler[x-5][1])/(netler[x-5][0])) * 10/100 + ((netler[x-4][0] - netler[x-4][1])/(netler[x-4][0])) * 15/100 + ((netler[x-3][0] - netler[x-3][1])/(netler[x-3][0])) * 20/100 + ((netler[x-2][0] - netler[x-2][1])/(netler[x-2][0])) * 25/100 + ((netler[x-1][0] - netler[x-1][1])/(netler[x-1][0])) * 30/100;
 
             return ortalama ;
