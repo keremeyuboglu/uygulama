@@ -77,6 +77,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
         Repository repo=new Repository();
         repo.setDao(((ThisApplication)getActivity().getApplication()).get_dao());
         viewModel.set_repo(repo);
+        viewModel.setDeneme(deneme);
 
         // Creating the primary recycler view adapter
         PrimaryAdapter adapter = new PrimaryAdapter();
@@ -137,6 +138,8 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                     }
 
                     veriler.trimToSize();
+
+                    DenemeEntity deneme=viewModel.getDeneme();
                     deneme.setVeriler_konu(veriler);
 
                     if(mutableLiveData == null){

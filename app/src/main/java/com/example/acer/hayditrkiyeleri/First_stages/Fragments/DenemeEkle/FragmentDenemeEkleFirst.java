@@ -95,7 +95,12 @@ public class FragmentDenemeEkleFirst extends Fragment {
     }
 
     public void setPopUp(int popUpNum){
+
+        viewModel.reset_items(); //Itemlar gene önceki girildiği hali ile kalmasın diye
+
         if(popUpNum == 1){
+
+            //Ayrıntılı girilecek
 
             //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
             new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
@@ -111,6 +116,9 @@ public class FragmentDenemeEkleFirst extends Fragment {
             fragmentTransaction.commit();
 
         } else {
+
+            //Ayrıntısız
+
             int deneme_id=(rv_items_signup.size());
 
            /*
