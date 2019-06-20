@@ -151,6 +151,7 @@ public class FragmentSignupFourth extends Fragment {
                     mBundle.putInt("kalan",ders - 1); // Teker teker dersler :ddd
                     FragmentSignupFourth newGamefragment = new FragmentSignupFourth();
                     newGamefragment.setArguments(mBundle);
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
                     fragmentTransaction.commit();
                 }
@@ -229,6 +230,4 @@ public class FragmentSignupFourth extends Fragment {
             return mMovieGenre.length;
         }
     }
-
-
 }
