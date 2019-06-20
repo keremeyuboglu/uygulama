@@ -284,8 +284,6 @@ public class FragmentSignupThird extends Fragment {
             }
         }
     }
-
-
 }
 
 
