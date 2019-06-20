@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="turkce">
+        <item>Sözcük Anlamı</item>
+        <item>Yazım Kuralları</item>
+        <item>Söz Yorumu</item>
+        <item>Noktalama İşaretleri</item>
+        <item>Sözcüğün Yapısı</item>
+        <item>Cümle Anlamı</item>
+        <item>Sözcük Türleri</item>
+        <item>Cümle Yorumu</item>
+        <item>Sözcük Grupları</item>
+        <item>Cümlenin Ögeleri</item>
+        <item>Paragrafta Yapı</item>
+        <item>Cümle Türleri</item>
+        <item>Anlatım Bozukluğu</item>
+        <item>Ses Bilgisi</item>
+        <item>Deyim ve Atasözü</item>
+        <item>Paragrafta Anlatım Tekniknleri</item>
+        <item>Paragrafta Konu-Ana Düşünce</item>
+        <item>Paragrafta Yardımcı Düşünce</item>
+        <item>Fiiller</item>
+        <item>Sayılar</item>
+        <item>Problemler</item>
+        <item>Fonskiyonlar</item>
+        <item>Permütasyon</item>
+        <item>Kombinasyon</item>
+        <item>Binom</item>
+        <item>Olasılık</item>
+        <item>İstatistik</item>
+        <item>Polinomlar</item>
+        <item>Çokgenler</item>
+        <item>Dörtgenler</item>
+        <item>Yamuk</item>
+        <item>Paralelkenar</item>
+        <item>Sayı Basamakları</item>
+        <item>Rasyonel Sayılar</item>
+        <item>Basit Eşitsizlikler</item>
+        <item>Mutlak Değer</item>
+        <item>Üslü Sayılar</item>
+        <item>Köklü Sayılar</item>
+        <item>Çarpanlara Ayırma</item>
+        <item>Karmaşık Sayılar</item>
+        <item>Oran Orantı</item>
+        <item>Denklem Çözme</item>
+        <item>Üçgende Alanlar</item>
+        <item>Kümeler-Kartezyen Çarpım</item>
+        <item>Dikdörtgen</item>
+        <item>Daire</item>
+        <item>Prizmalar</item>
+        <item>Piramitler</item>
+        <item>Küre</item>
+        <item>Çemberde Açılar</item>
+        <item>Çemberde Uzunluk</item>
+        <item>Doğrunun Analitiği</item>
+        <item>Bölme ve Bölünebilme</item>
+        <item>OBEB-OKEK</item>
+        <item>2.Dereceden Denklemler</item>
+        <item>ve Üçgende Açılar</item>
+        <item>ve Özel Üçgenler</item>
+        <item>Üçgende Trigonemetrik Bağıntılar</item>
+        <item>ve Eşkenar Üçgen</item>
+        <item>Üçgende Açıortay Bağıntıları</item>
+        <item>Üçgende Kenarortay Bağıntıları</item>
+        <item>Eşlik ve Benzerlik</item>
+        <item>Açı-Kenar Bağıntıları</item>
+        <item>Dörtgen – Deltoid</item>
+        <item>ve Noktanın Analitiği</item>
+        <item>ve Yansıyan Şekiller</item>
+        <item>Gixcxcriş</item>
+        <item>Özelcccclikleri</item>
+        <item>Kuvcxcvet</item>
+        <item>Enexcrji</item>
+        <item>Sıcaxcxklık</item>
+        <item>Elektrostatik</item>
+        <item>Manyetizma</item>
+        <item>Kuvveti</item>
+        <item>Dalgalar</item>
+        <item>Optik</item>
+        <item>Bilimi</item>
+        <item>Sistem</item>
+        <item>Teorisi</item>
+        <item>Tepkimeler</item>
+        <item>Hesaplamalar</item>
+        <item>Tuz</item>
+        <item>Halleri</item>
+        <item>Gazlar</item>
+        <item>Karışımlar</item>
+        <item>Enerji</item>
+        <item>Yerde</item>
+        <item>Bilimi</item>
+        <item>Bileşenler</item>
+        <item>İşlevi</item>
+        <item>Sınıflandırması</item>
+        <item>Üreme</item>
+        <item>Sistemi</item>
+        <item>Kalıtım</item>
+        <item>Uygulamaları</item>
+        <item>Ekolojisi</item>
+        <item>Dünyamız</item>
+        <item>Dönüşümü</item>
+        <item>Solunum</item>
+        <item>Sistemler)</item>
+        <item>Bilimi</item>
+        <item>Uygaaaarlıklar</item>
+        <item>Devletaaaaleri</item>
+        <item>Uygarlığı</item>
+        <item>Devletleri</item>
+        <item>Tarihi</item>
+        <item>1453)</item>
+        <item>1600)</item>
+        <item>Yüzyıasdl)</item>
+        <item>Yüzyaaaıl)</item>
+        <item>1922)</item>
+        <item>Devleti</item>
+        <item>Dönemi</item>
+        <item>Cepheler</item>
+        <item>İnkılabı</item>
+        <item>İlkeleri</item>
+        <item>Politikası</item>
+        <item>İnsan</item>
+        <item>Hareketleri</item>
+        <item>Konum</item>
+        <item>Bilagisi</item>
+        <item>Bilgasdisi</item>
+        <item>Şekillenmesi</item>
+        <item>Varlıkasdları</item>
+        <item>Yapı</item>
+        <item>Niteliği</item>
+        <item>Sonuçları</item>
+        <item>Tarzları</item>
+        <item>Özellikleri</item>
+        <item>Özelliasdkleri</item>
+        <item>Varlıkları</item>
+        <item>Göç</item>
+        <item>Sınırları</item>
+        <item>Etkileşim</item>
+        <item>Keşifler</item>
+        <item>Etkileşim</item>
+        <item>Afetler</item>
+        <item>Konusasdu</item>
+        <item>Felesefesi</item>
+        <item>Feelsefesi</item>
+        <item>Felseefesi</item>
+        <item>Felsefeesi</item>
+        <item>Felsefeswi</item>
+        <item>Felsefesai</item>
+        <item>Felsefessi</item>
+        <item>Kavranmawsı</item>
+        <item>Din</item>
+        <item>İbadetler</item>
+        <item>Mezhepler</item>
+        <item>Anlama.</item>
+        <item>Barış</item>
+        <item>Özellikleri</item>
+    </string-array>
+</resources>
