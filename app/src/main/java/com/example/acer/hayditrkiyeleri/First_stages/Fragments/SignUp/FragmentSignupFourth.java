@@ -139,6 +139,7 @@ public class FragmentSignupFourth extends Fragment {
                             FragmentSignupFifth newGamefragment = new FragmentSignupFifth();
                             fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
                             fragmentTransaction.commit();
+                            fragmentTransaction.addToBackStack(null);
                             dialog.dismiss();
                         }
                     });
