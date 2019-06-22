@@ -55,7 +55,7 @@ public class FragmentSignupFifth extends Fragment {
         View v = inflater.inflate(R.layout.fragment_signup5, container, false);
 
 
-        SignUpThirdViewModel viewModel = ViewModelProviders.of(getActivity()).get(SignUpThirdViewModel.class); //Initilazing viewModel
+        SignUpThirdViewModel viewModel = ViewModelProviders.of(this).get(SignUpThirdViewModel.class); //Initilazing viewModel
         Repository myRepo = new Repository();
         myRepo.setDao(((ThisApplication) getActivity().getApplication()).get_dao());
         viewModel.setMyRepo(myRepo);
