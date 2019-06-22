@@ -59,20 +59,15 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ScrollView
-            android:id="@+id/scroll_recycler"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RV_deneme_kayit"
             android:layout_width="match_parent"
-            android:layout_height="240dp">
+            android:layout_height="200dp"
+            tools:itemCount="2"
+            tools:listitem="@layout/fragment_signup3_deneme_item">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RV_deneme_kayit"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                tools:itemCount="2"
-                tools:listitem="@layout/fragment_signup3_deneme_item">
+        </androidx.recyclerview.widget.RecyclerView>
 
-            </androidx.recyclerview.widget.RecyclerView>
-        </ScrollView>
         <Button
             android:id="@+id/son"
             android:layout_marginTop="10dp"

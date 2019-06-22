@@ -275,6 +275,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
             holder.dogru.setValue(simdiki_dogru);
 
             holder.yanlis.setValue(simdiki_yanlis);
+            holder.yanlis.setMaxValue(toplam_soru_sayi-simdiki_dogru);
 
         }
 

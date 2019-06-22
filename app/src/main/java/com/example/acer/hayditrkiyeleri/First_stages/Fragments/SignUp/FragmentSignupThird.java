@@ -26,6 +26,7 @@ import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Stat;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.First_stages.ActivitySignup;
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentDenemeEkleFirst;
 import com.example.acer.hayditrkiyeleri.FragmentMenuDenemeGoster;
 import com.example.acer.hayditrkiyeleri.R;
@@ -40,6 +41,8 @@ import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpThirdViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static android.content.ContentValues.TAG;
 
 public class FragmentSignupThird extends Fragment {
 
@@ -214,8 +217,22 @@ public class FragmentSignupThird extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
-        ScrollView mScroll = v.findViewById(R.id.scroll_recycler);
+ //       ScrollView mScroll = v.findViewById(R.id.scroll_recycler);
 
+        int scroll = ((ActivitySignup) getActivity()).getScroll();
+        if(scroll == 0){
+            recyclerView.setVisibility(View.GONE);
+        }
+        else if(scroll == 1){
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.getLayoutParams().height = 200;
+        }
+        else if(scroll == 2){
+            recyclerView.getLayoutParams().height = 400;
+        }
+        else{
+            recyclerView.getLayoutParams().height = 600;
+        }
         return v;
 
 
@@ -251,6 +268,8 @@ public class FragmentSignupThird extends Fragment {
         public void onBindViewHolder(@NonNull DenemelerAdapter.DenemelerViewHolder holder, int position) {
 
             Item_Denemelerim item = items.get(position);
+
+            Log.d(TAG, "onBindViewHolder: " + items.size());
 
             holder.btn.setText(item.getDeneme_isim());
         }

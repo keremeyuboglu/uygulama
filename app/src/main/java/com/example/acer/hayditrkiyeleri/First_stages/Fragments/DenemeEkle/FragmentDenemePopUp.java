@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.acer.hayditrkiyeleri.First_stages.ActivitySignup;
 import com.example.acer.hayditrkiyeleri.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,6 +41,8 @@ public class FragmentDenemePopUp extends DialogFragment implements View.OnClickL
             dismiss();
 
         }else{
+            ((ActivitySignup) getActivity()).setScroll();
+            ((ActivitySignup) getActivity()).setScrollayt();
             EventBus.getDefault().post(new EventTransfer.popUp(0));
             dismiss();
         }

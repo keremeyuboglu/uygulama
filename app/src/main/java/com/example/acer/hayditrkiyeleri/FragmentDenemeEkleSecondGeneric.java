@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.First_stages.ActivitySignup;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_inner;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_outer;
 import com.example.acer.hayditrkiyeleri.Util.ViewModels.DenemeEkle2ViewModel;
@@ -101,7 +102,8 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             @Override
             public void onClick(View v) {
 
-
+                ((ActivitySignup) getActivity()).setScroll();
+                ((ActivitySignup) getActivity()).setScrollayt();
 
                 MyTask task=new MyTask(()->{
 

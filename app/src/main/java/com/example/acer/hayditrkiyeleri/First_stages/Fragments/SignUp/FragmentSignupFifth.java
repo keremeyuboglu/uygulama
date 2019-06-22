@@ -25,6 +25,7 @@ import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Stat;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.First_stages.ActivitySignup;
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentDenemeEkleFirst;
 import com.example.acer.hayditrkiyeleri.FragmentMenuDenemeGoster;
 import com.example.acer.hayditrkiyeleri.R;
@@ -214,7 +215,20 @@ public class FragmentSignupFifth extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
-
+        int scroll = ((ActivitySignup) getActivity()).getScrollayt();
+        if(scroll == 0){
+            recyclerView.setVisibility(View.GONE);
+        }
+        else if(scroll == 1){
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.getLayoutParams().height = 200;
+        }
+        else if(scroll == 2){
+            recyclerView.getLayoutParams().height = 400;
+        }
+        else{
+            recyclerView.getLayoutParams().height = 600;
+        }
         return v;
 
 
