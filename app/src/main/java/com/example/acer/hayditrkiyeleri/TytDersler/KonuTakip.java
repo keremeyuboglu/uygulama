@@ -8,6 +8,7 @@ import com.example.acer.hayditrkiyeleri.R;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 
 public class KonuTakip {
@@ -102,7 +103,7 @@ public class KonuTakip {
         this.dinnet = dinnet;
     }
 
-    public HashMap<String,String> turkcetakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String, String> turkcetakip(LinkedHashMap<String, String> hashMap){
 
 
         if(this.turkcenet > 0 && this.turkcenet < 8){
@@ -177,7 +178,7 @@ public class KonuTakip {
         return hashMap;
     }
 
-    public HashMap<String,String> matematiktakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> matematiktakip(LinkedHashMap<String, String> hashMap){
         if(this.matematiknet <= 0){
 
         }else if(this.matematiknet > 0 && this.matematiknet < 6){
@@ -197,7 +198,7 @@ public class KonuTakip {
 
 
 
-    public HashMap<String,String> fiziktakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> fiziktakip(LinkedHashMap<String, String> hashMap){
 
         if(this.fiziknet <= 0){
 
@@ -216,7 +217,7 @@ public class KonuTakip {
 
     }
 
-    public HashMap<String,String> kimyatakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> kimyatakip(LinkedHashMap<String, String> hashMap){
 
         if(this.kimyanet <= 0){
 
@@ -233,7 +234,7 @@ public class KonuTakip {
 
     }
 
-    public HashMap<String,String> biyolojitakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> biyolojitakip(LinkedHashMap<String, String> hashMap){
 
         if(this.biyolojinet <= 0){
 
@@ -250,7 +251,7 @@ public class KonuTakip {
 
     }
 
-    public HashMap<String,String> tarihtakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> tarihtakip(LinkedHashMap<String, String> hashMap){
 
         if(this.tarihnet <= 0){
 
@@ -267,7 +268,7 @@ public class KonuTakip {
 
     }
 
-    public HashMap<String,String> cografyatakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> cografyatakip(LinkedHashMap<String, String> hashMap){
 
         if(this.cografyanet <= 0){
 
@@ -284,7 +285,7 @@ public class KonuTakip {
 
     }
 
-    public HashMap<String,String> felsefetakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> felsefetakip(LinkedHashMap<String, String> hashMap){
 
         if(this.felsefenet <= 0){
 
@@ -301,7 +302,7 @@ public class KonuTakip {
 
     }
 
-    public HashMap<String,String> dintakip(HashMap<String , String> hashMap){
+    public LinkedHashMap<String,String> dintakip(LinkedHashMap<String, String> hashMap){
 
         if(this.dinnet <= 0){
 

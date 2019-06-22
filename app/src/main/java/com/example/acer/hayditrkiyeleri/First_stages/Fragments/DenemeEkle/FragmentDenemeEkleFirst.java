@@ -192,7 +192,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
 
                     // create popUpFragment for Karekok
                     FragmentKarekokPopUp fragmentKarekokPopUp = new FragmentKarekokPopUp();
-                    fragmentKarekokPopUp.show(getFragmentManager(),"karekok");
+                    fragmentKarekokPopUp.show(getChildFragmentManager(),"karekok");
                 }
             }
         });

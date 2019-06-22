@@ -2,7 +2,9 @@ package com.example.acer.hayditrkiyeleri.First_stages.Fragments.SignUp;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,34 +27,70 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.acer.hayditrkiyeleri.DersBilgileri.Ders_Bilgi;
 import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
+import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.EventTransfer;
 import com.example.acer.hayditrkiyeleri.MainActivity;
 import com.example.acer.hayditrkiyeleri.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class FragmentSignupFourth extends Fragment {
 
+    private int globalVariableforEventBus,checkfonks;
+    HashMap<String,String> hashMap;
+    Resources resources;
     private RecyclerView mPrimaryRecyclerView;
-    private String[] mDersler, mKonular;
+    private String[] mDersler, mKonular,array;
     public int ders;
+    private int[] arr;
+    private int startPoint,stopPoint;
 
+
+//Eventbusa giriş
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        EventBus.getDefault().register(this);
+
+    }
+
+    //Eventbustan çıkış
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+
+    //hashmap transferi
+    @Subscribe (sticky = true)
+    public void holdingKonuIcerigi(EventTransfer.konuIcerigi konuIcerigi){
+        //buraya global bir int koyup sürekşi veri akışını keseceğim
+        hashMap = konuIcerigi.getHashMap();
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        resources = getResources();
+        mKonular = resources.getStringArray(R.array.turkce);
+        checkfonks = 1;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             ders = bundle.getInt("kalan");
-
         }
-        else
-            ders = TYT_Bilgi.getDersSayisi();
+        else{
+            ders = 10;
+        }
 
-        Log.d(TAG, "onCreate: " + ders);
 
         mDersler = new String[]{
-                "Biyoloji","Kimya", "Fizik",  "Geometri", "Matematik",  "Din","Felsefe", "Coğrafya" , "Tarih", "Türkçe"
+                "Din","Felsefe", "Coğrafya",  "Tarih", "Biyoloji",  "Kimya","Fizik", "Geometri" , "Matematik", "Türkçe"
         };
 
         setRetainInstance(true);
@@ -62,14 +100,77 @@ public class FragmentSignupFourth extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_signup4, container, false);
         TextView ders_ismi = view.findViewById(R.id.soru_row);
         ders_ismi.setText(mDersler[ders-1]);
 
+        // Hangi dersin arrayde hangi aralıkta olduğu [konuisimleri.xml]
+        switch (ders){
+            case 10 :
+                startPoint = 0;
+                stopPoint = 18;
+                break;
+            case 9 :
+                startPoint = 19;
+                stopPoint = 32;
+                break;
+            case 8 :
+                startPoint = 33;
+                stopPoint = 39;
+                break;
+            case 7 :
+                startPoint = 40;
+                stopPoint = 47;
+                break;
+            case 6 :
+                startPoint = 48;
+                stopPoint = 58;
+                break;
+            case 5 :
+                startPoint = 59;
+                stopPoint = 72;
+                break;
+            case 4 :
+                startPoint = 73;
+                stopPoint = 82;
+                break;
+            case 3 :
+                startPoint = 83;
+                stopPoint = 91;
+                break;
+            case 2 :
+                startPoint = 91;
+                stopPoint = 105;
+                break;
+            case 1 :
+                startPoint = 106;
+                stopPoint = 111;
+                break;
+        }
 
-        Ders_Bilgi dersim = TYT_Bilgi.get_dersbilgi(mDersler[ders - 1]);
 
-        String[] array = dersim.getKonu_isimler().toArray(new String[dersim.getKonu_isimler().size()]);
+        // iki array yaratıyorum biri String biri int olacak şekilde
+        // String konu isimlerini tutacak
+        // Int olan da renk kodlarını (Kırmızıysa 0, Yeşilse 3 falan
+        array = new String[stopPoint-startPoint+1];
+        arr = new int[stopPoint-startPoint+1];
+        for(int i = 0; i < array.length ; i++ ){
+
+            // Tek tek konuları aldık, hashmapten renk kodlarını da alıp arr arrayine koyduk
+            array[i] = mKonular[i+startPoint];
+            String temp = hashMap.get(mKonular[i+startPoint]);
+            if(temp == "Kırmızı")
+                arr[i] = 0;
+            else if(temp == "Turuncu")
+                arr[i] = 1;
+            else if(temp == "Sarı")
+                arr[i] = 2;
+            else
+                arr[i] = 3;
+        }
+
+
         // Creating the primary recycler view adapter
         PrimaryAdapter adapter = new PrimaryAdapter(array);
 
@@ -90,6 +191,7 @@ public class FragmentSignupFourth extends Fragment {
             public void onClick(View v) {
 
 
+                // Burayı da fragmentDialog yapacağım
                 if(ders == 1) {
 
                     // Initialize a new instance of LayoutInflater service
@@ -171,30 +273,45 @@ public class FragmentSignupFourth extends Fragment {
         public PrimaryViewHolder(View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.soru_item);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Aq", Toast.LENGTH_SHORT).show();
-                    if(state == 0){
-                        v.findViewById(R.id.signup4konu).setBackgroundColor(Color.parseColor("#E52E00")); // Green
-                        state = 1;}
-                    else if(state == 1) {
-                        v.findViewById(R.id.signup4konu).setBackgroundColor(Color.parseColor("#DB8D00")); // Red  #AC5200
-                        state = 2;
-                    }
-                    else if(state == 2) {
-                        v.findViewById(R.id.signup4konu).setBackgroundColor(Color.parseColor("#BFD200"));
-                        state = 3;
-                    }else{
-                        v.findViewById(R.id.signup4konu).setBackgroundColor(Color.parseColor("#04BF00")); // Green
-                        state = 0;}
-                }
-            });
         }
 
         // This get called in PrimaryAdapter onBindViewHolder method
         public void bindViews(String genre, int position) {
+
+            // Texti al setle
             mTextView.setText(genre);
+
+            // Arrda koyduğum renk değerlerine göre background ata
+             if(arr[position] == 0)
+                 mTextView.setBackgroundColor(Color.parseColor("#E52E00"));
+             else if(arr[position] == 1)
+                 mTextView.setBackgroundColor(Color.parseColor("#DB8D00"));
+             else if(arr[position] == 2)
+                 mTextView.setBackgroundColor(Color.parseColor("#BFD200"));
+             else
+                 mTextView.setBackgroundColor(Color.parseColor("#04BF00"));
+
+
+             // textviewa her tıklandığında rengi değiştir ve arr değerini
+            // değiştir bu sayede yukarı aşağı yaptığımızda listedeki rnekler değişmeyecek
+            mTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(arr[position] == 0){
+                        mTextView.setBackgroundColor(Color.parseColor("#DB8D00")); // Green
+                        arr[position] = 1;}
+                    else if(arr[position] == 1) {
+                        mTextView.setBackgroundColor(Color.parseColor("#BFD200")); // Green
+                        arr[position] = 2;
+                    }
+                    else if(arr[position] == 2) {
+                        mTextView.setBackgroundColor(Color.parseColor("#04BF00")); // Red  #AC5200
+                        arr[position] = 3;
+                    }else{
+                        mTextView.setBackgroundColor(Color.parseColor("#E52E00"));
+                        arr[position] = 0;}
+                }
+            });
         }
     }
 
@@ -203,26 +320,20 @@ public class FragmentSignupFourth extends Fragment {
 
         public PrimaryAdapter(String[] moviesGenre) {
             mMovieGenre = moviesGenre;
-
         }
 
         @NonNull
         @Override
         public PrimaryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
-            //     Log.d(TAG, "onClick: onCreateViewHolder");
             View view = inflater.inflate(R.layout.fragment_signup4_konu, parent, false);
             return new PrimaryViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(final PrimaryViewHolder holder, final int position) {
-            //     Log.d(TAG, "onClick: onBindViewHolderPrimary");
-
-
             String genre = mMovieGenre[position];
             holder.bindViews(genre, position);
-
         }
 
         @Override

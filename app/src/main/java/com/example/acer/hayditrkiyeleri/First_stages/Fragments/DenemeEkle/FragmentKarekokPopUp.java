@@ -1,6 +1,7 @@
 package com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,14 +54,12 @@ public class FragmentKarekokPopUp extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dismiss();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Toast.makeText(getContext(), "Yayınevi cooperation inbound", Toast.LENGTH_SHORT).show();
                 FragmentDenemeEkleSecondKarekok newGamefragment = new FragmentDenemeEkleSecondKarekok();
-                fragmentTransaction.replace(R.id.deneme_container, newGamefragment);
+                fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                dismiss();
-
             }
         });
 

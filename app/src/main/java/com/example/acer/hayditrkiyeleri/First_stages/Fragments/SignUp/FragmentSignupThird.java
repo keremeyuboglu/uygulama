@@ -25,6 +25,7 @@ import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Stat;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.EventTransfer;
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentDenemeEkleFirst;
 import com.example.acer.hayditrkiyeleri.FragmentMenuDenemeGoster;
 import com.example.acer.hayditrkiyeleri.R;
@@ -37,8 +38,11 @@ import com.example.acer.hayditrkiyeleri.Util.RVItemGenerator;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.Denemelerim.Item_Denemelerim;
 import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpThirdViewModel;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class FragmentSignupThird extends Fragment {
 
@@ -140,7 +144,7 @@ public class FragmentSignupThird extends Fragment {
                 };
 
                 NetHesabi netHesabi = new NetHesabi();
-                tytOgrenci.setTurkce(39);
+                tytOgrenci.setTurkce(30);
                 tytOgrenci.setMatematik(30.5);
                 tytOgrenci.setFizik(4.25);
                 tytOgrenci.setKimya(0);
@@ -152,10 +156,10 @@ public class FragmentSignupThird extends Fragment {
 
                 Resources resources = getResources();
                 String[] arrayTurkce = resources.getStringArray(R.array.turkce);
-                HashMap<String, String> hashMapDersler = new HashMap<String, String>();
+                LinkedHashMap<String,String> hashMapDersler= new LinkedHashMap<String, String>();
 
                 for (int i = 0; i < arrayTurkce.length; i++) {
-                    hashMapDersler.put(arrayTurkce[i], "Kırmızı");
+                    hashMapDersler.put(arrayTurkce[i],"Kırmızı");
                 }
 
 
@@ -171,7 +175,8 @@ public class FragmentSignupThird extends Fragment {
                 hashMapDersler = konuTakip.felsefetakip(hashMapDersler);
                 hashMapDersler = konuTakip.dintakip(hashMapDersler);
 
-                Log.d("Sad", "Key is " + hashMapDersler.get("Sözcük Anlamı"));
+
+                EventBus.getDefault().postSticky(new EventTransfer.konuIcerigi(hashMapDersler));
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.signupContainer, new FragmentSignupFourth());
                 fragmentTransaction.addToBackStack(null);
