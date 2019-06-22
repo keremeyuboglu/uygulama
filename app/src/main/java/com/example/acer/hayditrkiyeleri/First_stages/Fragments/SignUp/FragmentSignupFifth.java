@@ -40,6 +40,7 @@ import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpThirdViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static android.content.ContentValues.TAG;
 
@@ -183,7 +184,7 @@ public class FragmentSignupFifth extends Fragment {
 
         });
 
-
+        AtomicInteger tane = new AtomicInteger();
         RecyclerView recyclerView = v.findViewById(R.id.ayt_RV_deneme_kayit);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -196,6 +197,7 @@ public class FragmentSignupFifth extends Fragment {
             ArrayList<Item_Denemelerim> items = RVItemGenerator.pump_Item_denemelerim(denemeEntities);
             adapter.setItems(items);
             adapter.notifyDataSetChanged();
+            tane.set(items.size());
         });
 
 
@@ -215,7 +217,8 @@ public class FragmentSignupFifth extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
-        int scroll = ((ActivitySignup) getActivity()).getScrollayt();
+        int scroll = tane.intValue();
+
         if(scroll == 0){
             recyclerView.setVisibility(View.GONE);
         }
@@ -230,8 +233,6 @@ public class FragmentSignupFifth extends Fragment {
             recyclerView.getLayoutParams().height = 600;
         }
         return v;
-
-
     }
 
 

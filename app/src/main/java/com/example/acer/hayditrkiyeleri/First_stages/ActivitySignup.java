@@ -15,8 +15,6 @@ import com.example.acer.hayditrkiyeleri.R;
 public class ActivitySignup extends AppCompatActivity {
 
     private UserInfo userinfo= new UserInfo();
-    private int scrolltyt = 0;
-    private int scrollayt = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,19 +36,4 @@ public class ActivitySignup extends AppCompatActivity {
     }
 
     void signupend(View view){} //Must be implemented
-
-    public int getScroll(){
-        return scrolltyt;
-    }
-    public void setScroll(){
-        scrolltyt = scrolltyt + 1;
-    }
-
-    public int getScrollayt() {
-        return scrollayt;
-    }
-
-    public void setScrollayt() {
-        scrollayt = scrollayt + 1;
-    }
 }

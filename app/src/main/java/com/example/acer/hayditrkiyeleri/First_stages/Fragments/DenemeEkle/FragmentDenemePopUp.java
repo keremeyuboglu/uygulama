@@ -41,8 +41,6 @@ public class FragmentDenemePopUp extends DialogFragment implements View.OnClickL
             dismiss();
 
         }else{
-            ((ActivitySignup) getActivity()).setScroll();
-            ((ActivitySignup) getActivity()).setScrollayt();
             EventBus.getDefault().post(new EventTransfer.popUp(0));
             dismiss();
         }

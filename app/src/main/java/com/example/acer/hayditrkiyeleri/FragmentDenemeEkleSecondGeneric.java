@@ -102,9 +102,6 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ((ActivitySignup) getActivity()).setScroll();
-                ((ActivitySignup) getActivity()).setScrollayt();
-
                 MyTask task=new MyTask(()->{
 
                     final int huge_number=300;

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +40,7 @@ import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpThirdViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static android.content.ContentValues.TAG;
 
@@ -185,7 +185,7 @@ public class FragmentSignupThird extends Fragment {
 
         });
 
-
+        AtomicInteger tane = new AtomicInteger();
         RecyclerView recyclerView = v.findViewById(R.id.RV_deneme_kayit);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -198,6 +198,7 @@ public class FragmentSignupThird extends Fragment {
             ArrayList<Item_Denemelerim> items = RVItemGenerator.pump_Item_denemelerim(denemeEntities);
             adapter.setItems(items);
             adapter.notifyDataSetChanged();
+            tane.set(items.size());
         });
 
 
@@ -219,7 +220,10 @@ public class FragmentSignupThird extends Fragment {
 
  //       ScrollView mScroll = v.findViewById(R.id.scroll_recycler);
 
-        int scroll = ((ActivitySignup) getActivity()).getScroll();
+        Log.d(TAG, "onCreateView: "+ tane);
+
+        int scroll = tane.intValue();
+
         if(scroll == 0){
             recyclerView.setVisibility(View.GONE);
         }
