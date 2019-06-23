@@ -2,7 +2,6 @@ package com.example.acer.hayditrkiyeleri.First_stages.Fragments.SignUp;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +42,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FragmentSignupThird extends Fragment {
 
@@ -185,8 +185,8 @@ public class FragmentSignupThird extends Fragment {
 
 
         });
-
-
+        AtomicInteger mReyclerViewSize = new AtomicInteger();
+        int mReyclerViewSizeInt;
         RecyclerView recyclerView = v.findViewById(R.id.RV_deneme_kayit);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -199,7 +199,20 @@ public class FragmentSignupThird extends Fragment {
             ArrayList<Item_Denemelerim> items = RVItemGenerator.pump_Item_denemelerim(denemeEntities);
             adapter.setItems(items);
             adapter.notifyDataSetChanged();
+            mReyclerViewSize.set(items.size());
         });
+        mReyclerViewSizeInt = mReyclerViewSize.intValue();
+        if (mReyclerViewSizeInt == 0){
+            recyclerView.setVisibility(View.GONE);
+        }
+        else if(mReyclerViewSizeInt == 1){
+            recyclerView.getLayoutParams().height = 200;
+        }
+        else if(mReyclerViewSizeInt == 2){
+            recyclerView.getLayoutParams().height = 400;
+        }
+        else
+            recyclerView.getLayoutParams().height = 600;
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
