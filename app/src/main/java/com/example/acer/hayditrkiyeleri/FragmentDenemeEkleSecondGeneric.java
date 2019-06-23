@@ -306,29 +306,8 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                 Exp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                        // Inflate the custom layout/view
-                        View customView = inflater.inflate(R.layout.fragment_deneme_ekle2_generic_tip,null);
-
-                        Toast.makeText(getActivity(), "BASILDI", Toast.LENGTH_SHORT).show();
-
-                        AlertDialog.Builder mBuilder  = new AlertDialog.Builder(view.getContext());
-                        mBuilder.setView(customView);
-                        final AlertDialog dialog = mBuilder.create();
-                        dialog.show();
-
-                        // Get a reference for the custom view close button
-                        ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-
-                        // Set a click listener for the popup window close button
-                        closeButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                // Dismiss the popup window
-                                dialog.dismiss();
-                            }
-                        });
+                        FragmentAciklamaPopUp aciklamaPopUp = new FragmentAciklamaPopUp();
+                        aciklamaPopUp.show(getFragmentManager(),"aciklama");
                     }
                 });
 

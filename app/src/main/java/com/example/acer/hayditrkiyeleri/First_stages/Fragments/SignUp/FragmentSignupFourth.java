@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -41,7 +42,10 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class FragmentSignupFourth extends Fragment {
 
-    private int globalVariableforEventBus,checkfonks;
+    // Pop up yapacağım
+    // fragment_signup_popup4 xmlini değiştirdim o yüzden hata veriyor
+    // Eventbus koyupo yemi frgament oluşturmam gerekecek
+    private int globalVariableforEventBus = 1;
     HashMap<String,String> hashMap;
     Resources resources;
     private RecyclerView mPrimaryRecyclerView;
@@ -51,12 +55,11 @@ public class FragmentSignupFourth extends Fragment {
     private int startPoint,stopPoint;
 
 
-//Eventbusa giriş
+    //Eventbusa giriş
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         EventBus.getDefault().register(this);
-
     }
 
     //Eventbustan çıkış
@@ -71,22 +74,39 @@ public class FragmentSignupFourth extends Fragment {
     //hashmap transferi
     @Subscribe (sticky = true)
     public void holdingKonuIcerigi(EventTransfer.konuIcerigi konuIcerigi){
-        //buraya global bir int koyup sürekşi veri akışını keseceğim
-        hashMap = konuIcerigi.getHashMap();
+        if(globalVariableforEventBus == 1)
+            hashMap = konuIcerigi.getHashMap();
+    }
+
+    // finishAffinityde bir sıkıntı var
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Subscribe
+    public void popUp(EventTransfer.AYTpopUp AYTpopUp){
+        if(AYTpopUp.getNum() == 0){
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finishAffinity();
+        }
+        else{
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
+            FragmentSignupFifth newGamefragment = new FragmentSignupFifth();
+            fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
+            fragmentTransaction.commit();
+        }
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         resources = getResources();
         mKonular = resources.getStringArray(R.array.turkce);
-        checkfonks = 1;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             ders = bundle.getInt("kalan");
+            globalVariableforEventBus = 0;
         }
-        else{
+        else
             ders = 10;
-        }
 
 
         mDersler = new String[]{
@@ -190,67 +210,21 @@ public class FragmentSignupFourth extends Fragment {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             public void onClick(View v) {
 
-
-                // Burayı da fragmentDialog yapacağım
                 if(ders == 1) {
+                FragmentAYTPopUp fragmentAYTPopUp = new FragmentAYTPopUp();
+                fragmentAYTPopUp.show(getFragmentManager(),"ayt");}
 
-                    // Initialize a new instance of LayoutInflater service
-                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-
-                    // Inflate the custom layout/view
-                    View customView = inflater.inflate(R.layout.fragment_signup4_popup, null);
-
-
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(v.getContext());
-                    mBuilder.setView(customView);
-                    final AlertDialog dialog = mBuilder.create();
-                    dialog.show();
-
-                    // Get a reference for the custom view close button
-                    ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-
-                    // Set a click listener for the popup window close button
-                    closeButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Dismiss the popup window
-                            dialog.dismiss();
-                        }
-                    });
-
-                    CardView card_view = (CardView) customView.findViewById(R.id.ayt_n); // creating a CardView and assigning a value.
-
-                    card_view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(intent);
-                            getActivity().finishAffinity();
-                        }
-                    });
-
-                    CardView card_view2 = (CardView) customView.findViewById(R.id.ayt_y); // creating a CardView and assigning a value.
-
-                    card_view2.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-
-                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
-                            FragmentSignupFifth newGamefragment = new FragmentSignupFifth();
-                            fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
-                            fragmentTransaction.commit();
-                            dialog.dismiss();
-                        }
-                    });
-                }
-
-                else {
+                else{
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
                     Bundle mBundle = new Bundle();
                     mBundle.putInt("kalan",ders - 1); // Teker teker dersler :ddd
+                    int altKonuSayisi = 5;
+                    int temp;
+                    for(int i = 0; i < array.length ; i++ ){
+                        // Şu an array[i]'nin bir işlevi yok
+                        temp = altKonuFonksiyon(array[i],arr[i],altKonuSayisi);
+                    }
                     FragmentSignupFourth newGamefragment = new FragmentSignupFourth();
                     newGamefragment.setArguments(mBundle);
                     fragmentTransaction.addToBackStack(null);
@@ -258,11 +232,36 @@ public class FragmentSignupFourth extends Fragment {
                     fragmentTransaction.commit();
                 }
             }
-
-
         });
 
         return view;
+    }
+
+    private int altKonuFonksiyon(String s, int i, int altKonuSayisi) {
+
+        if(i == 0){
+            return 0;
+
+        }else if (i == 1){
+            int temp = altKonuSayisi/2;
+            if(temp >2){
+                temp--;
+            }
+
+            return temp;
+
+        }else if (i == 2){
+
+            int temp = altKonuSayisi/2;
+            if(temp >2){
+                temp++;
+            }
+            return temp;
+
+        }else if (i == 3){
+            return altKonuSayisi;
+        }
+        return 0;
     }
 
     private class PrimaryViewHolder extends RecyclerView.ViewHolder {

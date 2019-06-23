@@ -73,18 +73,17 @@ public class FragmentDenemeEkleFirst extends Fragment {
     DenemeEntity new_deneme;
     private Repository myRepo=new Repository();
 
-    // Register to eventBus
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         EventBus.getDefault().register(this);
     }
 
-    // Unregister when fragment stops
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDetach() {
+        super.onDetach();
         EventBus.getDefault().unregister(this);
+
     }
 
     // Take data from popUpFragment for Diger using object

@@ -23,6 +23,21 @@ public class EventTransfer {
             this.num = num;
         }
     }
+    static public class AYTpopUp{
+        private int num;
+
+        public int getNum() {
+            return num;
+        }
+
+        public void setNum(int num) {
+            this.num = num;
+        }
+
+        public AYTpopUp(int num) {
+            this.num = num;
+        }
+    }
 
     static public class konuIcerigi{
         private java.util.LinkedHashMap<String,String > LinkedHashMap;
