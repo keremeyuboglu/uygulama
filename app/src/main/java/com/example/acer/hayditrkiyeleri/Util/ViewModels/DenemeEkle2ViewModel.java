@@ -13,8 +13,9 @@ import java.util.List;
 
 public class DenemeEkle2ViewModel extends ViewModel {
 
-    Repository myRepo;
-    ArrayList<Item_DenemeEkle2_outer> items; //Should turn this into Livedata
+    private Repository myRepo;
+    private ArrayList<Item_DenemeEkle2_outer> items; //Should turn this into Livedata
+    private DenemeEntity deneme;
 
     public void set_repo(Repository myRepo) {
         this.myRepo = myRepo;
@@ -27,6 +28,15 @@ public class DenemeEkle2ViewModel extends ViewModel {
         }
 
         return items;
+    }
+
+    public DenemeEntity getDeneme() {
+        return deneme;
+    }
+
+    public void setDeneme(DenemeEntity deneme) {
+        if(this.deneme==null)
+            this.deneme = deneme;
     }
 
     public void insert_deneme(DenemeEntity deneme){

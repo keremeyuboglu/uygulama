@@ -13,7 +13,7 @@ public class SignUpThirdViewModel extends DenemelerimViewModel {
 
     private MutableLiveData<ArrayList<DenemeEntity>> items;
     private Repository myRepo;
-
+    private int number;
 
     public void setMyRepo(Repository myRepo) {
         this.myRepo = myRepo;
@@ -38,4 +38,5 @@ public class SignUpThirdViewModel extends DenemelerimViewModel {
     public void insert_esasVeri(EsasVeriEntity esasVeriEntity){
         myRepo.insert_esasVeri(esasVeriEntity);
     }
+
 }

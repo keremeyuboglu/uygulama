@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -46,7 +47,7 @@ public class FragmentSignupFourth extends Fragment {
     // fragment_signup_popup4 xmlini değiştirdim o yüzden hata veriyor
     // Eventbus koyupo yemi frgament oluşturmam gerekecek
     private int globalVariableforEventBus = 1;
-    HashMap<String,String> hashMap;
+    LinkedHashMap<String,String> hashMap;
     Resources resources;
     private RecyclerView mPrimaryRecyclerView;
     private String[] mDersler, mKonular,array;
@@ -230,6 +231,7 @@ public class FragmentSignupFourth extends Fragment {
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
                     fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
                 }
             }
         });

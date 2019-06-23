@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Deneme_konu;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
+import com.example.acer.hayditrkiyeleri.First_stages.ActivitySignup;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_inner;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.DenemeEkle.Item_DenemeEkle2_outer;
 import com.example.acer.hayditrkiyeleri.Util.ViewModels.DenemeEkle2ViewModel;
@@ -77,6 +78,7 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
         Repository repo=new Repository();
         repo.setDao(((ThisApplication)getActivity().getApplication()).get_dao());
         viewModel.set_repo(repo);
+        viewModel.setDeneme(deneme);
 
         // Creating the primary recycler view adapter
         PrimaryAdapter adapter = new PrimaryAdapter();
@@ -99,8 +101,6 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
 
             @Override
             public void onClick(View v) {
-
-
 
                 MyTask task=new MyTask(()->{
 
@@ -137,6 +137,8 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                     }
 
                     veriler.trimToSize();
+
+                    DenemeEntity deneme=viewModel.getDeneme();
                     deneme.setVeriler_konu(veriler);
 
                     if(mutableLiveData == null){

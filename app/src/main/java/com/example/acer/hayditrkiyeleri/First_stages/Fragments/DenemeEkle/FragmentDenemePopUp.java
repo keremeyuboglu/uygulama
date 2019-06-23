@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.acer.hayditrkiyeleri.First_stages.ActivitySignup;
 import com.example.acer.hayditrkiyeleri.R;
 
 import org.greenrobot.eventbus.EventBus;

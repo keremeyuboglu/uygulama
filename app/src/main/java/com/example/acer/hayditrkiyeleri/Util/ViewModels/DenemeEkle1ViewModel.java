@@ -33,4 +33,16 @@ public class DenemeEkle1ViewModel extends ViewModel {
 
         return rv_items;
     }
+
+    public void reset_items(){
+
+        for(Item_DenemeEkle1 item: rv_items){
+
+
+            item.setDogru(0);
+            item.setYanlis(0);
+        }
+
+
+    }
 }
