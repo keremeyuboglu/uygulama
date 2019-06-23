@@ -24,14 +24,10 @@ public class ActivitySignup extends AppCompatActivity {
         if(null == savedInstanceState) {
             FragmentManager fragmentManager2 = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-
             FragmentSignupFirst fragment2 = new FragmentSignupFirst(userinfo);
             fragmentTransaction2.add(R.id.signupContainer, fragment2);
             fragmentTransaction2.commit();
         }
-
-
-
 
     }
 

@@ -19,21 +19,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="           Username:" />
+        android:text="           Kullanıcı Adı:" />
 
     <EditText
         android:id="@+id/Username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="10dp"
-        android:hint="Enter your Username..." />
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/passText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="           Password:" />
+        android:text="           Şifre:" />
 
     <EditText
         android:id="@+id/pass"
@@ -42,7 +41,6 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="Enter Your Password..."
         android:inputType="textPassword" />
 
 
@@ -52,15 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
         android:layout_marginBottom="10dp"
-        android:text="Submit" />
+        android:text="GİRİŞ YAP" />
 
-    <TextView
-        android:clickable="true"
-        android:id="@+id/textSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Are you not a member? Sign up" />
 
     <TextView
         android:clickable="true"
@@ -69,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Geç Burayı qral" />
+        android:text="Üye değil misiniz? Burdan kaydolun" />
 
 
 </LinearLayout>

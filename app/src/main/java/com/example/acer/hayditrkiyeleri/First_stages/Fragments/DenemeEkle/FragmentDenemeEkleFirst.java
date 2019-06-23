@@ -162,6 +162,8 @@ public class FragmentDenemeEkleFirst extends Fragment {
         rv_adapter.notifyDataSetChanged();
         //rv_end
 
+        Log.d("mesaj","mesa3c");
+
         // Spinner
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerEkle1);
 
@@ -171,6 +173,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
         categories.add("Karekök");
 
         ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,categories);     /// Sqlle değişecek yerler
+        Log.d("mesaj","mesac1");
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -209,6 +212,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Log.d("mesaj","mesac22");
                 //    String selected = parentView.getItemAtPosition(position).toString();
 
                 switch (position){

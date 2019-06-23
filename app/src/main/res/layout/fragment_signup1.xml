@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="           Username:"
+        android:text="           Kullancı Adı:"
         />
 
     <EditText
@@ -19,33 +19,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="10dp"
-        android:hint="Enter your Username..."
-        />
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/passText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="           Password:"
-        />
+        android:text="           Şifre:" />
 
     <EditText
-        android:id="@+id/pass"
+        android:id="@+id/passtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="Enter Your Password..."
         android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/pass2Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="           Confirm Password:"
-        />
+        android:text="           Şifre (Tekrar):" />
 
     <EditText
         android:id="@+id/password2"
@@ -54,15 +49,13 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="Confirm Your Password..."
-        android:inputType="textPassword"
-        />
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/EmailText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="           E-mail:"
+        android:text="           E-posta adresi:"
         />
 
     <EditText
@@ -72,22 +65,37 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="Enter your E-mail"
         android:inputType="text" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        android:layout_marginLeft="10dp"
+        android:text="Kullanıcı sözleşmesini okudum ve kabul ediyorum" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="8dp"
-        android:text="Devam" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="80dp"
+            android:text="Kullanıcı \nSözleşmesi" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            android:text="Devam" />
+    </LinearLayout>
+
 
 
 </LinearLayout>

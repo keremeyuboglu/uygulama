@@ -26,7 +26,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    android:text="TYT Denemelerini Deneme Ekle butonu yardımıyla girebilirsin. Ders ders doğru yanlışlarını girdikten sonra istersen konu konu da yanlışlarını girebilirsin. Bu sayede uygulama seni çok daha iyi takip edecektir. İstersen anlaşmalı olduğumuz yayınevlerinden hangi denemeden hangi soruları yanlış yaptığını da işaretleyebilirsin. Silmek istediğin denemeyi sağa/sola kaydırarak silebilirsin."
                     android:textSize="18sp" />
 
             </RelativeLayout>
