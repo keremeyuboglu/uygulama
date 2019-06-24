@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:alpha="1"
+
+    >
 
     <TextView
         android:id="@+id/userText"
@@ -12,32 +16,48 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="           Kullancı Adı:"
+        android:textSize="@dimen/_9sdp"
         />
 
     <EditText
         android:id="@+id/Username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/_10sdp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="10dp" />
 
-    <TextView
+  <!--  <TextView
         android:id="@+id/passText"
+        android:textSize="@dimen/_9sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="           Şifre:" />
+        -->
 
-    <EditText
-        android:id="@+id/passtext"
+    <com.google.android.material.textfield.TextInputLayout android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:hint="Şifre:"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:counterEnabled ="true"
+        app:counterMaxLength ="16"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:layout_marginBottom="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+            android:id="@+id/passtext"
+            android:textSize="@dimen/_10sdp"
+            android:inputType="textPassword"/>
+        
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/pass2Text"
+        android:textSize="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="           Şifre (Tekrar):" />
@@ -47,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
+        android:textSize="@dimen/_10sdp"
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:inputType="textPassword" />
@@ -56,6 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="           E-posta adresi:"
+        android:textSize="@dimen/_9sdp"
         />
 
     <EditText
@@ -63,6 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
+        android:textSize="@dimen/_10sdp"
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:inputType="text" />
@@ -71,29 +94,42 @@
         android:id="@+id/checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Kullanıcı sözleşmesini okudum ve kabul ediyorum" />
+        android:text="Kullanıcı sözleşmesini okudum ve kabul ediyorum"
+        android:textSize="@dimen/_10sdp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button1"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="80dp"
-            android:text="Kullanıcı \nSözleşmesi" />
+            android:gravity="start"
+            android:layout_marginLeft="@dimen/_12sdp">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="8dp"
-            android:text="Devam" />
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kullanıcı \nSözleşmesi" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layout_marginRight="@dimen/_12sdp">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:text="Devam" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 

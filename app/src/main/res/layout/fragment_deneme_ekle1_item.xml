@@ -22,13 +22,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:baselineAligned="false"
-            android:orientation="horizontal">>
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:padding="8dp">
+                android:layout_weight="0.8">
 
                 <TextView
                     android:id="@+id/deneme_ekle_dersisim"

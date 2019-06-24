@@ -219,13 +219,18 @@
         </LinearLayout>
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/devamButonu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginRight="8dp"
-            android:text="Devam" />
+            android:text="Devam"
+            style="@style/Widget.MaterialComponents.Button"
+            app:strokeWidth="@dimen/_1sdp"
+            app:cornerRadius="@dimen/_10sdp"
+            app:strokeColor="@color/colorPrimaryDark"
+            app:rippleColor="@color/cardview_light_background"/>
 
     </LinearLayout>
 
