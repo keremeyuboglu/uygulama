@@ -17,7 +17,8 @@
             android:id="@+id/bolumcard"
             android:layout_marginTop="4dp"
             app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#79cae5">
+            app:cardBackgroundColor="#79cae5"
+            >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +29,8 @@
                     android:layout_centerInParent="true"
                     android:textColor="#c9edea"
                     android:text="Bölümün"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/_18sdp"
+                    android:textAppearance="?attr/textAppearanceBody1"/>
             </RelativeLayout>
 
 
