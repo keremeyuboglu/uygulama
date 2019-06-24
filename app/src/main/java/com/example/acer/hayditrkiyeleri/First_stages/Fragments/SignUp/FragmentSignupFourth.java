@@ -23,20 +23,27 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.acer.hayditrkiyeleri.Database.Entities.AltBaslikEntity;
+import com.example.acer.hayditrkiyeleri.Database.Repository;
 import com.example.acer.hayditrkiyeleri.DersBilgileri.Ders_Bilgi;
 import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.EventTransfer;
 import com.example.acer.hayditrkiyeleri.MainActivity;
 import com.example.acer.hayditrkiyeleri.R;
+import com.example.acer.hayditrkiyeleri.ThisApplication;
+import com.example.acer.hayditrkiyeleri.Util.MyTask;
+import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpFourthViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -98,6 +105,8 @@ public class FragmentSignupFourth extends Fragment {
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         resources = getResources();
         mKonular = resources.getStringArray(R.array.turkce);
@@ -121,6 +130,13 @@ public class FragmentSignupFourth extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+        SignUpFourthViewModel viewModel= ViewModelProviders.of(this).get(SignUpFourthViewModel.class);
+        Repository myRepo = new Repository();
+        myRepo.setDao(((ThisApplication) getActivity().getApplication()).get_dao());
+        viewModel.setMyRepo(myRepo);
+        //Burası karışık gözüküyor ama olan tek şey viewModel initialize ediliyor.
 
         View view = inflater.inflate(R.layout.fragment_signup4, container, false);
         TextView ders_ismi = view.findViewById(R.id.soru_row);
@@ -216,16 +232,44 @@ public class FragmentSignupFourth extends Fragment {
                 fragmentAYTPopUp.show(getFragmentManager(),"ayt");}
 
                 else{
+                    MyTask task=new MyTask(()->{
+
+
+
+                        int altKonuSayisi = 5;
+                        int temp;
+                        for(int i = 0; i < array.length ; i++ ){
+                            // Şu an array[i]'nin bir işlevi yok
+
+                            List<AltBaslikEntity> basliklar= viewModel.get_altBasliksByKonuisim(array[i]);
+
+                            altKonuSayisi=basliklar.size();
+                            temp = altKonuFonksiyon(array[i],arr[i],altKonuSayisi);
+
+                            if(temp>altKonuSayisi){
+
+                                Log.i("hata", "alt başlık sayısından daha fazla tik atmak gerekiyor");
+                            }else{
+
+                                for(int a=0; a<temp; a++){
+
+                                    basliklar.get(a).setBiliniyor(true);
+                                }
+
+                                viewModel.insert_altbasliks(basliklar);
+
+                            }
+                        }
+
+                    });
+
+                    task.execute();
+
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
                     Bundle mBundle = new Bundle();
                     mBundle.putInt("kalan",ders - 1); // Teker teker dersler :ddd
-                    int altKonuSayisi = 5;
-                    int temp;
-                    for(int i = 0; i < array.length ; i++ ){
-                        // Şu an array[i]'nin bir işlevi yok
-                        temp = altKonuFonksiyon(array[i],arr[i],altKonuSayisi);
-                    }
+
                     FragmentSignupFourth newGamefragment = new FragmentSignupFourth();
                     newGamefragment.setArguments(mBundle);
                     fragmentTransaction.addToBackStack(null);

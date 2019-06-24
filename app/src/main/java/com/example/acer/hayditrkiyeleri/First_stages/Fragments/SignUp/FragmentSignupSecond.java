@@ -29,14 +29,10 @@ import static android.view.View.GONE;
 
 public class FragmentSignupSecond extends Fragment {
 
-    private UserInfo userInfo;
+
     private CompoundButtonGroup bolum;
     private CompoundButtonGroup hedef;
-    private CompoundButtonGroup sinif;
-
-    public FragmentSignupSecond(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
+    private CompoundButtonGroup sinif, tercihyaptinmi;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,6 +44,9 @@ public class FragmentSignupSecond extends Fragment {
         bolum = v.findViewById(R.id.radio_bolum);
         hedef = v.findViewById(R.id.radio_hedef);
         sinif = v.findViewById(R.id.radio_sinif);
+        tercihyaptinmi = v.findViewById(R.id.mezun_soru);
+
+
 
         NumberPicker numberPicker1 = v.findViewById(R.id.obp_1);
         NumberPicker numberPicker2 = v.findViewById(R.id.obp_2);
@@ -57,9 +56,12 @@ public class FragmentSignupSecond extends Fragment {
         changeFragment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                UserInfo userInfo= FragmentSignupFirst.userinfo;
                 List<Integer> bol= bolum.getCheckedPositions();
                 List<Integer> hed= hedef.getCheckedPositions();
                 List<Integer> sin= sinif.getCheckedPositions();
+                List<Integer> isTercih= tercihyaptinmi.getCheckedPositions();
+
 
                 if(bol.size() != 0){ //If a radio selected
                     userInfo.setBolum(bol.get(0));
@@ -74,7 +76,24 @@ public class FragmentSignupSecond extends Fragment {
                 }
 
                 if(sin.size() != 0){ //If a radio selected
-                    userInfo.setSinif(sin.get(0));
+
+                    int sinif=sin.get(0);
+
+                    userInfo.setSinif(sinif);
+
+                    if(sinif==1){ //Mezun ise
+
+                        if(isTercih.size()!=0){
+
+                            userInfo.setIstercih(isTercih.get(0));
+
+                        }else{
+                            //ERROR!!!!
+                        }
+
+                    }
+
+
                 }else{
                     //ERROR!!!!
                 }
@@ -85,7 +104,8 @@ public class FragmentSignupSecond extends Fragment {
                 //  userInfo.setObp(obp);
                 //  Mezun falan da olayi lazim da bakaaaaaalim
 
-
+                double obp= numberPicker1.getValue()+numberPicker2.getValue()/100.0;
+                userInfo.setObp(obp);
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FragmentSignupThird newGamefragment = new FragmentSignupThird();

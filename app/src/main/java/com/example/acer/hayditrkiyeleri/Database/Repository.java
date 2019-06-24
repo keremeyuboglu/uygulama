@@ -3,6 +3,7 @@ package com.example.acer.hayditrkiyeleri.Database;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.example.acer.hayditrkiyeleri.Database.Entities.AltBaslikEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 
@@ -44,4 +45,10 @@ public class Repository {
     public void insert_esasVeri(EsasVeriEntity esasVeriEntity){
         dao.insert_esasVeri(esasVeriEntity);
     }
+
+    public List<AltBaslikEntity> getAltbasliksbyKonuisim(String isim){return dao.get_altbasliksByKonuisim(isim);}
+
+    public void insert_Altbaslikentities(List<AltBaslikEntity> altBaslikEntities){dao.insert_altbasliks(altBaslikEntities);}
+
+
 }

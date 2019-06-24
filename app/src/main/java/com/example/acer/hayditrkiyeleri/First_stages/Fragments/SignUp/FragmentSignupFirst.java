@@ -11,18 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.acer.hayditrkiyeleri.R;
-
+import com.example.acer.hayditrkiyeleri.ThisApplication;
 
 
 public class FragmentSignupFirst extends Fragment {
 
     private EditText username, password, password2, email;
-    private UserInfo userinfo;
+    static UserInfo userinfo=new UserInfo();
 
-    public FragmentSignupFirst(UserInfo userinfo) {
-
-        this.userinfo = userinfo;
-    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -57,10 +53,12 @@ public class FragmentSignupFirst extends Fragment {
 
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FragmentSignupSecond newGamefragment = new FragmentSignupSecond(userinfo);
+                FragmentSignupSecond newGamefragment = new FragmentSignupSecond();
                 fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+
+                ((ThisApplication)getActivity().getApplication()).initialize_altbasliklar();
             }
 
 

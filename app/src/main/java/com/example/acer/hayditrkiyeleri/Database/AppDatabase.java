@@ -7,11 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.acer.hayditrkiyeleri.Database.Entities.AltBaslikEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 
 
-@Database(entities = {DenemeEntity.class, EsasVeriEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {DenemeEntity.class, EsasVeriEntity.class, AltBaslikEntity.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

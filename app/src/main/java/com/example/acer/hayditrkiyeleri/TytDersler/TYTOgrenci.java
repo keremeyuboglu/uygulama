@@ -2,7 +2,8 @@ package com.example.acer.hayditrkiyeleri.TytDersler;
 
 public class TYTOgrenci {
 
-    String Bolum,sinif;
+    String Bolum;
+    boolean isMezunTercih;
     double OBP,puan;
     double turkce,matematik,fizik,kimya,biyoloji,tarih,cografya,felsefe,din;
 
@@ -88,9 +89,9 @@ public class TYTOgrenci {
         this.din = din;
     }
 
-    public TYTOgrenci(String bolum, String sinif, double OBP) {
+    public TYTOgrenci(String bolum, boolean isMezunTercih, double OBP) {
         Bolum = bolum;
-        this.sinif = sinif;
+        this.isMezunTercih= isMezunTercih;
         this.OBP = OBP;
     }
 
@@ -102,12 +103,12 @@ public class TYTOgrenci {
         Bolum = bolum;
     }
 
-    public String getSinif() {
-        return sinif;
+    public boolean isMezunTercih() {
+        return isMezunTercih;
     }
 
-    public void setSinif(String sinif) {
-        this.sinif = sinif;
+    public void setMezunTercih(boolean mezunTercih) {
+        isMezunTercih = mezunTercih;
     }
 
     public double getOBP() {
@@ -125,7 +126,7 @@ public class TYTOgrenci {
         double puan = 99.435 + (this.turkce * 3.165325) + ((this.cografya+ this.tarih + this.felsefe + this.din) * 3.60495) +
                 ((this.biyoloji + this.fizik + this.kimya) *3.3464) + (this.matematik * 3.472025);
 
-        if(this.sinif == "MezunTercih"){
+        if(isMezunTercih){
             puan = puan + (this.OBP * 30/100);
         } else {
             puan = puan + (this.OBP * 60/100);
