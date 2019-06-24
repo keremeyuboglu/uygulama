@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Main activity, drawerLayout ile kaydırılabilir menü -->
+<LinearLayout
+    android:id="@+id/top_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    >
-    <TextView
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+    <!-- app:popupTheme="@color/colorPrimary" PopUp penceresi için -->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Araç Gereç"
-        android:textSize="48sp"
-        />
+        app:theme="@style/ToolbarTheme"
+        android:background ="@color/colorPrimary">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawer_layout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Araç Gereç"
+            android:textSize="39sp"/>
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.acer.hayditrkiyeleri.NavigationDrawerFragment"
+            android:layout_width="270dp"
+            android:layout_gravity="start"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_navigation_layout"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 
-</RelativeLayout>
+
+
+</LinearLayout>
+
+
+

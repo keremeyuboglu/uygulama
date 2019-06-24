@@ -8,5 +8,5 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark"></style>
 </resources>

@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".First_stages.ActivitySignup"></activity>
         <activity android:name=".First_stages.ActivityDenemeEkle"></activity>
+        <activity android:name=".AracGerecActivity"></activity>
+        <activity android:name=".DenemelerimActivity"></activity>
         <activity android:name=".MainActivity"></activity>
     </application>
 

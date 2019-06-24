@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- işimiz kalmadı bunla pek gibi -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/programim"
         android:title="Programım" />
     <item android:id="@+id/konu_basliklari"
-        android:title="Konu Baaaaşlıkları" />
+        android:title="Konu Başlıkları" />
     <item android:id="@+id/denemelerim"
         android:title="Denemelerim" />
     <item android:id="@+id/arac_gerec"

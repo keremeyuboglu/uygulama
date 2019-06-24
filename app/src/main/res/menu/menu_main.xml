@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sil"
+        android:title="Sil"
+        android:icon="@drawable/baseline_delete_black_18dp"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        ></item>
+    <item
+        android:id="@+id/trans"
+        android:title="Ara"
+        android:icon="@drawable/baseline_transform_black_18dp"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        ></item>
+    <item
+        android:id="@+id/ayarlar"
+        android:title="Ayarlar"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        ></item>
+    <item
+        android:id="@+id/daha"
+        android:title="Daha Fazlası"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        ></item>
+    <item
+        android:id="@+id/profil"
+        android:title="Profil"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        ></item>
+
+
+</menu>

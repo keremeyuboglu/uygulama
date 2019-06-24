@@ -2,20 +2,20 @@ package com.example.acer.hayditrkiyeleri;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity{
+public class AracGerecActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_menu_arac_gerec);
         // ToolBar oluşturma
         setUpToolbar();
         // Drawer oluşturma
@@ -37,7 +37,4 @@ public class MainActivity extends AppCompatActivity{
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         navigationDrawer.setUpNavDrawer(drawerLayout,toolbar);
     }
-
-
-
 }
