@@ -2,6 +2,7 @@ package com.example.acer.hayditrkiyeleri.First_stages.Fragments.SignUp;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.EventT
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentDenemeEkleFirst;
 import com.example.acer.hayditrkiyeleri.FragmentMenuDenemeGoster;
 import com.example.acer.hayditrkiyeleri.R;
+import com.example.acer.hayditrkiyeleri.SiralamaSample;
 import com.example.acer.hayditrkiyeleri.ThisApplication;
 import com.example.acer.hayditrkiyeleri.TytDersler.KonuTakip;
 import com.example.acer.hayditrkiyeleri.TytDersler.NetHesabi;
@@ -39,9 +41,15 @@ import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpThirdViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FragmentSignupThird extends Fragment {
@@ -138,6 +146,7 @@ public class FragmentSignupThird extends Fragment {
 
                 task.execute();
 
+                Resources resources = getResources();
                 TYTOgrenci tytOgrenci = new TYTOgrenci("MF", "Mezun", 87.87);
                 double[][] turkcenetler = {
                         {27, 3}, {24, 5}, {21, 6}, {17, 8}, {34, 5}
@@ -153,8 +162,31 @@ public class FragmentSignupThird extends Fragment {
                 tytOgrenci.setTarih(3.75);
                 tytOgrenci.setFelsefe(1.75);
                 tytOgrenci.setDin(1.5);
+                List<SiralamaSample> siralamaSample = new ArrayList<>();
+                InputStream is = resources.openRawResource(R.raw.siralama);
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(is,Charset.forName("UTF-8"))
+                );
+                String line = "";
+                try {
+                    while ((line = reader.readLine()) != null){
+                        String[] tokens = line.split(",");
 
-                Resources resources = getResources();
+                        SiralamaSample sample = new SiralamaSample();
+                        sample.setPuan(Integer.parseInt(tokens[0]));
+                        sample.setTytsira(Double.parseDouble(tokens[1]));
+                        sample.setSozelsira(Double.parseDouble(tokens[2]));
+                        sample.setSayisalsira(Double.parseDouble(tokens[3]));
+                        sample.setEsitagirliksira(Double.parseDouble(tokens[4]));
+                        sample.setDilsira(Double.parseDouble(tokens[5]));
+
+                        siralamaSample.add(sample);
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
                 String[] arrayTurkce = resources.getStringArray(R.array.turkce);
                 LinkedHashMap<String,String> hashMapDersler= new LinkedHashMap<String, String>();
 
@@ -165,6 +197,10 @@ public class FragmentSignupThird extends Fragment {
 
                 KonuTakip konuTakip = new KonuTakip(tytOgrenci);
                 tytOgrenci.setPuan(tytOgrenci.tytPuan());
+                Log.d("mesaj", "Puanı bu" + tytOgrenci.getPuan());
+                double tytSira = tytOgrenci.siralamaHesabı(tytOgrenci.getPuan(),siralamaSample);
+                Log.d("mesaj","bu + " + tytSira);
+                tytOgrenci.setSiralama(tytSira);
                 hashMapDersler = konuTakip.turkcetakip(hashMapDersler);
                 hashMapDersler = konuTakip.matematiktakip(hashMapDersler);
                 hashMapDersler = konuTakip.fiziktakip(hashMapDersler);

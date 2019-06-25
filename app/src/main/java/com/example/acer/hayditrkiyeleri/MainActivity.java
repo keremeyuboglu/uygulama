@@ -9,6 +9,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity{
 
     Toolbar toolbar;
@@ -20,6 +28,7 @@ public class MainActivity extends AppCompatActivity{
         setUpToolbar();
         // Drawer oluşturma
         setUpDrawer();
+
     }
 
     private void setUpToolbar() {

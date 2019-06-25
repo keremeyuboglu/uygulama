@@ -1,10 +1,24 @@
 package com.example.acer.hayditrkiyeleri.TytDersler;
 
+import android.util.Log;
+
+import com.example.acer.hayditrkiyeleri.SiralamaSample;
+
+import java.util.List;
+
 public class TYTOgrenci {
 
     String Bolum,sinif;
-    double OBP,puan;
+    double OBP,puan,siralama;
     double turkce,matematik,fizik,kimya,biyoloji,tarih,cografya,felsefe,din;
+
+    public double getSiralama() {
+        return siralama;
+    }
+
+    public void setSiralama(double siralama) {
+        this.siralama = siralama;
+    }
 
     public double getPuan() {
         return puan;
@@ -134,6 +148,33 @@ public class TYTOgrenci {
         if(puan > 560)
             puan = 560;
         return puan;
+    }
+
+    public double siralamaHesabı(double puan, List<SiralamaSample> siralamaSample){
+
+        // Önce puanı integera çevirelim
+        int tempPuan = (int) puan;
+        Log.d("mesaj", "bu " + tempPuan);
+
+        // Listte bu puana ve bu puanın bir fazlasına denk gelen elemanları bulalım
+        SiralamaSample sample = siralamaSample.get(500-tempPuan);
+        SiralamaSample sample2 = siralamaSample.get(500-tempPuan-1);
+        Log.d("mesaj","bu 3+ " + sample.getPuan());
+
+        // Puanın ondalık kısmını hesaplayalım ex: 496.58 için 0.58
+        double puaninOndalikKısmı = puan - Math.floor(puan);
+        Log.d("mesaj","bu 3+ " + puaninOndalikKısmı);
+
+        // iki puan arasında kaç puanda bir sıranın ne kadar artacağını hesaplamak için
+        // örneğin 492 ile 493 arasında her 0.16 puanda 1 kişi artıyor
+        double ondalikliSiralama = 1 / (sample.getTytsira() - sample2.getTytsira());
+        Log.d("mesaj","bu 3+ " + ondalikliSiralama);
+
+        // Bu ikisinin bölümüğ sayesinde kaç kişilik sıralama kaydedileceğini hesaplamış olduk
+        int benimeklenecek = (int) ( puaninOndalikKısmı / ondalikliSiralama);
+        Log.d("mesaj","bu 3+ " + benimeklenecek);
+
+        return sample.getTytsira() - (double) benimeklenecek;
     }
 
 }
