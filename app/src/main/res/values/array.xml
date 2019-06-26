@@ -2,39 +2,23 @@
 <resources>
     <string-array
         name="bolum_array">
-        <item
-            >MF</item>
-        <item
-            >TM</item>
-        <item
-            >TS</item>
-        <item
-            >Dil</item>
+        <item>MF</item>
+        <item>TM</item>
+        <item>TS</item>
+        <item>Dil</item>
     </string-array>
 
-    <string-array
-        name="saat_array">
-        <item
-            >0-1</item>
-        <item
-            >1-2</item>
-        <item
-            >2-3</item>
-        <item
-            >3-4</item>
-        <item
-            >4+</item>
-    </string-array>
-    <string-array
-        name="hedef_array">
-        <item
-            >5k</item>
-        <item
-            >10k</item>
-        <item
-            >50k</item>
-        <item
-            >100k</item>
+    <string-array name="uniarray">
+        <item>İstanbul Teknik Üniversitesi</item>
+        <item>İstanbul Üniversitesi</item>
+        <item>Boğaziçi Hukuk</item>
+        <item>Boğaziçi Tıp</item>
+        <item>Bilişim Bilişim</item>
+        <item>Koç</item>
+        <item>Daha Neler Neler</item>
+        <item>Bunlar</item>
+        <item>Onlar</item>
+
     </string-array>
     <string-array
         name="sinif_array">

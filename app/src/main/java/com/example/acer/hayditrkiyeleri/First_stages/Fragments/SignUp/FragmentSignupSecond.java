@@ -1,23 +1,30 @@
 package com.example.acer.hayditrkiyeleri.First_stages.Fragments.SignUp;
 
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.acer.hayditrkiyeleri.R;
+import com.example.acer.hayditrkiyeleri.ThisApplication;
 import com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup;
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -31,8 +38,8 @@ public class FragmentSignupSecond extends Fragment {
 
 
     private CompoundButtonGroup bolum;
-    private CompoundButtonGroup hedef;
     private CompoundButtonGroup sinif, tercihyaptinmi;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,99 +47,47 @@ public class FragmentSignupSecond extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_signup2, container, false);
 
-        Button changeFragment = v.findViewById(R.id.button3);
+        // Diğer fraga geçmek için
+        Button changeFragment = v.findViewById(R.id.devamButonu);
+        // Sıralama mı yoksa Üni mi girecek
+        Button buttonSwitch = v.findViewById(R.id.buttonSwitch);
+
+        // Kaç bin istediği
+        EditText hedefSayisi = v.findViewById(R.id.hedef_sayilar);
+        // OBP notu
+        EditText obpEdit = v.findViewById(R.id.obpedit);
+
+        // Cardview'da çizgiyi yok etmek için
+        CardView cardView = v.findViewById(R.id.card2);
+        cardView.setCardElevation(0);
+
+        // Bölüm ve Sınıf seçenekleri
         bolum = v.findViewById(R.id.radio_bolum);
-        hedef = v.findViewById(R.id.radio_hedef);
         sinif = v.findViewById(R.id.radio_sinif);
-        tercihyaptinmi = v.findViewById(R.id.mezun_soru);
+        tercihyaptinmi= v.findViewById(R.id.mezun_soru);
 
-
-
-        NumberPicker numberPicker1 = v.findViewById(R.id.obp_1);
-        NumberPicker numberPicker2 = v.findViewById(R.id.obp_2);
-
+        // Hedef üni autocomplete
+        AutoCompleteTextView uniler = v.findViewById(R.id.hedef_uni); // Bir yerden datalari aliriz artik
+        // Üni isimlerini yerleştirme kodları
+        String[] uniadları = getResources().getStringArray(R.array.uniarray);
+        ArrayAdapter <String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,uniadları);
+        uniler.setAdapter(adapter);
         setRetainInstance(true);
 
-        changeFragment.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
-                UserInfo userInfo= FragmentSignupFirst.userinfo;
-                List<Integer> bol= bolum.getCheckedPositions();
-                List<Integer> hed= hedef.getCheckedPositions();
-                List<Integer> sin= sinif.getCheckedPositions();
-                List<Integer> isTercih= tercihyaptinmi.getCheckedPositions();
-
-
-                if(bol.size() != 0){ //If a radio selected
-                    userInfo.setBolum(bol.get(0));
-                }else{
-                    //ERROR!!!!
-                }
-
-                if(hed.size() != 0){ //If a radio selected
-                    userInfo.setHedef(hed.get(0));
-                }else{
-                    //ERROR!!!!
-                }
-
-                if(sin.size() != 0){ //If a radio selected
-
-                    int sinif=sin.get(0);
-
-                    userInfo.setSinif(sinif);
-
-                    if(sinif==1){ //Mezun ise
-
-                        if(isTercih.size()!=0){
-
-                            userInfo.setIstercih(isTercih.get(0));
-
-                        }else{
-                            //ERROR!!!!
-                        }
-
-                    }
-
-
-                }else{
-                    //ERROR!!!!
-                }
-                /*Fonksiyon da yazabilirim ama altıüstü 3 tane koplaya yapıştır.
-                Zaten bir taslak bu*/
-
-                // float obp = numberPicker1.getValue() + (numberPicker2.getValue() / 100);
-                //  userInfo.setObp(obp);
-                //  Mezun falan da olayi lazim da bakaaaaaalim
-
-                double obp= numberPicker1.getValue()+numberPicker2.getValue()/100.0;
-                userInfo.setObp(obp);
-
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FragmentSignupThird newGamefragment = new FragmentSignupThird();
-                fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-
-        });
-
-        LinearLayout sayilar = v.findViewById(R.id.hedef_sayilar);
-        Spinner uniler = v.findViewById(R.id.hedef_uni); // Bir yerden datalari aliriz artik
-        Switch mSwitch = v.findViewById(R.id.swicherino);
-
-        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // Sıralama ya da okul butonu
+        buttonSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    Log.d(TAG, "onCreateView: b';'");
-                    uniler.setVisibility(View.GONE);
-                    sayilar.setVisibility(View.VISIBLE);
+            public void onClick(View view) {
+                if(buttonSwitch.getText() == "Okul/Bölüm"){
+                    buttonSwitch.setText("Sıralama");
+                    uniler.setVisibility(View.VISIBLE);
+                    hedefSayisi.setVisibility(View.GONE);
                 }
                 else{
-
-                    uniler.setVisibility(View.VISIBLE);
-                    sayilar.setVisibility(View.GONE);
+                    buttonSwitch.setText("Okul/Bölüm");
+                    uniler.setVisibility(View.GONE);
+                    hedefSayisi.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -149,23 +104,71 @@ public class FragmentSignupSecond extends Fragment {
             }
         });
 
+        // Devam butonu
+        changeFragment.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
-        numberPicker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                // UI
+                ((ThisApplication)getActivity().getApplication()).initialize_altbasliklar(); //Alt basliklari initialize edicek.
+                                                                                        //Daha güzel bir çözüm bulunabilir.
+                // Obp nullsa normalde -1'e atayp izin vermiyordu
+                // Ancak şimdi  kolaylık olsun diye 20 dedim nullken de geçebiliriz
+                String temp = obpEdit.getText().toString();
+                if(obpEdit.getText().toString().trim().length() == 0)
+                    temp = "20";
 
-                if(newVal == 100) {
-                    numberPicker2.setValue(0);
-                    numberPicker2.setEnabled(false);
+                double no = Double.parseDouble(temp);
+
+                if(no < 0.0 || no > 100.0){
+                    Toast.makeText(getActivity(),"OBP 0-100 aralığında olmalıdır",Toast.LENGTH_SHORT).show();
                 }
-                else
-                    numberPicker2.setEnabled(true);
-            }
-        });
 
+                else {
+                    List<Integer> bol= bolum.getCheckedPositions();
+                    List<Integer> sin= sinif.getCheckedPositions();
+                    List<Integer> isTercih= tercihyaptinmi.getCheckedPositions();
+
+                    if(bol.size() != 0){ //If a radio selected
+                        FragmentSignupFirst.userinfo.setBolum(bol.get(0));
+                    }else{
+                        //ERROR!!!!
+                    }
+
+
+                    if(sin.size() != 0){ //If a radio selected
+                        int sinif=sin.get(0);
+
+                        FragmentSignupFirst.userinfo.setSinif(sinif);
+
+                        if(sinif==1){ //Mezun ise
+
+                            if(isTercih.size()!=0){
+
+                                FragmentSignupFirst.userinfo.setIstercih(isTercih.get(0));
+
+                            }else{
+                                //ERROR!!!!
+                            }
+
+                        }
+
+
+                    }else{
+                        //ERROR!!!!
+                    }
+
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    FragmentSignupThird newGamefragment = new FragmentSignupThird();
+                    fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            }
+
+        });
 
         return v;
     }
 
 }
+
+

@@ -46,6 +46,6 @@ public interface DAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert_altbasliks(List<AltBaslikEntity> altBaslikEntities);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE) //Şimdilik çökmemesi için böyle durabilir
     void insert_altbaslik(AltBaslikEntity altBaslikEntity);
 }

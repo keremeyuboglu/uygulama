@@ -5,25 +5,16 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="#47b4d8"
     android:fitsSystemWindows="true"
     tools:context=".First_stages.ActivitySignup">
-
-    <!--
-    <com.example.kerem.myapplication.ModifiedViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="48dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-   -->
 
     <FrameLayout
         android:id="@+id/signupContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="24dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/fragment_view"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

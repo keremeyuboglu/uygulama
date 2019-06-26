@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -15,23 +14,23 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
-
+            android:id="@+id/bolumcard"
+            android:layout_marginTop="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#79cae5"
+            >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp">
-
-
-                // Javade setwidthle eşitliyorsun
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:textColor="#c9edea"
                     android:text="Bölümün"
-                    android:textSize="24sp" />
-
+                    android:textSize="@dimen/_18sdp"
+                    android:textAppearance="?attr/textAppearanceBody1"/>
             </RelativeLayout>
 
 
@@ -46,7 +45,9 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                app:cardBackgroundColor="#47b4d8"
+                android:id="@+id/card2"
+                android:layout_marginBottom="4dp">
 
                 <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
                     android:id="@+id/radio_bolum"
@@ -65,8 +66,10 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:visibility="visible">
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#79cae5">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -76,9 +79,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:text="Hedefin"
-                    android:textSize="24sp" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="4dp"
+                    android:textSize="20sp" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonSwitch"
+                    android:layout_alignParentRight="true"
+                    android:text="Sıralama"/>
 
 
             </RelativeLayout>
@@ -86,144 +97,58 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Switch
-            android:id="@+id/swicherino"
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ünivesite yerine hedefimi sıralama olarak girmek istiyorum"
-            android:layout_marginHorizontal="8dp"/>
-
-        <androidx.cardview.widget.CardView
+            android:id="@+id/hedef_uni"
+            android:visibility="visible"/>
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
-            <Spinner
-                android:id="@+id/hedef_uni"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"></Spinner>
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
             android:id="@+id/hedef_sayilar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
-
-                <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
-                    android:id="@+id/radio_hedef"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:compoundType="radio"
-                    app:entries="@array/hedef_array"
-                    app:labelOrder="after"
-                    app:numCols="4" />
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
+            android:inputType="number"
+            android:visibility="gone"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#79cae5">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp">
 
-
-                // Javade setwidthle eşitliyorsun
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
                     android:text="OBP"
-                    android:textSize="24sp" />
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="4dp"
+                    android:textSize="20sp" />
+                <EditText
+                    android:maxLength="6"
+                    android:id="@+id/obpedit"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:inputType="numberDecimal"/>
 
             </RelativeLayout>
 
-
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <com.shawnlin.numberpicker.NumberPicker
-                    android:id="@+id/obp_1"
-                    android:layout_width="0dp"
-                    android:layout_height="32dp"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    app:np_dividerColor="@color/colorPrimary"
-                    app:np_dividerDistance="28sp"
-                    app:np_max="100"
-                    app:np_min="0"
-                    app:np_orientation="horizontal"
-                    app:np_selectedTextColor="@color/colorPrimary"
-                    app:np_selectedTextSize="20sp"
-                    app:np_textColor="@color/colorPrimary"
-                    app:np_textSize="16sp"
-                    app:np_value="0">
-
-                </com.shawnlin.numberpicker.NumberPicker>
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:layout_gravity="center"
-                    android:text="," />
-
-                <com.shawnlin.numberpicker.NumberPicker
-                    android:id="@+id/obp_2"
-                    android:layout_width="0dp"
-                    android:layout_height="32dp"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    app:np_dividerColor="@color/colorPrimary"
-                    app:np_dividerDistance="28sp"
-                    app:np_max="99"
-                    app:np_min="0"
-                    app:np_orientation="horizontal"
-                    app:np_selectedTextColor="@color/colorPrimary"
-                    app:np_selectedTextSize="20sp"
-                    app:np_textColor="@color/colorPrimary"
-                    app:np_textSize="16sp"
-                    app:np_value="0">
-
-                </com.shawnlin.numberpicker.NumberPicker>
-
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
 
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#79cae5">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -231,44 +156,30 @@
                 android:padding="8dp">
 
 
-                // Javade setwidthle eşitliyorsun
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="14dp"
                     android:text="Sınıfın"
-                    android:textSize="24sp" />
-
-            </RelativeLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                    android:textSize="22sp" />
 
                 <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
                     android:id="@+id/radio_sinif"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_width="215dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="match_parent"
                     app:compoundType="radio"
                     app:entries="@array/sinif_array"
                     app:labelOrder="after"
                     app:numCols="2" />
 
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
-        </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
             android:id="@+id/mezun_expand"
@@ -276,68 +187,52 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp">
-
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="#79cae5"
+                android:layout_marginTop="8dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp">
-
-
-                    // Javade setwidthle eşitliyorsun
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Tercih Yaptın Mı?"
-                        android:textSize="24sp" />
-
-                </RelativeLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
-
+                        android:layout_alignParentLeft="true"
+                        android:text="Daha önce \ntercih yaptın mı?"
+                        android:textSize="16sp"
+                        android:layout_marginTop="6dp"/>
                     <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
                         android:id="@+id/mezun_soru"
-                        android:layout_width="match_parent"
+                        android:layout_width="180dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         app:compoundType="radio"
                         app:entries="@array/evet_hayir"
                         app:labelOrder="after"
                         app:numCols="2" />
 
-                </androidx.cardview.widget.CardView>
+                </RelativeLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/button3"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/devamButonu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginRight="8dp"
-            android:text="Devam" />
-
+            android:text="Devam"
+            style="@style/Widget.MaterialComponents.Button"
+            app:strokeWidth="@dimen/_1sdp"
+            app:cornerRadius="@dimen/_10sdp"
+            app:strokeColor="@color/colorPrimaryDark"
+            app:rippleColor="@color/cardview_light_background"/>
 
     </LinearLayout>
 

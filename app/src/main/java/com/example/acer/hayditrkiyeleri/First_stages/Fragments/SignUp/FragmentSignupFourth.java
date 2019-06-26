@@ -105,8 +105,6 @@ public class FragmentSignupFourth extends Fragment {
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         resources = getResources();
         mKonular = resources.getStringArray(R.array.turkce);
@@ -137,6 +135,7 @@ public class FragmentSignupFourth extends Fragment {
         myRepo.setDao(((ThisApplication) getActivity().getApplication()).get_dao());
         viewModel.setMyRepo(myRepo);
         //Burası karışık gözüküyor ama olan tek şey viewModel initialize ediliyor.
+
 
         View view = inflater.inflate(R.layout.fragment_signup4, container, false);
         TextView ders_ismi = view.findViewById(R.id.soru_row);
@@ -228,10 +227,11 @@ public class FragmentSignupFourth extends Fragment {
             public void onClick(View v) {
 
                 if(ders == 1) {
-                FragmentAYTPopUp fragmentAYTPopUp = new FragmentAYTPopUp();
-                fragmentAYTPopUp.show(getFragmentManager(),"ayt");}
+                    FragmentAYTPopUp fragmentAYTPopUp = new FragmentAYTPopUp();
+                    fragmentAYTPopUp.show(getFragmentManager(),"ayt");}
 
                 else{
+
                     MyTask task=new MyTask(()->{
 
 
@@ -265,11 +265,17 @@ public class FragmentSignupFourth extends Fragment {
 
                     task.execute();
 
+
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
                     Bundle mBundle = new Bundle();
                     mBundle.putInt("kalan",ders - 1); // Teker teker dersler :ddd
-
+                    int altKonuSayisi = 5;
+                    int temp;
+                    for(int i = 0; i < array.length ; i++ ){
+                        // Şu an array[i]'nin bir işlevi yok
+                        temp = altKonuFonksiyon(array[i],arr[i],altKonuSayisi);
+                    }
                     FragmentSignupFourth newGamefragment = new FragmentSignupFourth();
                     newGamefragment.setArguments(mBundle);
                     fragmentTransaction.addToBackStack(null);
@@ -327,17 +333,17 @@ public class FragmentSignupFourth extends Fragment {
             mTextView.setText(genre);
 
             // Arrda koyduğum renk değerlerine göre background ata
-             if(arr[position] == 0)
-                 mTextView.setBackgroundColor(Color.parseColor("#E52E00"));
-             else if(arr[position] == 1)
-                 mTextView.setBackgroundColor(Color.parseColor("#DB8D00"));
-             else if(arr[position] == 2)
-                 mTextView.setBackgroundColor(Color.parseColor("#BFD200"));
-             else
-                 mTextView.setBackgroundColor(Color.parseColor("#04BF00"));
+            if(arr[position] == 0)
+                mTextView.setBackgroundColor(Color.parseColor("#E52E00"));
+            else if(arr[position] == 1)
+                mTextView.setBackgroundColor(Color.parseColor("#DB8D00"));
+            else if(arr[position] == 2)
+                mTextView.setBackgroundColor(Color.parseColor("#BFD200"));
+            else
+                mTextView.setBackgroundColor(Color.parseColor("#04BF00"));
 
 
-             // textviewa her tıklandığında rengi değiştir ve arr değerini
+            // textviewa her tıklandığında rengi değiştir ve arr değerini
             // değiştir bu sayede yukarı aşağı yaptığımızda listedeki rnekler değişmeyecek
             mTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -387,3 +393,7 @@ public class FragmentSignupFourth extends Fragment {
         }
     }
 }
+
+
+
+

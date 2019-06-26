@@ -42,6 +42,8 @@ public class ThisApplication extends Application {
 
     public void initialize_altbasliklar(){
 
+        //Eğer adam bir telefonda iki hesap kullanacaksa sıkıntı
+
         MyTask task=new MyTask(()->{
 
             Resources resources= getResources();

@@ -169,7 +169,6 @@ public class KonuTakip {
             while (it.hasNext()) {
                 keyValue = (HashMap.Entry)it.next();
                 keyValue.setValue("Yeşil");
-
                 Log.d("Sad","Key" + keyValue.getKey());
             }*/
 

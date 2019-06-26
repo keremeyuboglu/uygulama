@@ -6,7 +6,7 @@ import com.example.acer.hayditrkiyeleri.Database.Entities.Stat;
 
 import java.util.ArrayList;
 
-public abstract class NetHesabi {
+public class NetHesabi {
 
     // Gelmesi gereken veriler:
     // Deneme sayisi
