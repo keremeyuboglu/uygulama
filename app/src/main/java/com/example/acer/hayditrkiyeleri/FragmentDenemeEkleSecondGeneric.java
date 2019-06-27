@@ -145,6 +145,10 @@ public class FragmentDenemeEkleSecondGeneric extends Fragment {
                         viewModel.insert_deneme(deneme);
                         Log.i("olley", "deneme gömüldü: "+deneme.deneme_id);
                     }else{
+
+                        Log.i("hmmmmmm", "firstten seconda gelen: mutable "+mutableLiveData);
+                        Log.i("hmmmmmm", "firstten seconda gelen: "+denemeler);
+
                         denemeler.add(deneme);
                         mutableLiveData.postValue(denemeler);
                     }
