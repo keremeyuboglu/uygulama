@@ -160,8 +160,24 @@ public class FragmentSignupFifth extends Fragment {
         viewModel.getItems().observe(getActivity(), denemeEntities -> {
             ArrayList<Item_Denemelerim> items = RVItemGenerator.pump_Item_denemelerim(denemeEntities);
             adapter.setItems(items);
-            adapter.notifyDataSetChanged();
             tane.set(items.size());
+            adapter.notifyDataSetChanged();
+
+            int scroll = tane.intValue();
+
+            if(scroll == 0){
+                recyclerView.setVisibility(View.GONE);
+            }
+            else if(scroll == 1){
+                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView.getLayoutParams().height = 200;
+            }
+            else if(scroll == 2){
+                recyclerView.getLayoutParams().height = 400;
+            }
+            else{
+                recyclerView.getLayoutParams().height = 600;
+            }
         });
 
 
@@ -181,21 +197,7 @@ public class FragmentSignupFifth extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
-        int scroll = tane.intValue();
 
-        if(scroll == 0){
-            recyclerView.setVisibility(View.GONE);
-        }
-        else if(scroll == 1){
-            recyclerView.setVisibility(View.VISIBLE);
-            recyclerView.getLayoutParams().height = 200;
-        }
-        else if(scroll == 2){
-            recyclerView.getLayoutParams().height = 400;
-        }
-        else{
-            recyclerView.getLayoutParams().height = 600;
-        }
         return v;
     }
 
