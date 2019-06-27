@@ -12,13 +12,21 @@ public class AltBaslikEntity {
 
     @PrimaryKey
     @NonNull
-    private String altbaslik_isim;
+    public String altbaslik_isim;
 
     private boolean isBiliniyor=false;
 
     public AltBaslikEntity(String konu_isim, String altbaslik_isim) {
         this.konu_isim = konu_isim;
         this.altbaslik_isim = altbaslik_isim;
+    }
+
+    public String getKonu_isim() {
+        return konu_isim;
+    }
+
+    public void setKonu_isim(String konu_isim) {
+        this.konu_isim = konu_isim;
     }
 
     public boolean isBiliniyor() {

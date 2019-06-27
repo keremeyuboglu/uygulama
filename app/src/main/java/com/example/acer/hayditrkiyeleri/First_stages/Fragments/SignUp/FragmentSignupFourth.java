@@ -23,20 +23,27 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.acer.hayditrkiyeleri.Database.Entities.AltBaslikEntity;
+import com.example.acer.hayditrkiyeleri.Database.Repository;
 import com.example.acer.hayditrkiyeleri.DersBilgileri.Ders_Bilgi;
 import com.example.acer.hayditrkiyeleri.DersBilgileri.TYT_Bilgi;
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.EventTransfer;
 import com.example.acer.hayditrkiyeleri.MainActivity;
 import com.example.acer.hayditrkiyeleri.R;
+import com.example.acer.hayditrkiyeleri.ThisApplication;
+import com.example.acer.hayditrkiyeleri.Util.MyTask;
+import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpFourthViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -121,6 +128,14 @@ public class FragmentSignupFourth extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+        SignUpFourthViewModel viewModel= ViewModelProviders.of(this).get(SignUpFourthViewModel.class);
+        Repository myRepo = new Repository();
+        myRepo.setDao(((ThisApplication) getActivity().getApplication()).get_dao());
+        viewModel.setMyRepo(myRepo);
+        //Burası karışık gözüküyor ama olan tek şey viewModel initialize ediliyor.
+
 
         View view = inflater.inflate(R.layout.fragment_signup4, container, false);
         TextView ders_ismi = view.findViewById(R.id.soru_row);
@@ -212,10 +227,45 @@ public class FragmentSignupFourth extends Fragment {
             public void onClick(View v) {
 
                 if(ders == 1) {
-                FragmentAYTPopUp fragmentAYTPopUp = new FragmentAYTPopUp();
-                fragmentAYTPopUp.show(getFragmentManager(),"ayt");}
+                    FragmentAYTPopUp fragmentAYTPopUp = new FragmentAYTPopUp();
+                    fragmentAYTPopUp.show(getFragmentManager(),"ayt");}
 
                 else{
+
+                    MyTask task=new MyTask(()->{
+
+
+
+                        int altKonuSayisi = 5;
+                        int temp;
+                        for(int i = 0; i < array.length ; i++ ){
+                            // Şu an array[i]'nin bir işlevi yok
+
+                            List<AltBaslikEntity> basliklar= viewModel.get_altBasliksByKonuisim(array[i]);
+
+                            altKonuSayisi=basliklar.size();
+                            temp = altKonuFonksiyon(array[i],arr[i],altKonuSayisi);
+
+                            if(temp>altKonuSayisi){
+
+                                Log.i("hata", "alt başlık sayısından daha fazla tik atmak gerekiyor");
+                            }else{
+
+                                for(int a=0; a<temp; a++){
+
+                                    basliklar.get(a).setBiliniyor(true);
+                                }
+
+                                viewModel.insert_altbasliks(basliklar);
+
+                            }
+                        }
+
+                    });
+
+                    task.execute();
+
+
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     Toast.makeText(getContext(), "Ayrıntılı", Toast.LENGTH_SHORT).show();
                     Bundle mBundle = new Bundle();
@@ -283,17 +333,17 @@ public class FragmentSignupFourth extends Fragment {
             mTextView.setText(genre);
 
             // Arrda koyduğum renk değerlerine göre background ata
-             if(arr[position] == 0)
-                 mTextView.setBackgroundColor(Color.parseColor("#E52E00"));
-             else if(arr[position] == 1)
-                 mTextView.setBackgroundColor(Color.parseColor("#DB8D00"));
-             else if(arr[position] == 2)
-                 mTextView.setBackgroundColor(Color.parseColor("#BFD200"));
-             else
-                 mTextView.setBackgroundColor(Color.parseColor("#04BF00"));
+            if(arr[position] == 0)
+                mTextView.setBackgroundColor(Color.parseColor("#E52E00"));
+            else if(arr[position] == 1)
+                mTextView.setBackgroundColor(Color.parseColor("#DB8D00"));
+            else if(arr[position] == 2)
+                mTextView.setBackgroundColor(Color.parseColor("#BFD200"));
+            else
+                mTextView.setBackgroundColor(Color.parseColor("#04BF00"));
 
 
-             // textviewa her tıklandığında rengi değiştir ve arr değerini
+            // textviewa her tıklandığında rengi değiştir ve arr değerini
             // değiştir bu sayede yukarı aşağı yaptığımızda listedeki rnekler değişmeyecek
             mTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -343,3 +393,7 @@ public class FragmentSignupFourth extends Fragment {
         }
     }
 }
+
+
+
+

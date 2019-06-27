@@ -87,6 +87,7 @@ public class FragmentSignupFifth extends Fragment {
 
                 MyTask task = new MyTask(() -> {
 
+                    //Burası ayt ye göre değiştirilmeli
                     viewModel.insert_items(denemeler);
 
                     EsasVeriEntity temp_esasveri;

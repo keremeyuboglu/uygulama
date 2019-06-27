@@ -34,13 +34,13 @@
 
 
 
-  <!--  <TextView
-        android:id="@+id/passText"
-        android:textSize="@dimen/_9sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="           Şifre:" />
-        -->
+    <!--  <TextView
+          android:id="@+id/passText"
+          android:textSize="@dimen/_9sdp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="           Şifre:" />
+          -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

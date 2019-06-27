@@ -39,4 +39,8 @@ public class SignUpThirdViewModel extends DenemelerimViewModel {
         myRepo.insert_esasVeri(esasVeriEntity);
     }
 
+    public EsasVeriEntity get_esasveri(String isim){
+        return myRepo.get_esasVeri(isim);
+    }
+
 }

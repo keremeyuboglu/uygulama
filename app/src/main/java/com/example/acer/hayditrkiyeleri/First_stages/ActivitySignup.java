@@ -14,7 +14,6 @@ import com.example.acer.hayditrkiyeleri.R;
 
 public class ActivitySignup extends AppCompatActivity {
 
-    private UserInfo userinfo= new UserInfo();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,7 +23,7 @@ public class ActivitySignup extends AppCompatActivity {
         if(null == savedInstanceState) {
             FragmentManager fragmentManager2 = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-            FragmentSignupFirst fragment2 = new FragmentSignupFirst(userinfo);
+            FragmentSignupFirst fragment2 = new FragmentSignupFirst();
             fragmentTransaction2.add(R.id.signupContainer, fragment2);
             fragmentTransaction2.commit();
         }

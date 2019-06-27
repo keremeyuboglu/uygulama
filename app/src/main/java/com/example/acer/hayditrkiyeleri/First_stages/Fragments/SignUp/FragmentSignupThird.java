@@ -142,85 +142,94 @@ public class FragmentSignupThird extends Fragment {
                             }
                         }
                     }
+
+                    //Userinfo dan gelecek
+
+                    //Bolum ve sinif bir yerlerde kullanılmıyor o yüzden şimdilik böyle kalsın
+                    TYTOgrenci tytOgrenci = new TYTOgrenci(FragmentSignupFirst.userinfo.getIstercih()==0, 87.87);
+
+
+
+                    tytOgrenci.setTurkce(NetHesabi.dersneti(viewModel.get_esasveri("Türkçe").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setMatematik(NetHesabi.dersneti(viewModel.get_esasveri("Matematik").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setFizik(NetHesabi.dersneti(viewModel.get_esasveri("Fizik").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setKimya(NetHesabi.dersneti(viewModel.get_esasveri("Kimya").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setBiyoloji(NetHesabi.dersneti(viewModel.get_esasveri("Biyoloji").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setCografya(NetHesabi.dersneti(viewModel.get_esasveri("Coğrafya").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setTarih(NetHesabi.dersneti(viewModel.get_esasveri("Tarih").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setFelsefe(NetHesabi.dersneti(viewModel.get_esasveri("Felsefe").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    tytOgrenci.setDin(NetHesabi.dersneti(viewModel.get_esasveri("Din").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+
+                    Resources resources = getResources();
+
+                    //Sıralama bilmemnesi
+                    List<SiralamaSample> siralamaSample = new ArrayList<>();
+                    InputStream is = resources.openRawResource(R.raw.siralama);
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(is, Charset.forName("UTF-8"))
+                    );
+                    String line = "";
+                    try {
+                        while ((line = reader.readLine()) != null){
+                            String[] tokens = line.split(",");
+
+                            SiralamaSample sample = new SiralamaSample();
+                            sample.setPuan(Integer.parseInt(tokens[0]));
+                            sample.setTytsira(Double.parseDouble(tokens[1]));
+                            sample.setSozelsira(Double.parseDouble(tokens[2]));
+                            sample.setSayisalsira(Double.parseDouble(tokens[3]));
+                            sample.setEsitagirliksira(Double.parseDouble(tokens[4]));
+                            sample.setDilsira(Double.parseDouble(tokens[5]));
+
+                            siralamaSample.add(sample);
+                        }
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    //Sıralama bilmemnesi end
+
+                    String[] arrayTurkce = resources.getStringArray(R.array.turkce);
+                    LinkedHashMap<String,String> hashMapDersler= new LinkedHashMap<String, String>();
+
+                    for (int i = 0; i < arrayTurkce.length; i++) {
+                        hashMapDersler.put(arrayTurkce[i],"Kırmızı");
+                    }
+
+
+                    KonuTakip konuTakip = new KonuTakip(tytOgrenci);
+                    tytOgrenci.setPuan(tytOgrenci.tytPuan());
+                    Log.d("mesaj", "Puanı bu" + tytOgrenci.getPuan());
+                    double tytSira = tytOgrenci.siralamaHesabı(tytOgrenci.getPuan(),siralamaSample);
+                    Log.d("mesaj","bu + " + tytSira);
+                    tytOgrenci.setSiralama(tytSira);
+                    hashMapDersler = konuTakip.turkcetakip(hashMapDersler);
+                    hashMapDersler = konuTakip.matematiktakip(hashMapDersler);
+                    hashMapDersler = konuTakip.fiziktakip(hashMapDersler);
+                    hashMapDersler = konuTakip.kimyatakip(hashMapDersler);
+                    hashMapDersler = konuTakip.biyolojitakip(hashMapDersler);
+                    hashMapDersler = konuTakip.tarihtakip(hashMapDersler);
+                    hashMapDersler = konuTakip.cografyatakip(hashMapDersler);
+                    hashMapDersler = konuTakip.felsefetakip(hashMapDersler);
+                    hashMapDersler = konuTakip.dintakip(hashMapDersler);
+
+
+                    EventBus.getDefault().postSticky(new EventTransfer.konuIcerigi(hashMapDersler));
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.signupContainer, new FragmentSignupFourth());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
                 });
 
                 task.execute();
 
-                Resources resources = getResources();
-                TYTOgrenci tytOgrenci = new TYTOgrenci("MF", "Mezun", 87.87);
-                double[][] turkcenetler = {
-                        {27, 3}, {24, 5}, {21, 6}, {17, 8}, {34, 5}
-                };
 
-                NetHesabi netHesabi = new NetHesabi();
-                tytOgrenci.setTurkce(30);
-                tytOgrenci.setMatematik(30.5);
-                tytOgrenci.setFizik(4.25);
-                tytOgrenci.setKimya(0);
-                tytOgrenci.setBiyoloji(0);
-                tytOgrenci.setCografya(5.75);
-                tytOgrenci.setTarih(3.75);
-                tytOgrenci.setFelsefe(1.75);
-                tytOgrenci.setDin(1.5);
-                List<SiralamaSample> siralamaSample = new ArrayList<>();
-                InputStream is = resources.openRawResource(R.raw.siralama);
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(is,Charset.forName("UTF-8"))
-                );
-                String line = "";
-                try {
-                    while ((line = reader.readLine()) != null){
-                        String[] tokens = line.split(",");
-
-                        SiralamaSample sample = new SiralamaSample();
-                        sample.setPuan(Integer.parseInt(tokens[0]));
-                        sample.setTytsira(Double.parseDouble(tokens[1]));
-                        sample.setSozelsira(Double.parseDouble(tokens[2]));
-                        sample.setSayisalsira(Double.parseDouble(tokens[3]));
-                        sample.setEsitagirliksira(Double.parseDouble(tokens[4]));
-                        sample.setDilsira(Double.parseDouble(tokens[5]));
-
-                        siralamaSample.add(sample);
-                    }
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-
-
-                String[] arrayTurkce = resources.getStringArray(R.array.turkce);
-                LinkedHashMap<String,String> hashMapDersler= new LinkedHashMap<String, String>();
-
-                for (int i = 0; i < arrayTurkce.length; i++) {
-                    hashMapDersler.put(arrayTurkce[i],"Kırmızı");
-                }
-
-
-                KonuTakip konuTakip = new KonuTakip(tytOgrenci);
-                tytOgrenci.setPuan(tytOgrenci.tytPuan());
-                Log.d("mesaj", "Puanı bu" + tytOgrenci.getPuan());
-                double tytSira = tytOgrenci.siralamaHesabı(tytOgrenci.getPuan(),siralamaSample);
-                Log.d("mesaj","bu + " + tytSira);
-                tytOgrenci.setSiralama(tytSira);
-                hashMapDersler = konuTakip.turkcetakip(hashMapDersler);
-                hashMapDersler = konuTakip.matematiktakip(hashMapDersler);
-                hashMapDersler = konuTakip.fiziktakip(hashMapDersler);
-                hashMapDersler = konuTakip.kimyatakip(hashMapDersler);
-                hashMapDersler = konuTakip.biyolojitakip(hashMapDersler);
-                hashMapDersler = konuTakip.tarihtakip(hashMapDersler);
-                hashMapDersler = konuTakip.cografyatakip(hashMapDersler);
-                hashMapDersler = konuTakip.felsefetakip(hashMapDersler);
-                hashMapDersler = konuTakip.dintakip(hashMapDersler);
-
-
-                EventBus.getDefault().postSticky(new EventTransfer.konuIcerigi(hashMapDersler));
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.signupContainer, new FragmentSignupFourth());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
             }
 
 
         });
+
+        //Recyclerview start
         AtomicInteger mReyclerViewSize = new AtomicInteger();
         int mReyclerViewSizeInt;
         RecyclerView recyclerView = v.findViewById(R.id.RV_deneme_kayit);
@@ -249,6 +258,7 @@ public class FragmentSignupThird extends Fragment {
         }
         else
             recyclerView.getLayoutParams().height = 600;
+        //Recyclerview end
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

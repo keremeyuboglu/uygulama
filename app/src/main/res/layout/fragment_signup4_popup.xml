@@ -33,4 +33,3 @@
         android:layout_toRightOf="@+id/generic_ekle2"
         android:layout_marginLeft="88dp" />
 </RelativeLayout>
-

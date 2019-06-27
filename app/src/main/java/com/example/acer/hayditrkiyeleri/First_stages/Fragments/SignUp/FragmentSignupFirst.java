@@ -23,13 +23,8 @@ public class FragmentSignupFirst extends Fragment {
 
     private TextInputLayout username, password, password2, email;
     private CheckBox checkBox;
-    private UserInfo userinfo;
+    static UserInfo userinfo=new UserInfo();
 
-
-    public FragmentSignupFirst(UserInfo userinfo) {
-
-        this.userinfo = userinfo;
-    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -88,7 +83,7 @@ public class FragmentSignupFirst extends Fragment {
 
 
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    FragmentSignupSecond newGamefragment = new FragmentSignupSecond(userinfo);
+                    FragmentSignupSecond newGamefragment = new FragmentSignupSecond();
                     fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();

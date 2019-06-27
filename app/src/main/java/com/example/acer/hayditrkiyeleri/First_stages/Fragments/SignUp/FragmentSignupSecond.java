@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.acer.hayditrkiyeleri.R;
+import com.example.acer.hayditrkiyeleri.ThisApplication;
 import com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup;
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -35,13 +36,10 @@ import static android.view.View.GONE;
 
 public class FragmentSignupSecond extends Fragment {
 
-    private UserInfo userInfo;
-    private CompoundButtonGroup bolum;
-    private CompoundButtonGroup sinif;
 
-    public FragmentSignupSecond(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
+    private CompoundButtonGroup bolum;
+    private CompoundButtonGroup sinif, tercihyaptinmi;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,6 +64,7 @@ public class FragmentSignupSecond extends Fragment {
         // Bölüm ve Sınıf seçenekleri
         bolum = v.findViewById(R.id.radio_bolum);
         sinif = v.findViewById(R.id.radio_sinif);
+        tercihyaptinmi= v.findViewById(R.id.mezun_soru);
 
         // Hedef üni autocomplete
         AutoCompleteTextView uniler = v.findViewById(R.id.hedef_uni); // Bir yerden datalari aliriz artik
@@ -109,6 +108,8 @@ public class FragmentSignupSecond extends Fragment {
         changeFragment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                ((ThisApplication)getActivity().getApplication()).initialize_altbasliklar(); //Alt basliklari initialize edicek.
+                                                                                        //Daha güzel bir çözüm bulunabilir.
                 // Obp nullsa normalde -1'e atayp izin vermiyordu
                 // Ancak şimdi  kolaylık olsun diye 20 dedim nullken de geçebiliriz
                 String temp = obpEdit.getText().toString();
@@ -124,16 +125,33 @@ public class FragmentSignupSecond extends Fragment {
                 else {
                     List<Integer> bol= bolum.getCheckedPositions();
                     List<Integer> sin= sinif.getCheckedPositions();
+                    List<Integer> isTercih= tercihyaptinmi.getCheckedPositions();
 
                     if(bol.size() != 0){ //If a radio selected
-                        userInfo.setBolum(bol.get(0));
+                        FragmentSignupFirst.userinfo.setBolum(bol.get(0));
                     }else{
                         //ERROR!!!!
                     }
 
 
                     if(sin.size() != 0){ //If a radio selected
-                        userInfo.setSinif(sin.get(0));
+                        int sinif=sin.get(0);
+
+                        FragmentSignupFirst.userinfo.setSinif(sinif);
+
+                        if(sinif==1){ //Mezun ise
+
+                            if(isTercih.size()!=0){
+
+                                FragmentSignupFirst.userinfo.setIstercih(isTercih.get(0));
+
+                            }else{
+                                //ERROR!!!!
+                            }
+
+                        }
+
+
                     }else{
                         //ERROR!!!!
                     }
@@ -144,7 +162,7 @@ public class FragmentSignupSecond extends Fragment {
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
-                }
+            }
 
         });
 
@@ -152,3 +170,5 @@ public class FragmentSignupSecond extends Fragment {
     }
 
 }
+
+

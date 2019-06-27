@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.acer.hayditrkiyeleri.Database.Entities.AltBaslikEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.DenemeEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 
@@ -39,4 +40,12 @@ public interface DAO {
     @Query("SELECT * FROM ESASVERI_TABLE WHERE isim =:name")
     EsasVeriEntity get_esasVeri(String name);
 
+    @Query("SELECT * FROM ALTBASLIK_TABLE WHERE konu_isim =:konuisim")
+    List<AltBaslikEntity> get_altbasliksByKonuisim(String konuisim);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert_altbasliks(List<AltBaslikEntity> altBaslikEntities);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE) //Şimdilik çökmemesi için böyle durabilir
+    void insert_altbaslik(AltBaslikEntity altBaslikEntity);
 }
