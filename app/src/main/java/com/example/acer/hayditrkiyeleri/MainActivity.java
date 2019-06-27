@@ -1,103 +1,52 @@
 package com.example.acer.hayditrkiyeleri;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationView;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity{
 
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
-    private Toolbar mToolBar;
-
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // ToolBar oluşturma
+        setUpToolbar();
+        // Drawer oluşturma
+        setUpDrawer();
 
-        mToolBar = findViewById(R.id.nav_bar);
-        setSupportActionBar(mToolBar);
-        //Setting toolbar
-
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        //Getting drawer
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout, R.string.open, R.string.close);
-        //Setting things about toolbar :(
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        //Gotta be filled when other fragments are done
-        switch (item.getItemId()){
-
-            case R.id.arac_gerec:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMenuAracGerec()).commit();
-                break;
-            case R.id.denemelerim:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMenuDenemelerim()).commit();
-                break;
-            case R.id.hesap:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentDenemeEkleSecondGeneric()).commit();
-                break;
-            case R.id.konu_basliklari:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMenuKonuBasliklari()).commit();
-                break;
-            case R.id.programim:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMenuProgramim()).commit();
-                break;
-
+    private void setUpToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            toolbar.setElevation(5f);
         }
-
-
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public  boolean onOptionsItemSelected(MenuItem item){
-        //When Item selected
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-
+        toolbar.setTitle("Programcı");
     }
 
 
-    @Override
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    private void setUpDrawer() {
+        // NavigationDrawer sınıfından nesne üret, drawerlayout ile toolbarı o nesnedeki fonksiyona parametre olarak gönder
+        NavigationDrawerFragment navigationDrawer = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        navigationDrawer.setUpNavDrawer(drawerLayout,toolbar);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
 
-        Log.i("deneme", "öldüm");
-    }
+
 }

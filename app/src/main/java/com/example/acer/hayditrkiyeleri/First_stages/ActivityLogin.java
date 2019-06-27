@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.acer.hayditrkiyeleri.MainActivity;
 import com.example.acer.hayditrkiyeleri.R;
 
-public class ActivityLogin extends AppCompatActivity {
+public class ActivityLogin extends AppCompatActivity implements View.OnClickListener {
 
     Button button;
     @Override
@@ -21,13 +21,7 @@ public class ActivityLogin extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ActivityLogin.this , MainActivity.class));
-
-            }
-        });
+        button.setOnClickListener(this);
     }
     public void onClick(View v){
         // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_start, new FragmentSignupFirst()).commit();
