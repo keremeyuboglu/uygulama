@@ -82,6 +82,8 @@ public class FragmentSignupThird extends Fragment {
                 getActivity().startActivity(myIntent);*/
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                Log.i("hmmmmmm", "thirdden giden: "+denemeler);
+
                 fragmentTransaction.replace(R.id.signupContainer, new FragmentDenemeEkleFirst(viewModel.getItems(), denemeler));
                 fragmentTransaction.addToBackStack("seko");
                 fragmentTransaction.commit();
@@ -231,7 +233,7 @@ public class FragmentSignupThird extends Fragment {
 
         //Recyclerview start
         AtomicInteger mReyclerViewSize = new AtomicInteger();
-        int mReyclerViewSizeInt;
+
         RecyclerView recyclerView = v.findViewById(R.id.RV_deneme_kayit);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -243,21 +245,24 @@ public class FragmentSignupThird extends Fragment {
         viewModel.getItems().observe(getActivity(), denemeEntities -> {
             ArrayList<Item_Denemelerim> items = RVItemGenerator.pump_Item_denemelerim(denemeEntities);
             adapter.setItems(items);
-            adapter.notifyDataSetChanged();
             mReyclerViewSize.set(items.size());
+            adapter.notifyDataSetChanged();
+
+            int mReyclerViewSizeInt = mReyclerViewSize.intValue();
+            if (mReyclerViewSizeInt == 0){
+                recyclerView.setVisibility(View.GONE);
+            }
+            else if(mReyclerViewSizeInt == 1){
+                recyclerView.getLayoutParams().height = 200;
+            }
+            else if(mReyclerViewSizeInt == 2){
+                recyclerView.getLayoutParams().height = 400;
+            }
+            else
+                recyclerView.getLayoutParams().height = 600;
+
         });
-        mReyclerViewSizeInt = mReyclerViewSize.intValue();
-        if (mReyclerViewSizeInt == 0){
-            recyclerView.setVisibility(View.GONE);
-        }
-        else if(mReyclerViewSizeInt == 1){
-            recyclerView.getLayoutParams().height = 200;
-        }
-        else if(mReyclerViewSizeInt == 2){
-            recyclerView.getLayoutParams().height = 400;
-        }
-        else
-            recyclerView.getLayoutParams().height = 600;
+
         //Recyclerview end
 
 

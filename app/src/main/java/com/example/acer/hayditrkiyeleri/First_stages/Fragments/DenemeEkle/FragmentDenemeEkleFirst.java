@@ -60,7 +60,8 @@ public class FragmentDenemeEkleFirst extends Fragment {
     private ScrollView mScrollView;
     int mPopupHeight;
     int mPopupWidth;
-
+    DenemeEntity new_deneme;
+    private Repository myRepo=new Repository();
 
     private MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData;
     private ArrayList<DenemeEntity> rv_items_signup;
@@ -69,9 +70,9 @@ public class FragmentDenemeEkleFirst extends Fragment {
     public FragmentDenemeEkleFirst(MutableLiveData<ArrayList<DenemeEntity>> mutableLiveData, ArrayList<DenemeEntity> rv_items_signup) {
         this.mutableLiveData = mutableLiveData;
         this.rv_items_signup = rv_items_signup;
+        Log.i("hmmmmmm", "thirdden firste gelen: mutable "+mutableLiveData);
+        Log.i("hmmmmmm", "thirdden firste gelen: "+rv_items_signup);
     }
-    DenemeEntity new_deneme;
-    private Repository myRepo=new Repository();
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -102,7 +103,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
             //Ayrıntılı girilecek
 
             //basically passing rv_items and denemeid to pump_item and it will pump a new denemeEntity
-            new_deneme= pump_deneme(viewModel.get_rvitems(), ((ThisApplication)getActivity().getApplication()).get_numberofdeneme());
+            new_deneme= pump_deneme(viewModel.get_rvitems(), rv_items_signup.size());
 
             new_deneme.setAyrintili(true); //Ayrıntılı
             //Ders doğru yanlış işlemleri yapılması lazım
@@ -139,6 +140,7 @@ public class FragmentDenemeEkleFirst extends Fragment {
         }
 
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_deneme_ekle1_ygs, container, false);
