@@ -50,9 +50,6 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class FragmentSignupFourth extends Fragment {
 
-    // Pop up yapacağım
-    // fragment_signup_popup4 xmlini değiştirdim o yüzden hata veriyor
-    // Eventbus koyupo yemi frgament oluşturmam gerekecek
     private int globalVariableforEventBus = 1;
     LinkedHashMap<String,String> hashMap;
     Resources resources;

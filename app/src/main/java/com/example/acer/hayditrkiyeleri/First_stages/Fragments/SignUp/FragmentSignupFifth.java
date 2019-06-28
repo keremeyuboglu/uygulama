@@ -26,11 +26,21 @@ import com.example.acer.hayditrkiyeleri.Database.Entities.EsasVeriEntity;
 import com.example.acer.hayditrkiyeleri.Database.Entities.Stat;
 import com.example.acer.hayditrkiyeleri.Database.Repository;
 import com.example.acer.hayditrkiyeleri.First_stages.ActivitySignup;
+import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.EventTransfer;
 import com.example.acer.hayditrkiyeleri.First_stages.Fragments.DenemeEkle.FragmentDenemeEkleFirst;
 import com.example.acer.hayditrkiyeleri.FragmentMenuDenemeGoster;
 import com.example.acer.hayditrkiyeleri.R;
+import com.example.acer.hayditrkiyeleri.SiralamaSample;
 import com.example.acer.hayditrkiyeleri.ThisApplication;
+import com.example.acer.hayditrkiyeleri.TytDersler.AYTOgrenciDil;
+import com.example.acer.hayditrkiyeleri.TytDersler.AYTOgrenciMF;
+import com.example.acer.hayditrkiyeleri.TytDersler.AYTOgrenciTM;
+import com.example.acer.hayditrkiyeleri.TytDersler.AYTOgrenciTS;
 import com.example.acer.hayditrkiyeleri.TytDersler.KonuTakip;
+import com.example.acer.hayditrkiyeleri.TytDersler.KonuTakipDil;
+import com.example.acer.hayditrkiyeleri.TytDersler.KonuTakipMF;
+import com.example.acer.hayditrkiyeleri.TytDersler.KonuTakipTM;
+import com.example.acer.hayditrkiyeleri.TytDersler.KonuTakipTS;
 import com.example.acer.hayditrkiyeleri.TytDersler.NetHesabi;
 import com.example.acer.hayditrkiyeleri.TytDersler.TYTOgrenci;
 import com.example.acer.hayditrkiyeleri.Util.MyTask;
@@ -38,8 +48,17 @@ import com.example.acer.hayditrkiyeleri.Util.RVItemGenerator;
 import com.example.acer.hayditrkiyeleri.Util.RVItems.Denemelerim.Item_Denemelerim;
 import com.example.acer.hayditrkiyeleri.Util.ViewModels.SignUpThirdViewModel;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static android.content.ContentValues.TAG;
@@ -137,8 +156,183 @@ public class FragmentSignupFifth extends Fragment {
                 });
 
                 task.execute();
+                // TYT Öğrencinin obpsiz puanı ve obpsi gelmeli
+                AYTOgrenciTS aytOgrenciTS = new AYTOgrenciTS(300.0,87.87,true);
+                AYTOgrenciTM aytOgrenciTM = new AYTOgrenciTM(300.0,87.87,true);
+                AYTOgrenciMF aytOgrenciMF = new AYTOgrenciMF(300.0,87.87,true);
+                AYTOgrenciDil aytOgrenciDil = new AYTOgrenciDil(300.0,87.87,true);
+
+                Resources resources = getResources();
+
+                //Sıralama obpsiz
+                List<SiralamaSample> obpsizSıralamaArray = new ArrayList<>();
+                InputStream is = resources.openRawResource(R.raw.obpsizsiralama);
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(is, Charset.forName("UTF-8"))
+                );
+                String line = "";
+                try {
+                    while ((line = reader.readLine()) != null){
+                        String[] tokens = line.split(",");
+
+                        SiralamaSample sample = new SiralamaSample();
+                        sample.setPuan(Integer.parseInt(tokens[0]));
+                        sample.setTytsira(Double.parseDouble(tokens[1]));
+                        sample.setSozelsira(Double.parseDouble(tokens[2]));
+                        sample.setSayisalsira(Double.parseDouble(tokens[3]));
+                        sample.setEsitagirliksira(Double.parseDouble(tokens[4]));
+                        sample.setDilsira(Double.parseDouble(tokens[5]));
+
+                        obpsizSıralamaArray.add(sample);
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+                //Sıralama obpsiz end
+
+                //Sıralama obpli
+                List<SiralamaSample> obpliSiralamaArray = new ArrayList<>();
+                InputStream isobp = resources.openRawResource(R.raw.obplisiralam);
+                BufferedReader readerobp = new BufferedReader(
+                        new InputStreamReader(isobp, Charset.forName("UTF-8"))
+                );
+                String lineobp = "";
+                try {
+                    while ((lineobp = readerobp.readLine()) != null){
+                        String[] tokensobp = lineobp.split(",");
+
+                        SiralamaSample sample = new SiralamaSample();
+                        sample.setPuan(Integer.parseInt(tokensobp[0]));
+                        sample.setTytsira(Double.parseDouble(tokensobp[1]));
+                        sample.setSozelsira(Double.parseDouble(tokensobp[2]));
+                        sample.setSayisalsira(Double.parseDouble(tokensobp[3]));
+                        sample.setEsitagirliksira(Double.parseDouble(tokensobp[4]));
+                        sample.setDilsira(Double.parseDouble(tokensobp[5]));
+
+                        obpliSiralamaArray.add(sample);
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+                //Sıralama obpli end
+                String bölüm = "TS"; // Kayıt olurken seçtiği bölüm olmalı
+                LinkedHashMap<String,String> hashMapDersler= new LinkedHashMap<String, String>();
+                if(bölüm == "TS"){
+                    // Netleri setle
+                    aytOgrenciTS.setCografya1(11.5);
+                    aytOgrenciTS.setCografya2(11.5);
+                    aytOgrenciTS.setEdebiyat(11.5);
+                    aytOgrenciTS.setDin(11.5);
+                    aytOgrenciTS.setFelsefe(11.5);
+                    aytOgrenciTS.setTarih1(11.5);
+                    aytOgrenciTS.setTarih2(11.5);
+                    aytOgrenciTS.aytPuan();
+
+                    // KonuTakip classında da netleri setle
+                    // Bu sayede hashmap renkleri belli olsun
+                    KonuTakipTS konuTakip = new KonuTakipTS(aytOgrenciTS);
+                    // Arrayi çek ve hashMapte kırmızıya eşitle
+                    String[] arrayKonular = resources.getStringArray(R.array.TSkonular);
+                    for (int i = 0; i < arrayKonular.length; i++) {
+                        hashMapDersler.put(arrayKonular[i],"Kırmızı");
+                    }
+                    hashMapDersler = konuTakip.cografya2Takip(hashMapDersler);
+                    hashMapDersler = konuTakip.cografya1Takip(hashMapDersler);
+                    hashMapDersler = konuTakip.edebiyatTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.dinTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.felsefeTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.tarih1Takip(hashMapDersler);
+                    hashMapDersler = konuTakip.tarih2Takip(hashMapDersler);
 
 
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciTS.getObpsizPuan());
+                    double obpsizSira = aytOgrenciTS.siralamaHesabı(aytOgrenciTS.getObpsizPuan(),obpsizSıralamaArray);
+                    Log.d("mesaj","bu + " + obpsizSira);
+                    aytOgrenciTS.setObpsizSiralama(obpsizSira);
+                    // obpli yap
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciTS.getObpliPuan());
+                    double obpliSira = aytOgrenciTS.obpsiralamaHesabı(aytOgrenciTS.getObpliPuan(),obpliSiralamaArray);
+                    Log.d("mesaj","bu + " + obpliSira);
+                    aytOgrenciTS.setObpliSiralama(obpliSira);
+
+                } else if(bölüm == "TM"){
+                    aytOgrenciTM.setCografya1(11.5);
+                    aytOgrenciTM.setEdebiyat(11.5);
+                    aytOgrenciTM.setMatematik(11.5);
+                    aytOgrenciTM.setTarih1(11.5);
+                    aytOgrenciTM.aytPuan();
+
+                    KonuTakipTM konuTakip = new KonuTakipTM(aytOgrenciTM);
+                    String[] arrayKonular = resources.getStringArray(R.array.TMkonular);
+                    for (int i = 0; i < arrayKonular.length; i++) {
+                        hashMapDersler.put(arrayKonular[i],"Kırmızı");
+                    }
+                    hashMapDersler = konuTakip.matematikTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.cografya1Takip(hashMapDersler);
+                    hashMapDersler = konuTakip.edebiyatTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.tarih1Takip(hashMapDersler);
+
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciTM.getObpsizPuan());
+                    double obpsizSira = aytOgrenciTM.siralamaHesabı(aytOgrenciTM.getObpsizPuan(),obpsizSıralamaArray);
+                    Log.d("mesaj","bu + " + obpsizSira);
+                    aytOgrenciTM.setObpsizSiralama(obpsizSira);
+                    // obpli yap
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciTM.getObpliPuan());
+                    double obpliSira = aytOgrenciTM.obpsiralamaHesabı(aytOgrenciTM.getObpliPuan(),obpliSiralamaArray);
+                    Log.d("mesaj","bu + " + obpliSira);
+                    aytOgrenciTM.setObpliSiralama(obpliSira);
+
+                }else if(bölüm == "MF"){
+                    aytOgrenciMF.setBiyoloji(11.5);
+                    aytOgrenciMF.setFizik(11.5);
+                    aytOgrenciMF.setKimya(11.5);
+                    aytOgrenciMF.setMatematik(11.5);
+                    aytOgrenciMF.aytPuan();
+
+                    KonuTakipMF konuTakip = new KonuTakipMF(aytOgrenciMF);
+                    String[] arrayKonular = resources.getStringArray(R.array.MFkonular);
+                    for (int i = 0; i < arrayKonular.length; i++) {
+                        hashMapDersler.put(arrayKonular[i],"Kırmızı");
+                    }
+                    hashMapDersler = konuTakip.matematikTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.fizikTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.kimyaTakip(hashMapDersler);
+                    hashMapDersler = konuTakip.biyolojiTakip(hashMapDersler);
+
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciMF.getObpsizPuan());
+                    double obpsizSira = aytOgrenciMF.siralamaHesabı(aytOgrenciMF.getObpsizPuan(),obpsizSıralamaArray);
+                    Log.d("mesaj","bu + " + obpsizSira);
+                    aytOgrenciMF.setObpsizSiralama(obpsizSira);
+                    // obpli yap
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciMF.getObpliPuan());
+                    double obpliSira = aytOgrenciMF.obpsiralamaHesabı(aytOgrenciMF.getObpliPuan(),obpliSiralamaArray);
+                    Log.d("mesaj","bu + " + obpliSira);
+                    aytOgrenciMF.setObpliSiralama(obpliSira);
+
+                }else {
+                    aytOgrenciDil.setDil(11.5);
+                    aytOgrenciDil.aytPuan();
+
+                    KonuTakipDil konuTakip = new KonuTakipDil(aytOgrenciDil);
+                    String[] arrayKonular = resources.getStringArray(R.array.Dilkonular);
+                    for (int i = 0; i < arrayKonular.length; i++) {
+                        hashMapDersler.put(arrayKonular[i],"Kırmızı");
+                    }
+                    hashMapDersler = konuTakip.dilTakip(hashMapDersler);
+
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciDil.getObpsizPuan());
+                    double obpsizSira = aytOgrenciDil.siralamaHesabı(aytOgrenciDil.getObpsizPuan(),obpsizSıralamaArray);
+                    Log.d("mesaj","bu + " + obpsizSira);
+                    aytOgrenciDil.setObpsizSiralama(obpsizSira);
+                    // obpli yap
+                    Log.d("mesaj", "Puanı bu" + aytOgrenciDil.getObpliPuan());
+                    double obpliSira = aytOgrenciDil.obpsiralamaHesabı(aytOgrenciDil.getObpliPuan(),obpliSiralamaArray);
+                    Log.d("mesaj","bu + " + obpliSira);
+                    aytOgrenciDil.setObpliSiralama(obpliSira);
+
+                }
+
+                EventBus.getDefault().postSticky(new EventTransfer.konuIcerigiAYT(hashMapDersler,bölüm));
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.signupContainer, new FragmentSignupSix());
                 fragmentTransaction.addToBackStack(null);

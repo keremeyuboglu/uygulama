@@ -6,27 +6,33 @@ import com.example.acer.hayditrkiyeleri.SiralamaSample;
 
 import java.util.List;
 
-public class TYTOgrenci {
+public class AYTOgrenciTS {
 
-    String Bolum, sinif;
     boolean isMezunTercih;
-    double OBP, obpsizPuan ,obpliPuan, obpsizSiralama,obpliSiralama;
-    double turkce, matematik, fizik, kimya, biyoloji, tarih, cografya, felsefe, din;
+    double Edebiyat, Tarih1, Cografya1, Tarih2, Cografya2, Felsefe, Din;
+    double OBP, obpsizPuan ,obpliPuan, obpsizSiralama,obpliSiralama,TYTHam;
 
-    public double getObpsizSiralama() {
-        return obpsizSiralama;
+
+    public AYTOgrenciTS(double TYTHam, double OBP, boolean isMezunTercih) {
+        this.TYTHam = TYTHam;
+        this.OBP = OBP;
+        this.isMezunTercih = isMezunTercih;
+
+    }
+    public double getTYTHam() {
+        return TYTHam;
     }
 
-    public void setObpsizSiralama(double obpsizSiralama) {
-        this.obpsizSiralama = obpsizSiralama;
+    public void setTYTHam(double TYTHam) {
+        this.TYTHam = TYTHam;
     }
 
-    public double getobpliSiralama() {
-        return obpliSiralama;
+    public double getOBP() {
+        return OBP;
     }
 
-    public void setobpliSiralama(double obpliSiralama) {
-        this.obpliSiralama = obpliSiralama;
+    public void setOBP(double OBP) {
+        this.OBP = OBP;
     }
 
     public double getObpsizPuan() {
@@ -45,114 +51,81 @@ public class TYTOgrenci {
         this.obpliPuan = obpliPuan;
     }
 
-    public double getTurkce() {
-        return turkce;
+    public double getObpsizSiralama() {
+        return obpsizSiralama;
     }
 
-    public void setTurkce(double turkce) {
-        this.turkce = turkce;
+    public void setObpsizSiralama(double obpsizSiralama) {
+        this.obpsizSiralama = obpsizSiralama;
     }
 
-    public double getMatematik() {
-        return matematik;
+    public double getObpliSiralama() {
+        return obpliSiralama;
     }
 
-    public void setMatematik(double matematik) {
-        this.matematik = matematik;
+    public void setObpliSiralama(double obpliSiralama) {
+        this.obpliSiralama = obpliSiralama;
     }
 
-
-    public double getFizik() {
-        return fizik;
+    public double getEdebiyat() {
+        return Edebiyat;
     }
 
-    public void setFizik(double fizik) {
-        this.fizik = fizik;
+    public void setEdebiyat(double edebiyat) {
+        Edebiyat = edebiyat;
     }
 
-    public double getKimya() {
-        return kimya;
+    public double getTarih1() {
+        return Tarih1;
     }
 
-    public void setKimya(double kimya) {
-        this.kimya = kimya;
+    public void setTarih1(double tarih1) {
+        Tarih1 = tarih1;
     }
 
-    public double getBiyoloji() {
-        return biyoloji;
+    public double getCografya1() {
+        return Cografya1;
     }
 
-    public void setBiyoloji(double biyoloji) {
-        this.biyoloji = biyoloji;
+    public void setCografya1(double cografya1) {
+        Cografya1 = cografya1;
     }
 
-    public double getTarih() {
-        return tarih;
+    public double getTarih2() {
+        return Tarih2;
     }
 
-    public void setTarih(double tarih) {
-        this.tarih = tarih;
+    public void setTarih2(double tarih2) {
+        Tarih2 = tarih2;
     }
 
-    public double getCografya() {
-        return cografya;
+    public double getCografya2() {
+        return Cografya2;
     }
 
-    public void setCografya(double cografya) {
-        this.cografya = cografya;
+    public void setCografya2(double cografya2) {
+        Cografya2 = cografya2;
     }
 
     public double getFelsefe() {
-        return felsefe;
+        return Felsefe;
     }
 
     public void setFelsefe(double felsefe) {
-        this.felsefe = felsefe;
+        Felsefe = felsefe;
     }
 
     public double getDin() {
-        return din;
+        return Din;
     }
 
     public void setDin(double din) {
-        this.din = din;
+        Din = din;
     }
 
-    public TYTOgrenci(boolean isMezunTercih, double OBP) {
-
-        //Bolum ve sinif bir yerlerde kullanılmıyor o yüzden şimdilik böyle kalsın
-        this.isMezunTercih = isMezunTercih;
-        this.OBP = OBP;
-    }
-
-    public String getBolum() {
-        return Bolum;
-    }
-
-    public void setBolum(String bolum) {
-        Bolum = bolum;
-    }
-
-    public String getSinif() {
-        return sinif;
-    }
-
-    public void setSinif(String sinif) {
-        this.sinif = sinif;
-    }
-
-    public double getOBP() {
-        return OBP;
-    }
-
-    public void setOBP(double OBP) {
-        this.OBP = OBP;
-    }
-
-
-    public void tytPuan() {
-        double puan = 99.435 + (this.turkce * 3.165325) + ((this.cografya + this.tarih + this.felsefe + this.din) * 3.60495) +
-                ((this.biyoloji + this.fizik + this.kimya) * 3.3464) + (this.matematik * 3.472025);
+    public void aytPuan() {
+        double puan = 91.222 + (this.Edebiyat * 3.25183) + (this.Tarih2 * 4.39519) +
+                (this.Tarih1 * 3.0513) + (this.Cografya1 * 2.7667) + (this.Cografya2 * 2.91164) + (this.Felsefe * 3.7634) + (this.Din * 2.4634)+ (this.TYTHam * 43.117176/100);
 
         if(puan < 100)
             puan = 100;
@@ -188,14 +161,14 @@ public class TYTOgrenci {
 
         // iki puan arasında kaç puanda bir sıranın ne kadar artacağını hesaplamak için
         // örneğin 492 ile 493 arasında her 0.16 puanda 1 kişi artıyor
-        double ondalikliSiralama = 1 / (sample.getTytsira() - sample2.getTytsira());
+        double ondalikliSiralama = 1 / (sample.getSozelsira() - sample2.getSozelsira());
         Log.d("mesaj", "bu 3+ " + ondalikliSiralama);
 
         // Bu ikisinin bölümüğ sayesinde kaç kişilik sıralama kaydedileceğini hesaplamış olduk
         int benimeklenecek = (int) (puaninOndalikKısmı / ondalikliSiralama);
         Log.d("mesaj", "bu 3+ " + benimeklenecek);
 
-        return sample.getTytsira() - (double) benimeklenecek;
+        return sample.getSozelsira() - (double) benimeklenecek;
     }
     public double obpsiralamaHesabı(double puan, List<SiralamaSample> siralamaSample) {
 
@@ -214,14 +187,13 @@ public class TYTOgrenci {
 
         // iki puan arasında kaç puanda bir sıranın ne kadar artacağını hesaplamak için
         // örneğin 492 ile 493 arasında her 0.16 puanda 1 kişi artıyor
-        double ondalikliSiralama = 1 / (sample.getTytsira() - sample2.getTytsira());
+        double ondalikliSiralama = 1 / (sample.getSozelsira() - sample2.getSozelsira());
         Log.d("mesaj", "bu 3+ " + ondalikliSiralama);
 
         // Bu ikisinin bölümüğ sayesinde kaç kişilik sıralama kaydedileceğini hesaplamış olduk
         int benimeklenecek = (int) (puaninOndalikKısmı / ondalikliSiralama);
         Log.d("mesaj", "bu 3+ " + benimeklenecek);
 
-        return sample.getTytsira() - (double) benimeklenecek;
+        return sample.getSozelsira() - (double) benimeklenecek;
     }
 }
-

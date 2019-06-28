@@ -54,4 +54,29 @@ public class EventTransfer {
             this.LinkedHashMap = LinkedHashMap;
         }
     }
+    static public class konuIcerigiAYT{
+        private java.util.LinkedHashMap<String,String > LinkedHashMap;
+        private String bolum;
+
+        public String getBolum() {
+            return bolum;
+        }
+
+        public void setBolum(String bolum) {
+            this.bolum = bolum;
+        }
+
+        public LinkedHashMap<String, String> getHashMap() {
+            return LinkedHashMap;
+        }
+
+        public void setHashMap(LinkedHashMap<String, String> LinkedHashMap) {
+            this.LinkedHashMap = LinkedHashMap;
+        }
+
+        public konuIcerigiAYT(LinkedHashMap<String, String> LinkedHashMap, String bolum) {
+            this.LinkedHashMap = LinkedHashMap;
+            this.bolum = bolum;
+        }
+    }
 }

@@ -161,12 +161,14 @@ public class FragmentSignupThird extends Fragment {
                     tytOgrenci.setTarih(NetHesabi.dersneti(viewModel.get_esasveri("Tarih").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
                     tytOgrenci.setFelsefe(NetHesabi.dersneti(viewModel.get_esasveri("Felsefe").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
                     tytOgrenci.setDin(NetHesabi.dersneti(viewModel.get_esasveri("Din").getStatlar().size(), viewModel.get_esasveri("Türkçe").getStatlar()));
+                    Log.d("mesaj", "Puanı bu" + tytOgrenci.getTurkce());
+
 
                     Resources resources = getResources();
 
-                    //Sıralama bilmemnesi
-                    List<SiralamaSample> siralamaSample = new ArrayList<>();
-                    InputStream is = resources.openRawResource(R.raw.siralama);
+                    //Sıralama obpsiz
+                    List<SiralamaSample> obpsizSıralamaArray = new ArrayList<>();
+                    InputStream is = resources.openRawResource(R.raw.obpsizsiralama);
                     BufferedReader reader = new BufferedReader(
                             new InputStreamReader(is, Charset.forName("UTF-8"))
                     );
@@ -183,27 +185,47 @@ public class FragmentSignupThird extends Fragment {
                             sample.setEsitagirliksira(Double.parseDouble(tokens[4]));
                             sample.setDilsira(Double.parseDouble(tokens[5]));
 
-                            siralamaSample.add(sample);
+                            obpsizSıralamaArray.add(sample);
                         }
                     }catch (IOException e){
                         e.printStackTrace();
                     }
-                    //Sıralama bilmemnesi end
+                    //Sıralama obpsiz end
 
+                    //Sıralama obpli
+                    List<SiralamaSample> obpliSiralamaArray = new ArrayList<>();
+                    InputStream isobp = resources.openRawResource(R.raw.obplisiralam);
+                    BufferedReader readerobp = new BufferedReader(
+                            new InputStreamReader(isobp, Charset.forName("UTF-8"))
+                    );
+                    String lineobp = "";
+                    try {
+                        while ((lineobp = readerobp.readLine()) != null){
+                            String[] tokensobp = lineobp.split(",");
+
+                            SiralamaSample sample = new SiralamaSample();
+                            sample.setPuan(Integer.parseInt(tokensobp[0]));
+                            sample.setTytsira(Double.parseDouble(tokensobp[1]));
+                            sample.setSozelsira(Double.parseDouble(tokensobp[2]));
+                            sample.setSayisalsira(Double.parseDouble(tokensobp[3]));
+                            sample.setEsitagirliksira(Double.parseDouble(tokensobp[4]));
+                            sample.setDilsira(Double.parseDouble(tokensobp[5]));
+
+                            obpliSiralamaArray.add(sample);
+                        }
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    //Sıralama obpli end
+
+                    // Alt konu başlıklarını çek
                     String[] arrayTurkce = resources.getStringArray(R.array.turkce);
                     LinkedHashMap<String,String> hashMapDersler= new LinkedHashMap<String, String>();
 
                     for (int i = 0; i < arrayTurkce.length; i++) {
                         hashMapDersler.put(arrayTurkce[i],"Kırmızı");
                     }
-
-
                     KonuTakip konuTakip = new KonuTakip(tytOgrenci);
-                    tytOgrenci.setPuan(tytOgrenci.tytPuan());
-                    Log.d("mesaj", "Puanı bu" + tytOgrenci.getPuan());
-                    double tytSira = tytOgrenci.siralamaHesabı(tytOgrenci.getPuan(),siralamaSample);
-                    Log.d("mesaj","bu + " + tytSira);
-                    tytOgrenci.setSiralama(tytSira);
                     hashMapDersler = konuTakip.turkcetakip(hashMapDersler);
                     hashMapDersler = konuTakip.matematiktakip(hashMapDersler);
                     hashMapDersler = konuTakip.fiziktakip(hashMapDersler);
@@ -213,6 +235,22 @@ public class FragmentSignupThird extends Fragment {
                     hashMapDersler = konuTakip.cografyatakip(hashMapDersler);
                     hashMapDersler = konuTakip.felsefetakip(hashMapDersler);
                     hashMapDersler = konuTakip.dintakip(hashMapDersler);
+                    // Tek tek renklere bağla
+
+                    // Puan hesapla
+                    tytOgrenci.tytPuan();
+
+                    // Obpsiz puan ve sıra
+                    Log.d("mesaj", "Puanı bu" + tytOgrenci.getObpsizPuan());
+                    double obpsizSira = tytOgrenci.siralamaHesabı(tytOgrenci.getObpsizPuan(),obpsizSıralamaArray);
+                    Log.d("mesaj","bu + " + obpsizSira);
+                    tytOgrenci.setObpsizSiralama(obpsizSira);
+                    // obpli yap
+                    Log.d("mesaj", "Puanı bu" + tytOgrenci.getObpliPuan());
+                    double obpliSira = tytOgrenci.obpsiralamaHesabı(tytOgrenci.getObpliPuan(),obpliSiralamaArray);
+                    Log.d("mesaj","bu + " + obpliSira);
+                    tytOgrenci.setobpliSiralama(obpliSira);
+
 
 
                     EventBus.getDefault().postSticky(new EventTransfer.konuIcerigi(hashMapDersler));
