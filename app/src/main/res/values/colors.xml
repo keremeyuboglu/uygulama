@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#36867E</color>
+    <color name="colorPrimaryDark">#003830</color>
+    <color name="colorAccent">#3F51B5</color>
+    <color name="textColorPrimary">#FF442C2E</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#2E0336</color>
+    <color name="productGridBackgroundColor">#CE3232</color>
+    <color name="textInputOutlineColor">#72382D</color>
+    <color name="colorCardView">#06759B</color>
+    <color name="colorCardViewText">#EDF5F4</color>
+    <color name="buttonRoundBackground">#F44336</color>
+    <color name="buttonRightBackground">#E91E63</color>
+    <color name="buttonLeftBackground">#9C27B0</color>
+    <color name="buttonRightStroke">#CDDC39</color>
+    <color name="buttonLeftStroke">#FFC107</color>
+    <color name="buttonRoundStroke">#FF5722</color>
+
+
 </resources>

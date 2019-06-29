@@ -11,6 +11,7 @@
 
 
     <androidx.cardview.widget.CardView
+        style="@style/Widget.Customized.CardView"
         android:id="@+id/signup4konu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -12,55 +12,43 @@
 
 
         <androidx.cardview.widget.CardView
+            style="@style/Widget.Customized.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bolumcard"
-            android:layout_marginTop="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#79cae5"
             >
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp">
                 <TextView
+                    android:id="@+id/msm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:textColor="#c9edea"
+                    android:layout_gravity="center"
                     android:text="Bölümün"
                     android:textSize="@dimen/_18sdp"
-                    android:textAppearance="?attr/textAppearanceBody1"/>
-            </RelativeLayout>
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_weight="1"/>
 
 
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#47b4d8"
-                android:id="@+id/card2"
-                android:layout_marginBottom="4dp">
 
                 <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
                     android:id="@+id/radio_bolum"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:compoundType="radio"
                     app:entries="@array/bolum_array"
                     app:labelOrder="after"
-                    app:numCols="4" />
+                    app:numCols="2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="1"/>
+            </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
 
         <androidx.cardview.widget.CardView
@@ -68,8 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:visibility="visible"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#79cae5">
+            style="@style/Widget.Customized.CardView">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -85,6 +72,7 @@
                     android:layout_marginLeft="4dp"
                     android:textSize="20sp" />
                 <Button
+                    android:background="@drawable/button_round"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonSwitch"
@@ -112,9 +100,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#79cae5">
+            style="@style/Widget.Customized.CardView">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -147,8 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#79cae5">
+            style="@style/Widget.Customized.CardView">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -163,7 +148,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginTop="14dp"
                     android:text="Sınıfın"
-                    android:textSize="22sp" />
+                    />
 
                 <com.llollox.androidprojects.compoundbuttongroup.CompoundButtonGroup
                     android:id="@+id/radio_sinif"
@@ -186,13 +171,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            >
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="#79cae5"
-                android:layout_marginTop="8dp">
+                style="@style/Widget.Customized.CardView">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -221,18 +205,15 @@
         </LinearLayout>
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
+            android:background="@drawable/button_right"
             android:id="@+id/devamButonu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginRight="8dp"
             android:text="Devam"
-            style="@style/Widget.MaterialComponents.Button"
-            app:strokeWidth="@dimen/_1sdp"
-            app:cornerRadius="@dimen/_10sdp"
-            app:strokeColor="@color/colorPrimaryDark"
-            app:rippleColor="@color/cardview_light_background"/>
+            />
 
     </LinearLayout>
 

@@ -7,14 +7,13 @@
     android:gravity="center"
     android:orientation="vertical"
     android:alpha="1"
-
     >
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.TextInputLayout"
         android:id="@+id/userText"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:textSize="@dimen/_9sdp"
         android:hint="Kullanıcı Adı:"
         app:errorEnabled="true"
@@ -22,12 +21,14 @@
         app:counterEnabled ="true"
         app:counterMaxLength ="16"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="@dimen/_6sdp"
+        app:startIconDrawable="@drawable/us"
+        app:boxStrokeWidth="@dimen/_4sdp">
 
         <com.google.android.material.textfield.TextInputEditText
+            style="@style/Widget.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:textSize="@dimen/_10sdp"
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -42,6 +43,7 @@
           android:text="           Şifre:" />
           -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.TextInputLayout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Şifre:"
@@ -51,52 +53,56 @@
         app:counterEnabled ="true"
         app:counterMaxLength ="16"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="@dimen/_6sdp"
+        app:startIconDrawable="@android:drawable/ic_lock_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+            style="@style/Widget.TextInputLayout"
             android:textSize="@dimen/_10sdp"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.TextInputLayout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:hint="Şifre:"
+        android:hint="Şifre Tekrar:"
         app:errorEnabled="true"
         app:passwordToggleEnabled="true"
         app:counterEnabled ="true"
         android:id="@+id/pass2text"
         app:counterMaxLength ="16"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="@dimen/_6sdp"
+        app:startIconDrawable="@android:drawable/ic_lock_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-
+            style="@style/Widget.TextInputLayout"
             android:textSize="@dimen/_10sdp"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.TextInputLayout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="E-posta Adresi:"
         app:errorEnabled="true"
         android:id="@+id/Email"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="@dimen/_6sdp"
+        app:startIconDrawable="@android:drawable/sym_action_email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+            style="@style/Widget.TextInputLayout"
             android:textSize="@dimen/_10sdp"
             android:inputType="textEmailAddress"/>
 
@@ -108,7 +114,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Kullanıcı sözleşmesini okudum ve kabul ediyorum"
-        android:textSize="@dimen/_10sdp"/>
+        android:textSize="@dimen/_10sdp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -119,27 +126,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:layout_marginLeft="@dimen/_12sdp">
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kullanıcı \nSözleşmesi" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="end"
+            android:layout_marginLeft="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_12sdp">
 
             <Button
-                android:id="@+id/button2"
+                android:background="@drawable/button_round"
+                android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="8dp"
+                android:text="Kullanıcı \nSözleşmesi"
+                android:layout_alignParentStart="true"/>
+
+            <Button
+                android:background="@drawable/button_right"
+                android:id="@+id/button2"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Devam"
                 android:enabled="false"/>
         </RelativeLayout>

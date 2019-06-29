@@ -57,9 +57,7 @@ public class FragmentSignupSecond extends Fragment {
         // OBP notu
         EditText obpEdit = v.findViewById(R.id.obpedit);
 
-        // Cardview'da çizgiyi yok etmek için
-        CardView cardView = v.findViewById(R.id.card2);
-        cardView.setCardElevation(0);
+
 
         // Bölüm ve Sınıf seçenekleri
         bolum = v.findViewById(R.id.radio_bolum);
