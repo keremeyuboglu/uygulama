@@ -154,4 +154,154 @@
         <item>Barış</item>
         <item>Özellikleri</item>
     </string-array>
+    <string-array name="MFkonular">
+        <item>Uygarlığı</item>
+        <item>Devletleri</item>
+        <item>Tarihi</item>
+        <item>1453)</item>
+        <item>1600)</item>
+        <item>Yüzyıasdl)</item>
+        <item>Yüzyaaaıl)</item>
+        <item>1922)</item>
+        <item>Devleti</item>
+        <item>Dönemi</item>
+        <item>Cepheler</item>
+        <item>İnkılabı</item>
+        <item>İlkeleri</item>
+        <item>Politikası</item>
+        <item>İnsan</item>
+        <item>Hareketleri</item>
+        <item>Konum</item>
+        <item>Bilagisi</item>
+        <item>Bilgasdisi</item>
+        <item>Şekillenmesi</item>
+        <item>Varlıkasdları</item>
+        <item>Yapı</item>
+        <item>Niteliği</item>
+        <item>Sonuçları</item>
+        <item>Tarzları</item>
+        <item>Özellikleri</item>
+        <item>Özelliasdkleri</item>
+        <item>Varlıkları</item>
+        <item>Göç</item>
+        <item>Sınırları</item>
+        <item>Etkileşim</item>
+        <item>Keşifler</item>
+        <item>Etkileşim</item>
+        <item>Afetler</item>
+        <item>Konusasdu</item>
+        <item>Felesefesi</item>
+        <item>Feelsefesi</item>
+        <item>Felseefesi</item>
+        <item>Felsefeesi</item>
+        <item>Felsefeswi</item>
+        <item>Felsefesai</item>
+        <item>Felsefessi</item>
+        <item>Kavranmawsı</item>
+        <item>Din</item>
+        <item>İbadetler</item>
+        <item>Mezhepler</item>
+        <item>Anlama.</item>
+        <item>Barış</item>
+        <item>Özellikleri</item>
+    </string-array>
+    <string-array name="TMkonular">
+        <item>Uygarlığı</item>
+        <item>Devletleri</item>
+        <item>Tarihi</item>
+        <item>1453)</item>
+        <item>1600)</item>
+        <item>Yüzyıasdl)</item>
+        <item>Yüzyaaaıl)</item>
+        <item>1922)</item>
+        <item>Devleti</item>
+        <item>Dönemi</item>
+        <item>Cepheler</item>
+        <item>İnkılabı</item>
+        <item>İlkeleri</item>
+        <item>Politikası</item>
+        <item>İnsan</item>
+        <item>Hareketleri</item>
+        <item>Konum</item>
+        <item>Bilagisi</item>
+        <item>Bilgasdisi</item>
+        <item>Din</item>
+        <item>İbadetler</item>
+        <item>Mezhepler</item>
+        <item>Anlama.</item>
+        <item>Barış</item>
+        <item>Özellikleri</item>
+    </string-array>
+    <string-array name="TSkonular">
+        <item>Sözcük Anlamı</item>
+        <item>Yazım Kuralları</item>
+        <item>Söz Yorumu</item>
+        <item>Noktalama İşaretleri</item>
+        <item>Sözcüğün Yapısı</item>
+        <item>Cümle Anlamı</item>
+        <item>Sözcük Türleri</item>
+        <item>Cümle Yorumu</item>
+        <item>Sözcük Grupları</item>
+        <item>Cümlenin Ögeleri</item>
+        <item>Paragrafta Yapı</item>
+        <item>Cümle Türleri</item>
+        <item>Anlatım Bozukluğu</item>
+        <item>Ses Bilgisi</item>
+        <item>Deyim ve Atasözü</item>
+        <item>Paragrafta Anlatım Tekniknleri</item>
+        <item>Paragrafta Konu-Ana Düşünce</item>
+        <item>Paragrafta Yardımcı Düşünce</item>
+        <item>Fiiller</item>
+        <item>Sayılar</item>
+        <item>Problemler</item>
+        <item>Fonskiyonlar</item>
+        <item>Permütasyon</item>
+        <item>Kombinasyon</item>
+        <item>Binom</item>
+        <item>Olasılık</item>
+        <item>İstatistik</item>
+        <item>Polinomlar</item>
+        <item>Çokgenler</item>
+        <item>Dörtgenler</item>
+        <item>Yamuk</item>
+        <item>Paralelkenar</item>
+        <item>Sayı Basamakları</item>
+        <item>Rasyonel Sayılar</item>
+        <item>Basit Eşitsizlikler</item>
+        <item>Mutlak Değer</item>
+        <item>Üslü Sayılar</item>
+        <item>Köklü Sayılar</item>
+        <item>Çarpanlara Ayırma</item>
+        <item>Karmaşık Sayılar</item>
+        <item>Oran Orantı</item>
+        <item>Denklem Çözme</item>
+        <item>Üçgende Alanlar</item>
+        <item>Dönemi</item>
+        <item>Cepheler</item>
+        <item>İnkılabı</item>
+        <item>İlkeleri</item>
+        <item>Politikası</item>
+        <item>İnsan</item>
+        <item>Hareketleri</item>
+        <item>Konum</item>
+        <item>Bilagisi</item>
+        <item>Bilgasdisi</item>
+        <item>Din</item>
+        <item>İbadetler</item>
+        <item>Mezhepler</item>
+        <item>Anlama.</item>
+        <item>Barış</item>
+        <item>Özellikleri</item>
+    </string-array>
+    <string-array name="Dilkonular">
+        <item>Dönemi</item>
+        <item>Cepheler</item>
+        <item>İnkılabı</item>
+        <item>İlkeleri</item>
+        <item>Politikası</item>
+        <item>İnsan</item>
+        <item>Hareketleri</item>
+        <item>Konum</item>
+        <item>Özellikleri</item>
+    </string-array>
 </resources>

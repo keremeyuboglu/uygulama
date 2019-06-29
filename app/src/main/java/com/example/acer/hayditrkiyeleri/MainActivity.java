@@ -46,7 +46,4 @@ public class MainActivity extends AppCompatActivity{
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         navigationDrawer.setUpNavDrawer(drawerLayout,toolbar);
     }
-
-
-
 }
