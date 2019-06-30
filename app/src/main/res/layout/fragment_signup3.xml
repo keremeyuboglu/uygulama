@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
+            app:cardElevation="@dimen/_12sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
@@ -63,7 +64,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RV_deneme_kayit"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/_70sdp"
             tools:itemCount="2"
             tools:listitem="@layout/fragment_signup3_deneme_item">
 

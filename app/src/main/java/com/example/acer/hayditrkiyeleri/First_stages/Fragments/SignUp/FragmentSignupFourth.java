@@ -98,6 +98,7 @@ public class FragmentSignupFourth extends Fragment {
             FragmentSignupFifth newGamefragment = new FragmentSignupFifth();
             fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
             fragmentTransaction.commit();
+            fragmentTransaction.addToBackStack(null);
         }
     }
     @Override
@@ -278,7 +279,6 @@ public class FragmentSignupFourth extends Fragment {
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.replace(R.id.signupContainer, newGamefragment);
                     fragmentTransaction.commit();
-                    fragmentTransaction.addToBackStack(null);
                 }
             }
         });

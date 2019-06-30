@@ -20,10 +20,8 @@
         app:passwordToggleEnabled="true"
         app:counterEnabled ="true"
         app:counterMaxLength ="16"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
         app:startIconDrawable="@drawable/us"
-        app:boxStrokeWidth="@dimen/_4sdp">
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/Widget.TextInputLayout"
@@ -52,8 +50,6 @@
         app:passwordToggleEnabled="true"
         app:counterEnabled ="true"
         app:counterMaxLength ="16"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
         app:startIconDrawable="@android:drawable/ic_lock_lock">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -75,8 +71,6 @@
         app:counterEnabled ="true"
         android:id="@+id/pass2text"
         app:counterMaxLength ="16"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
         app:startIconDrawable="@android:drawable/ic_lock_lock">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -95,8 +89,6 @@
         android:hint="E-posta Adresi:"
         app:errorEnabled="true"
         android:id="@+id/Email"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
         app:startIconDrawable="@android:drawable/sym_action_email">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -109,12 +101,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
-        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
         android:id="@+id/checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Kullanıcı sözleşmesini okudum ve kabul ediyorum"
         android:textSize="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         />
 
     <LinearLayout
@@ -126,8 +119,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_marginRight="@dimen/_12sdp">
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp">
 
             <Button
                 android:background="@drawable/button_round"

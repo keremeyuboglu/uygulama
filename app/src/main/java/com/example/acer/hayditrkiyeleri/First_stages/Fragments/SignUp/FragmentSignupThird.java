@@ -52,10 +52,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static android.content.ContentValues.TAG;
+
 public class FragmentSignupThird extends Fragment {
 
     private ArrayList<DenemeEntity> denemeler = new ArrayList<>();
     public static HashMap<String, EsasVeriEntity> esas_verimap = new HashMap<>();
+    boolean nodeneme = true;
 
     @Nullable
     @Override
@@ -272,6 +275,7 @@ public class FragmentSignupThird extends Fragment {
         //Recyclerview start
         AtomicInteger mReyclerViewSize = new AtomicInteger();
 
+
         RecyclerView recyclerView = v.findViewById(R.id.RV_deneme_kayit);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -280,25 +284,28 @@ public class FragmentSignupThird extends Fragment {
         adapter.setItems(new ArrayList<>(0)); //In order to prevent errors
         recyclerView.setAdapter(adapter);
 
-        viewModel.getItems().observe(getActivity(), denemeEntities -> {
+        int height = recyclerView.getLayoutParams().height;
+
+        if(nodeneme)
+            recyclerView.setVisibility(View.GONE);
+
+            viewModel.getItems().observe(getActivity(), denemeEntities -> {
             ArrayList<Item_Denemelerim> items = RVItemGenerator.pump_Item_denemelerim(denemeEntities);
             adapter.setItems(items);
             mReyclerViewSize.set(items.size());
             adapter.notifyDataSetChanged();
-
             int mReyclerViewSizeInt = mReyclerViewSize.intValue();
-            if (mReyclerViewSizeInt == 0){
-                recyclerView.setVisibility(View.GONE);
-            }
-            else if(mReyclerViewSizeInt == 1){
-                recyclerView.getLayoutParams().height = 200;
+            nodeneme = false;
+
+            if(mReyclerViewSizeInt == 1){
+                recyclerView.getLayoutParams().height = height;
             }
             else if(mReyclerViewSizeInt == 2){
-                recyclerView.getLayoutParams().height = 400;
+                recyclerView.getLayoutParams().height = height * 2;
             }
             else
-                recyclerView.getLayoutParams().height = 600;
-
+                recyclerView.getLayoutParams().height = height * 3;
+            Log.d(TAG, "onCreateView: " + height + mReyclerViewSizeInt);
         });
 
         //Recyclerview end

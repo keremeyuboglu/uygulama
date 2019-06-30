@@ -213,6 +213,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="8dp"
             android:text="Devam"
+            android:layout_marginBottom="@dimen/_4sdp"
             />
 
     </LinearLayout>

@@ -13,8 +13,7 @@
         android:id="@+id/signupContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/fragment_view"/>
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
